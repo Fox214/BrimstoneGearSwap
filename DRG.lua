@@ -32,13 +32,13 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT', 'Reraise')
 	state.WeaponMode:set('Polearm')
 	state.Stance:set('Offensive')
-	flag.sekka = true
-	flag.med = true
-	flag.berserk = true
-	flag.defender = true
-	flag.aggressor = true
-	flag.warcry = true
-	flag.thirdeye = true
+	-- flag.sekka = true
+	-- flag.med = true
+	-- flag.berserk = true
+	-- flag.defender = true
+	-- flag.aggressor = true
+	-- flag.warcry = true
+	-- flag.thirdeye = true
 	Twilight = false
 
 	select_default_macro_book()
@@ -60,8 +60,8 @@ function init_gear_sets()
 	-- add_to_chat(122,'init gear sets')
 	-- Extra stuff (and new gear)
 	organizer_items = {
-		new1="Perception Ring",
-		new2="Phalangite Mantle",
+		new1="",
+		new2="",
 		new3="",
 		new5="",
 		echos="Echo Drops",
@@ -70,7 +70,7 @@ function init_gear_sets()
 	}
 	-- Idle sets
 	sets.idle = {head="Twilight Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Moonshade Earring",
-			body="Twilight Mail",hands="Umuthi Gloves",ring1="Renaye Ring",ring2="Patricius Ring",
+			body="Twilight Mail",hands="Umuthi Gloves",ring1="Patricius Ring",ring2="Renaye Ring",
 			back="Mecisto. Mantle",waist="Incarnation Sash",legs="Carmine Cuisses",feet="Valorous Greaves"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
@@ -90,7 +90,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Potestas Bomblet",
 			head="Valorous Mask",neck="Ganesha's Mala",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Pelt. Plackart +1",hands="Valorous Mitts",ring1="Hetairoi Ring",ring2="Apate Ring",
+			body="Pelt. Plackart +1",hands="Valorous Mitts",ring1="Patricius Ring",ring2="Hetairoi Ring",
 			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Emicho Hose",feet="Valorous Greaves"}
 	sets.engaged.Polearm = {}
 	sets.engaged.Staff = {}
@@ -104,7 +104,7 @@ function init_gear_sets()
 	sets.Mode.Att= set_combine(sets.engaged, {ammo="Potestas Bomblet",
 			head="Valorous Mask",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
 			body="Rheic Korazin +3",hands="Valorous Mitts",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Atheling Mantle",waist="Zoran's Belt",legs="Emicho Hose",feet="Valorous Greaves"})
+			back="Phalangite Mantle",waist="Zoran's Belt",legs="Emicho Hose",feet="Valorous Greaves"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
 			head="Valorous Mask",hands="Valorous Mitts",ring1="Hetairoi Ring",
 			legs="Pelt. Cuissots +1",feet="Valorous Greaves"})
@@ -283,7 +283,7 @@ end
  
 -- Set eventArgs.handled to true if we don't want any automatic target handling to be done.
 function job_pretarget(spell, action, spellMap, eventArgs)
-	-- add_to_chat(120,'stance is '..state.Stance.value)
+	-- add_to_chat(1,'pretarget stance is '..state.Stance.value)
 	if state.Stance.value ~= 'Off' then
 		if spell.english == "Spirit Jump" then
 			if player.tp > 1000 then 
@@ -310,7 +310,7 @@ end
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 -- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
 function job_precast(spell, action, spellMap, eventArgs)
-	-- add_to_chat(120,'job precast')
+	-- add_to_chat(2,'job precast')
     if spell.type == 'PetCommand' then
 		if pet.isvalid == true then
 			-- midcast delay
@@ -334,15 +334,13 @@ function job_precast(spell, action, spellMap, eventArgs)
 			end
 		end	
     end
-	if spell.type == 'WeaponSkill' and spell.target.distance > 5.1 then
-        cancel_spell()
-        add_to_chat(123, 'WeaponSkill Canceled: [Out of Range]')
-	end
+	check_ws_dist(spell)
 end
  
 -- Run after the default precast() is done.
 -- eventArgs is the same one used in job_precast, in case information needs to be persisted.
 function job_post_precast(spell, action, spellMap, eventArgs)
+	-- add_to_chat(3,'post precast')
 	if spell.type == 'WeaponSkill' then
         if is_sc_element_today(spell) then
 			-- add_to_chat(122,' WS Day ')
@@ -353,26 +351,26 @@ end
  
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_midcast(spell, action, spellMap, eventArgs)
-
+	-- add_to_chat(4,'midcast')
 end
  
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.
 function job_post_midcast(spell, action, spellMap, eventArgs)
-   
+   -- add_to_chat(5,'post midcast')
 end
  
 -- Runs when a pet initiates an action.
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_pet_midcast(spell, action, spellMap, eventArgs)
-	-- add_to_chat(122,'pet midcast')
+	-- add_to_chat(3,'pet midcast')
 	if buffactive.food then
-		--add_to_chat(122,' food breath ')
+		add_to_chat(122,' food breath ')
 		if spell.english:startswith('Healing Breath') or spell.english:startswith('Restoring Breath') or spell.english:startswith('Smiting Breath') then
 			equip(sets.midcast.Breath.Food)
 		end
 	else
-		--add_to_chat(122,' breath no food ')
+		add_to_chat(122,' breath no food ')
 		if spell.english:startswith('Healing Breath') or spell.english:startswith('Restoring Breath') or spell.english:startswith('Smiting Breath') then
 			equip(sets.midcast.Breath)
 		end
@@ -399,13 +397,16 @@ end
  
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_aftercast(spell, action, spellMap, eventArgs)
-	--add_to_chat(122,'aftercast')
+	-- add_to_chat(6,'aftercast')
 end
  
 -- Run after the default aftercast() is done.
 -- eventArgs is the same one used in job_aftercast, in case information needs to be persisted.
 function job_post_aftercast(spell, action, spellMap, eventArgs)
-	-- add_to_chat(122,'post aftercast')
+	-- add_to_chat(7,'post aftercast')
+	-- if player.sub_job == 'SAM' then
+		-- handle_sam_ja(spell)
+	-- end
 end
  
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.

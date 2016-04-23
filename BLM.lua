@@ -107,7 +107,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = { ammo="Amar Cluster",
         head="Befouled Crown",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-        body="Amalric Doublet",hands="Amalric Gages",ring1="Apate Ring",ring2="Patricius Ring",
+        body="Amalric Doublet",hands="Amalric Gages",ring1="Patricius Ring",ring2="Apate Ring",
         back="Kumbira Cape",waist="Siegel Sash",legs="Merlinic Shalwar",feet="Merlinic Crackows"}
 		
 	-- Sets with weapons defined.
@@ -127,7 +127,7 @@ function init_gear_sets()
 	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",waist="Olseni Belt",feet="Battlecast Gaiters"})
 	sets.Mode.STR = set_combine(sets.engaged, {ammo="Amar Cluster",
 		head="Buremte Hat",neck="Lacono Neck. +1",
-		body="Count's Garb",hands="Vanya Cuffs",ring1="Apate Ring",ring2="Rajas Ring",
+		body="Count's Garb",hands="Vanya Cuffs",ring1="Rajas Ring",ring2="Apate Ring",
 		back="Buquwik Cape",legs="Miasmic Pants",feet="Battlecast Gaiters"})
 			
 	sets.engaged.Club = set_combine(sets.engaged, {main="Bolelabunga",sub="Genbu's Shield"})
@@ -291,12 +291,12 @@ function init_gear_sets()
 
     sets.defense.PDT = {
         head="Hagondes Hat",neck="Twilight Torque",
-        body="Hagondes Coat",hands="Hagondes Cuffs",ring2="Patricius Ring",
+        body="Hagondes Coat",hands="Hagondes Cuffs",ring1="Patricius Ring",
         legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
 
     sets.defense.MDT = {
         head="Vanya Hood",neck="Twilight Torque",
-        body="Supay Weskit",hands="Yaoyotl Gloves",ring1="Vengeful Ring",
+        body="Supay Weskit",hands="Yaoyotl Gloves",ring2="Vengeful Ring",
         waist="Flax Sash",legs="Hagondes Pants +1",feet="Merlinic Crackows"}
 
     sets.Kiting = {ring1="Vengeful Ring"}
@@ -330,10 +330,7 @@ function job_precast(spell, action, spellMap, eventArgs)
     elseif spell.skill == 'Dark Magic' then
 		handle_spells(spell)
     end
-	if spell.type == 'WeaponSkill' and spell.target.distance > 5.1 then
-		cancel_spell()
-		add_to_chat(123, 'WeaponSkill Canceled: [Out of Range]')
-	end
+	check_ws_dist(spell)
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)

@@ -233,7 +233,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Amar Cluster",
 		head="Whirlpool Mask",neck="Asperity Necklace",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-		body="Herculean Vest",hands="Herculean Gloves",ring1="Apate Ring",ring2="Hetairoi Ring",
+		body="Herculean Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Hetairoi Ring",
 		back="Atheling Mantle",waist="Sarissapho. Belt",legs="Carmine Cuisses",feet="Herculean Boots"}
  	sets.engaged.Club = {}
 	sets.engaged.Sword = {}
@@ -511,10 +511,7 @@ function job_precast(spell, action, spellMap, eventArgs)
 		eventArgs.cancel = true
 		windower.send_command('@input /ja "Unbridled Learning" <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
 	end
-	if spell.type == 'WeaponSkill' and spell.target.distance > 5.1 then
-		cancel_spell()
-		add_to_chat(123, 'WeaponSkill Canceled: [Out of Range]')
-	end
+	check_ws_dist(spell)
 end
 -- Run after the default midcast() is done.
 -- eventArgs is the same one used in job_midcast, in case information needs to be persisted.

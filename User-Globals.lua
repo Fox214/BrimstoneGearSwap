@@ -1,3 +1,4 @@
+
 -- Assault equip.
 areas.Assault = S{
 	"Mamool Ja Training Grounds",
@@ -243,26 +244,53 @@ function handle_war_ja()
 	end
 end
 
+off_ja_tables = {}
+off_ja_tables.SAM = {"Hasso","Meditate","Sekkanoki","Third Eye"}
+
+-- the id #s for each abil come from the index value in resources.xml
 function handle_sam_ja() 
 	if not areas.Cities:contains(world.area) and not (buffactive.Sneak or buffactive.Invisible) then
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		-- for __,spells in pairs(off_ja_tables) do
+			-- for ___,spell in pairs(spells) do
+				-- add_to_chat(2, 'sam-ja recast '..abil_recasts[spell.recast_id])
+				 -- for k in pairs(abil_recasts) do
+					-- add_to_chat(2, 'k '..k)
+					-- add_to_chat(2, 'both '..abil_recasts[k])
+				-- end
+				-- add_to_chat(2, 'sam-ja recast '..spell)
+			-- end
+		-- end
+		-- for spell in off_ja_tables.SAM do
+			-- add_to_chat(2, 'sam-ja recast '..abil_recasts[spell.recast_id])
+		-- end
 		if state.Stance.value == 'Offensive' then
-			if not buffactive.Hasso then
+			if not buffactive.Hasso and abil_recasts[138] == 0 then
 				-- add_to_chat(122,'no hasso ')
 				windower.send_command('@input /ja "Hasso" <me>')
+				-- add_to_chat(1,'sleeping ')
+				-- user_sleep(2)
+				-- add_to_chat(3,'done sleeping ')
 			end
-			if player.tp < 400 and flag.med then
+			if player.tp < 400 and abil_recasts[134] == 0 then
 				-- add_to_chat(122,'low tp ')
-				windower.send_command('@input /ja "Meditate" <me>; wait 180; gs c reset_med_flag')
-				flag.med = false
+				-- windower.send_command('@input /ja "Meditate" <me>; wait 180; gs c reset_med_flag')
+				windower.send_command('@input /ja "Meditate" <me>')
+				-- user_sleep(1)
+				-- flag.med = false
 			end
-			if player.tp > 2000 and flag.sekka and player.status == "Engaged" then
+			if player.tp > 2000 and abil_recasts[140] == 0 and player.status == "Engaged" then
 				-- add_to_chat(122,'high tp ')
-				windower.send_command('@input /ja "Sekkanoki" <me>; wait 300; gs c reset_sekka_flag')
-				flag.sekka = false
+				-- windower.send_command('@input /ja "Sekkanoki" <me>; wait 300; gs c reset_sekka_flag')
+				windower.send_command('@input /ja "Sekkanoki" <me>')
+				-- user_sleep(1)
+				-- flag.sekka = false
 			end
-			if not buffactive.ThirdEye and flag.thirdeye then
-				windower.send_command('@input /ja "Third Eye" <me>; wait 60; gs c reset_thirdeye_flag')
-				flag.thirdeye = false
+			if not buffactive.ThirdEye and abil_recasts[133] == 0 then
+				-- windower.send_command('@input /ja "Third Eye" <me>; wait 60; gs c reset_thirdeye_flag')
+				windower.send_command('@input /ja "Third Eye" <me>')
+				-- user_sleep(1)
+				-- flag.thirdeye = false
 			end
 		end
 		if state.Stance.value == 'Defensive' then
@@ -314,7 +342,7 @@ function pick_tp_weapon()
 	-- add_to_chat(123, 'combat weapon set to '..state.CombatWeapon.value)
 end
 
-function check_ws_dist()
+function check_ws_dist(spell)
 	if player.status == 'Engaged' then
 		if spell.type == 'WeaponSkill' and spell.target.distance > 5.1 then
 			cancel_spell()

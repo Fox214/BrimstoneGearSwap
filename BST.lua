@@ -183,8 +183,8 @@ end
 function init_gear_sets()
 	-- add_to_chat(122,'init gear sets')
 	organizer_items = {
-		new1="Perception Ring",
-		new2="Phalangite Mantle",
+		new1="",
+		new2="",
 		new3="",
 		new4="",
 		new5="",
@@ -221,7 +221,7 @@ function init_gear_sets()
 	
     sets.idle.Pet.Offensive = set_combine(sets.idle.Pet, {ammo="Demonry Core",
         head="Emicho Coronet",neck="Ferine Necklace",ear1="Ethereal Earring",ear2="Moonshade Earring",
-        body="Mirke Wardecors",hands="Regimen Mittens",ring1="Angel's Ring",ring2="Patricius Ring",
+        body="Mirke Wardecors",hands="Regimen Mittens",ring1="Patricius Ring",ring2="Angel's Ring",
         back="Pastoralist's Mantle",waist="Incarnation Sash",legs="Emicho Hose",feet="Ankusa Gaiters +1"})
     
 	sets.idle.Pet.Defensive = set_combine(sets.idle.Pet.Offensive, {
@@ -241,7 +241,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Demonry Core",
 			head="Valorous Mask",neck="Ferine Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Miki. Breastplate",hands="Regimen Mittens",ring1="Hetairoi Ring",ring2="Apate Ring",
+			body="Miki. Breastplate",hands="Regimen Mittens",ring1="Patricius Ring",ring2="Hetairoi Ring",
 			back="Pastoralist's Mantle",waist="Hurch'lan Sash",legs="Emicho Hose",feet="Valorous Greaves"}
 	sets.engaged.Axe = {}
 	sets.engaged.Scythe = {}
@@ -260,7 +260,7 @@ function init_gear_sets()
 	sets.Mode.Att= set_combine(sets.engaged, {
 			head="Valorous Mask",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
 			body="Rheic Korazin +3",hands="Valorous Mitts",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Atheling Mantle",waist="Zoran's Belt",legs="Valor. Hose",feet="Valorous Greaves"})
+			back="Phalangite Mantle",waist="Zoran's Belt",legs="Valor. Hose",feet="Valorous Greaves"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
 			hands="Frn. Manoplas +2",ring1="Hetairoi Ring"})
 	sets.Mode.DA = set_combine(sets.engaged, {
@@ -420,7 +420,7 @@ function init_gear_sets()
 	-- Dark/Wind/Thunder, STR 40% MND 40%
 	sets.precast.WS['Cloudsplitter'] = set_combine(sets.precast.WS, {})
 
-    sets.precast.JA['Killer Instinct'] = {head="Ankusa Helm +1"}
+    sets.precast.JA['Killer Instinct'] = {head="Ankusa Helm"}
     sets.precast.JA['Feral Howl'] = {body="Ankusa Jackcoat +1"}
     sets.precast.JA['Bestial Loyalty'] = {main="Skullrender",ammo=gear.Broth,hands="Ankusa Gloves +1"}
     sets.precast.JA['Call Beast'] = sets.precast.JA['Bestial Loyalty']
@@ -431,7 +431,7 @@ function init_gear_sets()
 	-- reward gear then MND
     sets.precast.JA['Reward'] = {ammo=RewardFood,
         head="Khimaira Bonnet",ear1="Lifestorm Earring",
-        body="Totemic Jackcoat",hands="Ogre Gloves",ring1="Diamond Ring",
+        body="Totemic Jackcoat",hands="Ogre Gloves",ring1="Diamond Ring",ring2="Perception Ring",
         back="Pastoralist's Mantle",legs="Mst. Trousers +2",feet="Ankusa Gaiters +1"}
 
     sets.precast.JA['Charm'] = {
@@ -463,9 +463,9 @@ function init_gear_sets()
     --------------------------------------
     
     sets.midcast.FastRecast = {ammo="Demonry Core",
-        head="Iuitl Headgear +1",neck="Orunmila's Torque",ear1="Loquacious Earring",
+        neck="Orunmila's Torque",ear1="Loquacious Earring",
         body="Totemic Jackcoat",hands="Iuitl Wristbands +1",ring1="Prolix Ring",
-        back="Mollusca Mantle",waist="Hurch'lan Sash",legs="Iuitl Tights +1",feet="Iuitl Gaiters +1"}
+        back="Mollusca Mantle",waist="Hurch'lan Sash",legs="Iuitl Tights +1"}
 
     sets.midcast.Utsusemi = sets.midcast.FastRecast
 
@@ -500,7 +500,7 @@ function init_gear_sets()
 	sets.defense.Evasion = {ear2="Assuage Earring",feet="Ankusa Gaiters +1"}	
 	
     sets.Kiting = {ammo="Demonry Core",
-        head="Iuitl Headgear +1",neck="Twilight Torque",
+        neck="Twilight Torque",
         body="Mekira Meikogai",hands="Iuitl Wristbands +1",ring1="Vengeful Ring",
         back="Repulse Mantle",waist="Hurch'lan Sash",legs="Iuitl Tights +1",feet="Skd. Jambeaux +1"}
 
@@ -525,10 +525,7 @@ function job_precast(spell, action, spellMap, eventArgs)
         classes.CustomClass = "WS"
 		equip(sets.midcast.Pet.ReadyRecast)
     end
-	if spell.type == 'WeaponSkill' and spell.target.distance > 5.1 then
-		cancel_spell()
-		add_to_chat(123, 'WeaponSkill Canceled: [Out of Range]')
-	end
+	check_ws_dist(spell)
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)

@@ -89,7 +89,7 @@ function init_gear_sets()
 	-- Idle sets
 	sets.idle = {
 		head="Herculean Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Assuage Earring",
-		body="Iuitl Vest",hands="Herculean Gloves",ring1="Apate Ring",ring2="Patricius Ring",
+		body="Iuitl Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Apate Ring",
 		back="Lutian Cape",waist="Flax Sash",legs="Carmine Cuisses",feet="Herculean Boots"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
@@ -109,7 +109,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {
 			head="Whirlpool Mask",neck="Sanctity Necklace",ear1="Suppanomimi",ear2="Ethereal Earring",
-			body="Iuitl Vest",hands="Herculean Gloves",ring1="Apate Ring",ring2="Patricius Ring",
+			body="Iuitl Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Apate Ring",
 			back="Grounded Mantle",waist="Sarissapho. Belt",legs="Carmine Cuisses",feet="Herculean Boots"}
 	sets.engaged.Axe = {}
 	sets.engaged.Sword = {}
@@ -130,7 +130,7 @@ function init_gear_sets()
 	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",back="Laic Mantle"})
 	sets.Mode.STR = set_combine(sets.engaged, {
 		head="Lilitu Headpiece",neck="Lacono Neck. +1",
-		body="Iuitl Vest",hands="Herculean Gloves",ring1="Apate Ring",ring2="Rajas Ring",
+		body="Iuitl Vest",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
 		back="Buquwik Cape",waist="Wanion Belt",legs="Herculean Trousers",feet="Herculean Boots"})
 			
 	--Initialize Main Weapons

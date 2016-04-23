@@ -143,7 +143,7 @@ function init_gear_sets()
     sets.idle.Field.Stun = set_combine(sets.idle, {ammo="Incantor Stone",
         ear1="Psystorm Earring",ear2="Lifestorm Earring",
         body="Vanir Cotehardie",
-        back="Swith Cape +1",feet="Acad. Loafers"})
+        feet="Acad. Loafers"})
 
     -- Resting sets
     sets.resting = set_combine(sets.idle, {})
@@ -158,7 +158,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = { ammo="Homiliary",
         head="Befouled Crown",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-        body="Amalric Doublet",hands="Chironic Gloves",ring1="Apate Ring",ring2="Patricius Ring",
+        body="Amalric Doublet",hands="Chironic Gloves",ring1="Patricius Ring",ring2="Apate Ring",
         legs="Miasmic Pants",feet="Battlecast Gaiters"}
 
 	-- Sets with weapons defined.
@@ -223,11 +223,11 @@ function init_gear_sets()
     sets.precast.FC = {ammo="Incantor Stone",
         head="Vanya Hood",
         body="Shango Robe",
-        back="Swith Cape +1",waist="Channeler's Stone",feet="Acad. Loafers"}
+        waist="Channeler's Stone",feet="Acad. Loafers"}
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
 
-    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {neck="Stoicheion Medal",ear1="Barkaro. Earring"})
+    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {ear1="Barkaro. Earring"})
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {body="Heka's Kalasiris",back="Pahtli Cape"})
 
@@ -240,10 +240,10 @@ function init_gear_sets()
 
     sets.midcast.FastRecast = {ammo="Incantor Stone",
         body="Shango Robe",
-        back="Swith Cape +1",waist="Channeler's Stone",legs="Merlinic Shalwar",feet="Acad. Loafers"}
+        waist="Channeler's Stone",legs="Merlinic Shalwar",feet="Acad. Loafers"}
 
 	-- healing skill
-    sets.midcast.StatusRemoval = {neck="Nesanica Torque",ring1="Ephedra Ring"}
+    sets.midcast.StatusRemoval = {neck="Nesanica Torque",ring1="Ephedra Ring",feet="Peda. Loafers"}
 
     sets.midcast.Cursna = set_combine(sets.midcast.StatusRemoval, {
         ring1="Ephedra Ring",
@@ -253,12 +253,12 @@ function init_gear_sets()
     sets.midcast.Cure = set_combine(sets.midcast.StatusRemoval, {main="Tamaxchi",sub="Genbu's Shield",ammo="Incantor Stone",
         head="Vanya Hood",neck="Phalaina Locket",ear1="Lifestorm Earring",ear2="Liminus Earring",
         body="Heka's Kalasiris",hands="Telchine Gloves",
-        back="Swith Cape +1",legs="Chironic Hose",feet="Acad. Loafers"})
+        legs="Chironic Hose"})
 
     sets.midcast.CureWithLightWeather = set_combine(sets.midcast.Cure, {ammo="Incantor Stone",
         ear1="Lifestorm Earring",
         body="Heka's Kalasiris",
-        back="Twilight Cape",waist="Hachirin-no-Obi",feet="Acad. Loafers"})
+        back="Twilight Cape",waist="Hachirin-no-Obi"})
 
     sets.midcast.Curaga = sets.midcast.Cure
 
@@ -275,7 +275,7 @@ function init_gear_sets()
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {waist="Siegel Sash"})
 
-    sets.midcast.Storm = set_combine(sets.midcast['Enhancing Magic'], {feet="Pedagogy Loafers"})
+    sets.midcast.Storm = set_combine(sets.midcast['Enhancing Magic'], {feet="Peda. Loafers"})
 
     sets.midcast.Protect = {}
     sets.midcast.Protectra = sets.midcast.Protect
@@ -360,12 +360,12 @@ function init_gear_sets()
     -- Defense sets
     sets.defense.PDT = {
         neck="Twilight Torque",
-        body="Hagondes Coat",hands="Hagondes Cuffs",ring2="Patricius Ring",
+        body="Hagondes Coat",hands="Hagondes Cuffs",ring1="Patricius Ring",
         legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
 
     sets.defense.MDT = {
         head="Vanya Hood",neck="Twilight Torque",
-        body="Amalric Doublet",hands="Yaoyotl Gloves",ring1="Vengeful Ring",
+        body="Amalric Doublet",hands="Yaoyotl Gloves",ring2="Vengeful Ring",
         waist="Flax Sash",legs="Hagondes Pants +1",feet="Merlinic Crackows"}
 
     sets.Kiting = {}
@@ -379,8 +379,8 @@ function init_gear_sets()
     sets.buff['Immanence'] = {hands="Arbatel Bracers +1"}
     sets.buff['Penury'] = {legs="Arbatel Pants"}
     sets.buff['Parsimony'] = {legs="Arbatel Pants"}
-    sets.buff['Celerity'] = {feet="Argute Loafers"}
-    sets.buff['Alacrity'] = {feet="Argute Loafers"}
+    sets.buff['Celerity'] = {feet="Peda. Loafers"}
+    sets.buff['Alacrity'] = {feet="Peda. Loafers"}
 
     sets.buff['Klimaform'] = {feet="Savant's Loafers +2"}
 
@@ -421,7 +421,7 @@ function job_precast(spell, action, spellMap, eventArgs)
     elseif spell.skill == 'Dark Magic' then
 		handle_spells(spell)
     end
-	check_ws_dist()
+	check_ws_dist(spell)
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)

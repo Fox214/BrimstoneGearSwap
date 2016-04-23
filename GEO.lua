@@ -113,7 +113,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {ranged="Dunna",
         head="Befouled Crown",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Ethereal Earring",
-        body="Amalric Doublet",hands="Telchine Gloves",ring1="Apate Ring",ring2="Patricius Ring",
+        body="Amalric Doublet",hands="Telchine Gloves",ring1="Patricius Ring",ring2="Apate Ring",
         back="Kumbira Cape",waist="Olseni Belt",legs="Miasmic Pants",feet="Battlecast Gaiters"}
 		
 	-- Sets with weapons defined.

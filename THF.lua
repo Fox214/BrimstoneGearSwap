@@ -95,7 +95,7 @@ function init_gear_sets()
 
 	sets.idle = {
         head="Herculean Helm",neck="Twilight Torque",ear1="Brutal Earring",ear2="Suppanomimi",
-        body="Herculean Vest",hands="Herculean Gloves",ring1="Vengeful Ring",ring2="Patricius Ring",
+        body="Herculean Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Vengeful Ring",
         back="Atheling Mantle",waist="Sarissapho. Belt",legs="Iuitl Tights",feet="Skd. Jambeaux +1"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
@@ -149,7 +149,7 @@ function init_gear_sets()
 			back="Laic Mantle",waist="Olseni Belt",legs="Iuitl Tights"})
 	sets.Mode.STR = set_combine(sets.engaged, {
 			head="Lilitu Headpiece",neck="Lacono Neck. +1",
-			body="Herculean Vest",hands="Herculean Gloves",ring1="Apate Ring",ring2="Aife's Ring",
+			body="Herculean Vest",hands="Herculean Gloves",ring1="Aife's Ring",ring2="Apate Ring",
 			back="Buquwik Cape",waist="Wanion Belt",legs="Herculean Trousers",feet="Herculean Boots"})
 
 	--Initialize Main Weapons
@@ -265,14 +265,14 @@ function init_gear_sets()
 	-- SA then DEX
     sets.buff['Sneak Attack'] = {
         head="Lilitu Headpiece",neck="Asperity Necklace",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-        body="Plunderer's Vest",hands="Raid. Armlets +2",ring1="Apate Ring",ring2="Rajas Ring",
-        back="Canny Cape",waist="Patentia Sash",legs="Manibozho Brais",feet="Herculean Boots"}
+        body="Plunderer's Vest",hands="Raid. Armlets +2",ring1="Rajas Ring",ring2="Apate Ring",
+        back="Canny Cape",waist="Wanion Belt",legs="Manibozho Brais",feet="Herculean Boots"}
 
 	-- TA then AGI
     sets.buff['Trick Attack'] = {
         head="Herculean Helm",neck="Asperity Necklace",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-        body="Plunderer's Vest",hands="Rog. Armlets +1",ring1="Apate Ring",ring2="Epona's Ring",
-        back="Canny Cape",waist="Patentia Sash",legs="Herculean Trousers",feet="Herculean Boots"}
+        body="Plunderer's Vest",hands="Rog. Armlets +1",ring1="Rajas Ring",ring2="Apate Ring",
+        back="Canny Cape",waist="Chaac Belt",legs="Herculean Trousers",feet="Herculean Boots"}
 
     -- Actions we want to use to tag TH.
     sets.precast.Step = sets.TreasureHunter
@@ -315,7 +315,7 @@ function init_gear_sets()
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
 
 	sets.precast['Elemental Magic'] = set_combine(sets.TreasureHunter, {ear1="Friomisi Earring",ear2="Crematio Earring",
-		ring1="Perception Ring",ring2="Patricius Ring",
+		ring1="Patricius Ring",ring2="Perception Ring",
 		back="Toro Cape",legs="Iuitl Tights"})
 
     -- Ranged snapshot gear
@@ -420,7 +420,7 @@ function init_gear_sets()
         back="Canny Cape",legs="Kaabnax Trousers"}
 	
 	sets.midcast['Elemental Magic'] = set_combine(sets.TreasureHunter, {ear1="Friomisi Earring",ear2="Crematio Earring",
-		neck="Melic Torque",ring1="Diamond Ring",ring2="Patricius Ring",
+		neck="Melic Torque",ring1="Patricius Ring",ring2="Diamond Ring",
 		back="Toro Cape",legs="Iuitl Tights"})
 
     -- Specific spells

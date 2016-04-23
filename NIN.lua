@@ -116,7 +116,7 @@ function init_gear_sets()
 	-- Idle sets
     sets.idle = {
         head="Gavialis Helm",neck="Twilight Torque",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-        body="Hachi. Chainmail",hands="Otronif Gloves +1",ring1="Vengeful Ring",ring2="Patricius Ring",
+        body="Hachi. Chainmail",hands="Otronif Gloves +1",ring1="Patricius Ring",ring2="Vengeful Ring",
         back="Grounded Mantle",waist="Flax Sash",legs="Herculean Trousers",feet=gear.MovementFeet}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
@@ -138,7 +138,7 @@ function init_gear_sets()
 	-- Normal melee group
     sets.engaged = {
         head="Iga Zukin +2",neck="Sanctity Necklace",ear1="Brutal Earring",ear2="Suppanomimi",
-        body="Hachi. Chainmail",hands="Count's Cuffs",ring1="Hetairoi Ring",ring2="Apate Ring",
+        body="Hachi. Chainmail",hands="Count's Cuffs",ring1="Patricius Ring",ring2="Hetairoi Ring",
         back="Atheling Mantle",waist="Sarissapho. Belt",legs="Mochizuki Hakama",feet="Scamp's Sollerets"}
  	sets.engaged.Katana = {}
 	sets.engaged.Dagger = {}

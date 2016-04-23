@@ -79,7 +79,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         head="",neck="Iqabi Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-        body="Respite Cloak",hands="Chironic Gloves",ring1="Hetairoi Ring",ring2="Patricius Ring",
+        body="Respite Cloak",hands="Chironic Gloves",ring1="Patricius Ring",ring2="Hetairoi Ring",
         back="Pahtli Cape",waist="Olseni Belt",legs="Miasmic Pants",feet="Battlecast Gaiters"}
 
 	-- Sets with weapons defined.
@@ -98,7 +98,7 @@ function init_gear_sets()
 	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",waist="Olseni Belt",feet="Battlecast Gaiters"})
 	sets.Mode.STR = set_combine(sets.engaged, { ammo="Amar Cluster",
 		head="Befouled Crown",neck="Lacono Neck. +1",
-		body="Shango Robe",hands="Hlr. Mitts +1",ring1="Apate Ring",ring2="Rajas Ring",
+		body="Shango Robe",hands="Hlr. Mitts +1",ring1="Rajas Ring",ring2="Apate Ring",
 		back="Buquwik Cape",feet="Battlecast Gaiters"})
 			
 	sets.engaged.Club = set_combine(sets.engaged, {main="Queller Rod",sub="Genbu's Shield"})
@@ -237,7 +237,7 @@ function init_gear_sets()
     sets.midcast['Dark Magic'] = {main=gear.macc_staff, sub="Mephitis Grip",ammo="Pemphredo Tathlum",
         head="Chironic Hat",neck="Sanctity Necklace",ear1="Psystorm Earring",ear2="Lifestorm Earring",
         body="Shango Robe",hands="Chironic Gloves",ring1="Strendu Ring",ring2="Sangoma Ring",
-        back="Kumbira Cape",waist="Luminary Sash",legs="Miasmic Pants",feet="Bokwus Boots"}
+        back="Kumbira Cape",waist="Luminary Sash",legs="Miasmic Pants",feet="Chironic Slippers"}
 
     -- Custom spell classes
     sets.midcast.MndEnfeebles = { main=gear.macc_staff,sub="Mephitis Grip",ammo="Pemphredo Tathlum",
