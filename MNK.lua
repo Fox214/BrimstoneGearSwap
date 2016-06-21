@@ -73,6 +73,16 @@ function init_gear_sets()
 		new15="Perception Ring",
 		new16="Herculean Vest",
 		new17="Phalangite Mantle",
+		new18="Yemaya Belt",
+		new19="Baetyl Pendant",
+		new20="Hiza. Sune-Ate +1",
+		new21="Hizamaru Kote +1",
+		new22="Hizamaru Somen +1",
+		new23="Hiza. Hizayoroi +1",
+		new24="Thur. Chapeau +1",
+		new25="Thur. Tights +1",
+		new26="Thur. Boots +1",
+		new27="Hiza. Haramaki +1",
 		echos="Echo Drops",
 		-- shihei="Shihei",
 		orb="Macrocosmic Orb"
@@ -173,7 +183,7 @@ function init_gear_sets()
     sets.precast.JA['Chakra'] = {ammo="Iron Gobbet",
         head="Whirlpool Mask",
         body="Anchorite's Cyclas",hands="Hes. Gloves +1",ring1="Spiral Ring",
-        back="Anchoret's Mantle",waist="Caudata Belt",legs="Nahtirah Trousers",feet="Thurandaut Boots"}
+        back="Anchoret's Mantle",waist="Caudata Belt",legs="Nahtirah Trousers",feet="Thur. Boots +1"}
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {ammo="Sonia's Plectrum",

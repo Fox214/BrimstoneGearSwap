@@ -55,7 +55,7 @@ function user_setup()
 	-- How many extra songs we can keep from Daurdabla/Terpander
 	info.ExtraSongs = 1
 	
-    gear.macc_staff = { name="Grioavolr", augments={'Enh. Mag. eff. dur. +2','MND+3','Mag. Acc.+25','"Mag.Atk.Bns."+11',}}
+    gear.macc_staff = { name="Grioavolr", augments={'Magic burst mdg.+3%','INT+6','Mag. Acc.+24','"Mag.Atk.Bns."+22',}}
 	
 	-- Set this to false if you don't want to use custom timers.
 	state.UseCustomTimers = M(false, 'Use Custom Timers')
@@ -78,15 +78,15 @@ function init_gear_sets()
 	--------------------------------------
 	-- extra stuff
 	organizer_items = {
-		new1="",
-		new2="",
-		new3="",
-		new4="",
-		new5="",
-		new6="",
-		new7="",
-		new8="",
-		new9="",
+		new1="Tutyr Sabots",
+		new2="Yemaya Belt",
+		new3="Baetyl Pendant",
+		new4="Orvail Pants +1",
+		new5="Wayfarer Circlet",
+		new6="Wayfarer Robe",
+		new7="Brd. Cannions +1",
+		new8="Uk'uxkaj Boots",
+		new9="Phalangite Mantle",
 		new10="Sanctity Necklace",
 		new11="Hetairoi Ring",
 		new12="Laic Mantle",
@@ -98,7 +98,8 @@ function init_gear_sets()
 		new18="Chironic Hose",
 		new19="Chironic Slippers",
 		new20="Perception Ring",
-		new21="Phalangite Mantle",
+		new21="Inyan. Crackows +1",
+		new22="Inyan. Dastanas +1",
 		echos="Echo Drops",
 		shihei="Shihei",
 		orb="Macrocosmic Orb"
@@ -145,7 +146,7 @@ function init_gear_sets()
 	sets.Mode.Crit = set_combine(sets.engaged, {})
 	sets.Mode.DA = set_combine(sets.engaged, {})
 	sets.Mode.Haste = set_combine(sets.engaged, {back="Grounded Mantle"})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
 	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",ring1="Rajas Ring",ring2="Apate Ring",waist="Olseni Belt"})
 	sets.Mode.STR = set_combine(sets.engaged, {
 		head="Buremte Hat",neck="Lacono Neck. +1",

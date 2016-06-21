@@ -242,7 +242,7 @@ function init_gear_sets()
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {ammo="Honed Tathlum",
 			head="Whirlpool Mask",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Herculean Vest",hands="Buremte Gloves",ring1="Patricius Ring",ring2="Ulthalam's Ring",
+			body="Herculean Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Ulthalam's Ring",
 			back="Grounded Mantle",waist="Olseni Belt",legs="Carmine Cuisses",feet="Herculean Boots"})
 	sets.Mode.Att= set_combine(sets.engaged, {
 			head="Herculean Helm",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
@@ -257,14 +257,14 @@ function init_gear_sets()
 			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Quiahuiz Trousers",feet="Herculean Boots"})
 	-- DW then haste
 	sets.Mode.Haste = set_combine(sets.engaged, {
-			head="Thurandaut Chapeau",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
+			head="Thur. Chapeau +1",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
 			body="Mextli Harness",hands="Umuthi Gloves",
 			back="Grounded Mantle",waist="Sarissapho. Belt",legs="Carmine Cuisses",feet="Herculean Boots"})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
 	sets.Mode.sTP = set_combine(sets.engaged, { ammo="Ginsen",
 			neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Digni. Earring",
 			body="Herculean Vest",ring1="Rajas Ring",ring2="K'ayres Ring",
-			waist="Olseni Belt",legs="Iuitl Tights",feet="Battlecast Gaiters"})
+			waist="Yemaya Belt",legs="Iuitl Tights",feet="Battlecast Gaiters"})
 	sets.Mode.STR = set_combine(sets.engaged, {ammo="Amar Cluster",
 			head="Lilitu Headpiece",neck="Lacono Neck. +1",
 			body="Assim. Jubbah +1",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
@@ -326,9 +326,9 @@ function init_gear_sets()
 		body="Assim. Jubbah +1",hands="Buremte Gloves",ring1="Rajas Ring",ring2="Apate Ring",
 		back="Cornflower Cape",waist="Wanion Belt",legs="Hashishin Tayt",feet="Assim. Charuqs +1"}
 	sets.engaged.MAB = { ammo="Pemphredo Tathlum",
-		head="Hagondes Hat",neck="Eddy Necklace",ear1="Friomisi Earring",ear2="Crematio Earring",
+		head="Hagondes Hat",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
 		body="Amalric Doublet",hands="Amalric Gages",ring1="Strendu Ring",
-		back="Cornflower Cape",waist="Yamabuki-no-Obi",legs="Hagondes Pants +1",feet="Manabyss Pigaches"}
+		back="Cornflower Cape",waist="Yamabuki-no-Obi",legs="Hagondes Pants +1",feet="Tutyr Sabots"}
 	sets.engaged.Macc = {ammo="Pemphredo Tathlum",
 		head="Mor. Coronal +1",neck="Sanctity Necklace",ear1="Mavi Earring",
 		body="Amalric Doublet",hands="Hagondes Cuffs",ring1="Strendu Ring",ring2="Perception Ring",
@@ -353,13 +353,13 @@ function init_gear_sets()
 	sets.precast.Waltz = {
 		head="Uk'uxkaj Cap",
 		hands="Buremte Gloves",
-		legs="Hagondes Pants +1",feet="Manabyss Pigaches"}
+		legs="Hagondes Pants +1",feet="Tutyr Sabots"}
 	-- Don't need any special gear for Healing Waltz.
 	sets.precast.Waltz['Healing Waltz'] = {}
 	-- Fast cast sets for spells
 	sets.precast.FC = {
-		head="Herculean Helm",body="Luhlaza Jubbah",
-		legs="Homam Cosciales"}
+		head="Herculean Helm",neck="Baetyl Pendant",body="Luhlaza Jubbah",
+		legs="Orvail Pants +1"}
 	sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, {body="Hashishin Mintan +1",hands="Mv. Bazubands +2"})
 
     -- Weaponskill sets
@@ -415,9 +415,7 @@ function init_gear_sets()
 	sets.precast.WS['Sunburst'] = set_combine(sets.precast.WS, {})
 
 	-- Midcast Sets
-	sets.midcast.FastRecast = {
-		body="Luhlaza Jubbah",hands="Mv. Bazubands +2",
-		legs="Homam Cosciales"}
+	-- sets.midcast.FastRecast = {body="Luhlaza Jubbah",hands="Mv. Bazubands +2",legs="Homam Cosciales"}
 	sets.midcast['Blue Magic'] = set_combine(sets.engaged.BlueSkill, {})
 	-- Physical Spells --
 	sets.midcast['Blue Magic'].Physical = set_combine(sets.engaged.Physical, sets.midcast['Blue Magic'])
@@ -491,14 +489,13 @@ function init_gear_sets()
 	sets.defense.MDT = {
 		head="Uk'uxkaj Cap",neck="Twilight Torque",
 		body="Amalric Doublet",hands="Amalric Gages",ring1="Vengeful Ring",
-		waist="Flax Sash",legs="Feast Hose",feet="Manabyss Pigaches"}
+		waist="Flax Sash",legs="Feast Hose",feet="Tutyr Sabots"}
 	sets.Kiting = {legs="Carmine Cuisses"}
 	sets.TreasureHunter = {head="Herculean Helm",waist="Chaac Belt"}
     
-	-- Melee sets for in Adoulin, which has an extra 2% Haste from Ionis.
-	sets.engaged.Adoulin = set_combine(sets.engaged, {})
+	-- These sets use a piece of gear in specific situations, need to customize_idle_set or customize_melee_set
 	sets.Reive = {neck="Arciela's Grace +1"}
-	sets.engaged.Assault = set_combine(sets.engaged, {ring2="Ulthalam's Ring"}) 
+	sets.Assault = {ring2="Ulthalam's Ring"}
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -511,6 +508,10 @@ function job_precast(spell, action, spellMap, eventArgs)
 		eventArgs.cancel = true
 		windower.send_command('@input /ja "Unbridled Learning" <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
 	end
+	if spell.skill == 'Ninjutsu' then
+		-- add_to_chat(1, 'Casting '..spell.name)
+        handle_spells(spell)
+    end
 	check_ws_dist(spell)
 end
 -- Run after the default midcast() is done.
@@ -532,6 +533,25 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 		equip(sets.Learning)
 	end
 end
+
+-- Run after the default aftercast() is done.
+-- eventArgs is the same one used in job_aftercast, in case information needs to be persisted.
+function job_post_aftercast(spell, action, spellMap, eventArgs)
+	-- add_to_chat(7,'post aftercast '..spell.name)
+	-- don't do anything after these conditions
+	if spell.type == 'Trust' then
+		return
+	end
+	if spell.type == 'WeaponSkill' then
+		delay = 4
+	else	
+		delay = 1
+	end
+	if player.sub_job == 'WAR' then
+		handle_war_ja:schedule(delay)
+	end
+end
+ 
 -------------------------------------------------------------------------------------------------------------------
 -- Job-specific hooks for non-casting events.
 -------------------------------------------------------------------------------------------------------------------
@@ -582,26 +602,11 @@ end
 
 function customize_melee_set(meleeSet)
 	-- add_to_chat(122,'customize melee set')
+	if areas.Assault:contains(world.area) then
+		meleeSet = set_combine(meleeSet, sets.Assault)
+	end
     return meleeSet
 end
-
--- Called by the 'update' self-command, for common needs.
--- Set eventArgs.handled to true if we don't want automatic equipping of gear.
--- function job_update(cmdParams, eventArgs)
-	-- classes.CustomMeleeGroups:clear()
-	-- add_to_chat(122,'job update')
-	-- if buffactive['reive mark'] then
-			-- add_to_chat(122,'In Reive')
-			-- classes.CustomMeleeGroups:append('Reive')
-	-- elseif areas.Adoulin:contains(world.area) and buffactive.ionis then
-			-- add_to_chat(122,'IN Adoulin')
-			-- classes.CustomMeleeGroups:append('Adoulin')
-	-- end
-	-- if areas.Assault:contains(world.area) then
-			-- classes.CustomMeleeGroups:append('Assault')
-	-- end
-	-- pick_tp_weapon()
--- end
 
 -- Set eventArgs.handled to true if we don't want the automatic display to be run.
 function display_current_job_state(eventArgs)

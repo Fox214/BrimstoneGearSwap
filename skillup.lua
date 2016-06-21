@@ -251,6 +251,7 @@ function self_command(command)
         for i,v in ipairs(gs_skill.skillup_table) do
             if v:lower() == commandArgs[2]:lower() then
                 gs_skill.skillup_type = v
+				add_to_chat(1,"skilling up "..gs_skill.skillup_type)
                 skilluprun = true
                 if #gs_skill.skillup_spells > 0 then
                     gs_skill.skillup_spells:clear()
@@ -335,7 +336,7 @@ function check_skill_cap()
 end
 function spell_valid(tab)
     if (tab.levels[player.main_job_id] and tab.levels[player.main_job_id] <= player.main_job_level or tab.levels[player.sub_job_id] and tab.levels[player.sub_job_id] <= player.main_job_level) and tab.targets:contains('Self') and
-       tab.targets:contains('Self') and not tab.en:wmatch('Teleport-*|Warp*|Tractor*|Retrace|Escape|Geo-*|Sacrifice|Embrava') then
+       tab.targets:contains('Self') and not tab.en:wmatch('Recall-*|Teleport-*|Warp*|Tractor*|Retrace|Escape|Geo-*|Sacrifice|Embrava') then
         return true
     end
 end

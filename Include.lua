@@ -903,7 +903,7 @@ function get_current_melee_set()
 	if customize_melee_set then
 		meleeSet = customize_melee_set(meleeSet)
 	end
-
+	
 	return meleeSet
 end
 

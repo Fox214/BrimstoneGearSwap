@@ -34,7 +34,7 @@ function user_setup()
 	state.Stance:set('None')
 	state.holdtp:set('false')
 
-    gear.macc_staff = { name="Grioavolr", augments={'Enh. Mag. eff. dur. +2','MND+3','Mag. Acc.+25','"Mag.Atk.Bns."+11',}}
+    gear.macc_staff = { name="Grioavolr", augments={'Magic burst mdg.+3%','INT+6','Mag. Acc.+24','"Mag.Atk.Bns."+22',}}
 
 	pick_tp_weapon()
  
@@ -45,7 +45,7 @@ end
 function init_gear_sets()
 	-- extra stuff
 	organizer_items = {
-		new1="",
+		new1="Uk'uxkaj Boots",
 		new2="",
 		new3="",
 		new4="",
@@ -104,8 +104,8 @@ function init_gear_sets()
         back="Lifestream Cape",feet="Geomancy Sandals"})
 
     -- .Indi sets are for when an Indi-spell is active.
-    sets.idle.Indi = set_combine(sets.idle, {legs="Bagua Pants"})
-    sets.idle.Pet.Indi = set_combine(sets.idle.Pet, {legs="Bagua Pants"})
+    sets.idle.Indi = set_combine(sets.idle, {legs="Bagua Pants +1"})
+    sets.idle.Pet.Indi = set_combine(sets.idle.Pet, {legs="Bagua Pants +1"})
 
     -- Resting sets
     sets.resting = set_combine(sets.idle, {main="Chatoyant Staff"})
@@ -181,20 +181,14 @@ function init_gear_sets()
         body="Hagondes Coat",hands="Yaoyotl Gloves",ring2="Strendu Ring",
         back="Toro Cape",legs="Hagondes Pants +1",feet="Hagondes Sabots"}
 
-
-    --------------------------------------
-    -- Precast sets
-    --------------------------------------
-
     -- Precast sets to enhance JAs
     sets.precast.JA.Bolster = {body="Bagua Tunic"}
     sets.precast.JA['Life cycle'] = {body="Geomancy Tunic"}
     sets.precast.JA['Full Circle'] = {head="Azimuth Hood",hands="Bagua Mitaines"}
 
     -- Fast cast sets for spells
-
-    sets.precast.FC = {
-        head="Vanya Hood",
+    sets.precast.FC = { ranged="Dunna",
+        head="Vanya Hood",neck="Baetyl Pendant",
         body="Shango Robe",
         back="Lifestream Cape",waist="Channeler's Stone",legs="Geomancy Pants"}
 
@@ -218,12 +212,12 @@ function init_gear_sets()
 
     sets.midcast['Elemental Magic'].MAB = set_combine(sets.midcast['Elemental Magic'], 
 	   {main=gear.macc_staff,sub="Niobid Strap",ammo="Pemphredo Tathlum",
-        head="Merlinic Hood",neck="Eddy Necklace",ear1="Crematio Earring",ear2="Friomisi Earring",
+        head="Merlinic Hood",neck="Baetyl Pendant",ear1="Crematio Earring",ear2="Friomisi Earring",
         body="Amalric Doublet",hands="Amalric Gages",ring1="Strendu Ring",
         back="Izdubar Mantle",waist="Yamabuki-no-Obi",legs="Merlinic Shalwar",feet="Merlinic Crackows"})
   
 	sets.midcast['Elemental Magic'].Macc = set_combine(sets.midcast['Elemental Magic'], 
-	   {main=gear.macc_staff,sub="Niobid Strap",ammo="Pemphredo Tathlum",
+	   {main=gear.macc_staff,sub="Niobid Strap",ranged="Dunna",
         head="Merlinic Hood",neck="Sanctity Necklace",ear1="Barkaro. Earring",ear2="Digni. Earring",
         body="Amalric Doublet",hands="Telchine Gloves",ring1="Strendu Ring",ring2="Perception Ring",
         back="Izdubar Mantle",waist="Luminary Sash",legs="Merlinic Shalwar",feet="Merlinic Crackows"})
@@ -257,15 +251,13 @@ function init_gear_sets()
 		back="Grapevine Cape"})
 	
     -- Base fast recast for spells
-    sets.midcast.FastRecast = {
-        head="Zelus Tiara",
-        legs="Hagondes Pants +1",feet="Hagondes Sabots"}
+    -- sets.midcast.FastRecast = { head="Zelus Tiara",legs="Hagondes Pants +1",feet="Tutyr Sabots"}
 
     sets.midcast.Geomancy = {range="Dunna",
 		head="Azimuth Hood",neck="Melic Torque",ear2="Liminus Earring",
 		body="Bagua Tunic",hands="Geomancy Mitaines",ring2="Renaye Ring",
 		back="Lifestream Cape"}
-    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy,{main="Solstice",back="Lifestream Cape",legs="Bagua Pants",feet="Azimuth Gaiters"})
+    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy,{main="Solstice",back="Lifestream Cape",legs="Bagua Pants +1",feet="Azimuth Gaiters"})
 
 	-- healing skill
     sets.midcast.StatusRemoval = {neck="Nesanica Torque",ring1="Ephedra Ring"}
@@ -285,14 +277,13 @@ function init_gear_sets()
     -- Defense sets
 
     sets.defense.PDT = {
-        head="Hagondes Hat",neck="Wiglen Gorget",
+        head="Hagondes Hat",
         body="Hagondes Coat",hands="Geomancy Mitaines",
-        back="Umbra Cape",legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
+        legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
 
     sets.defense.MDT = {
-        neck="Wiglen Gorget",
-        body="Vanir Cotehardie",hands="Yaoyotl Gloves",ring1="Vengeful Ring",
-        back="Umbra Cape",feet="Merlinic Crackows"}
+        hands="Yaoyotl Gloves",ring1="Vengeful Ring",
+        feet="Merlinic Crackows"}
 
     sets.Kiting = {feet="Geomancy Sandals"}
 
@@ -372,7 +363,7 @@ function job_precast(spell, action, spellMap, eventArgs)
     elseif spell.skill == 'Dark Magic' then
 		handle_spells(spell)
     end
-	check_ws_dist()
+	check_ws_dist(spell)
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)

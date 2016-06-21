@@ -86,8 +86,9 @@ function init_gear_sets()
 	organizer_items = {
 		new1="",
 		new2="",
+		new3="",
+		new4="",
 		new5="",
-		new6="",
 		echos="Echo Drops",
 		shihei="Shihei",
 		orb="Macrocosmic Orb"
@@ -139,10 +140,10 @@ function init_gear_sets()
 			back="Canny Cape",waist="Sarissapho. Belt",legs="Limbo Trousers",feet="Herculean Boots"})
 	-- DW then haste
 	sets.Mode.Haste = set_combine(sets.engaged, {
-			head="Thurandaut Chapeau",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
+			head="Thur. Chapeau +1",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
 			body="Mextli Harness",hands="Herculean Gloves",
 			back="Canny Cape",waist="Twilight Belt",legs="Kaabnax Trousers",feet="Herculean Boots"})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
 	sets.Mode.sTP = set_combine(sets.engaged, {
 			neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Digni. Earring",
 			body="Herculean Vest",ring1="Rajas Ring",ring2="K'ayres Ring",
@@ -272,7 +273,7 @@ function init_gear_sets()
     sets.buff['Trick Attack'] = {
         head="Herculean Helm",neck="Asperity Necklace",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
         body="Plunderer's Vest",hands="Rog. Armlets +1",ring1="Rajas Ring",ring2="Apate Ring",
-        back="Canny Cape",waist="Chaac Belt",legs="Herculean Trousers",feet="Herculean Boots"}
+        back="Canny Cape",waist="Yemaya Belt",legs="Herculean Trousers",feet="Herculean Boots"}
 
     -- Actions we want to use to tag TH.
     sets.precast.Step = sets.TreasureHunter
@@ -303,14 +304,14 @@ function init_gear_sets()
     sets.precast.Waltz = {
         head="Uk'uxkaj Cap",
         body="Herculean Vest",hands="Buremte Gloves",
-        legs="Iuitl Tights",feet="Thurandaut Boots"}
+        legs="Iuitl Tights",feet="Thur. Boots +1"}
 
     -- Don't need any special gear for Healing Waltz.
     sets.precast.Waltz['Healing Waltz'] = {}
 
 
     -- Fast cast sets for spells
-    sets.precast.FC = {head="Herculean Helm",hands="Thaumas Gloves",ring1="Prolix Ring",legs="Limbo Trousers"}
+    sets.precast.FC = {head="Herculean Helm",neck="Baetyl Pendant",legs="Limbo Trousers"}
 
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
 
@@ -319,7 +320,10 @@ function init_gear_sets()
 		back="Toro Cape",legs="Iuitl Tights"})
 
     -- Ranged snapshot gear
-    sets.precast.RA = {head="Optical Hat",neck="Iqabi Necklace",hands="Iuitl Wristbands",legs="Nahtirah Trousers",feet="Wurrukatte Boots"}
+    sets.precast.RA = {
+		head="Optical Hat",neck="Iqabi Necklace",
+		hands="Iuitl Wristbands",
+		waist="Yemaya Belt",legs="Nahtirah Trousers"}
 
 
     -- Weaponskill sets
@@ -330,7 +334,7 @@ function init_gear_sets()
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	-- Earth, DEX 100%
-	sets.precast.WS['Wasp Sting'] = set_combine(sets.precast.WS, {neck="Soil Gorget",waist="Soil Belt"})
+	sets.precast.WS['Wasp Sting'] = set_combine(sets.precast.WS, {})
 
 	-- Wind, DEX 40% INT 40%
 	sets.precast.WS['Gust Slash'] = set_combine(sets.precast.WS, {legs="Limbo Trousers",feet="Herculean Boots"})
@@ -339,7 +343,7 @@ function init_gear_sets()
 	sets.precast.WS['Shadowstitch'] = set_combine(sets.precast.WS, {})
 
  	-- Earth, DEX 100%
-	sets.precast.WS['Viper Bite'] = set_combine(sets.precast.WS, {neck="Soil Gorget",waist="Soil Belt"})
+	sets.precast.WS['Viper Bite'] = set_combine(sets.precast.WS, {})
  
  	-- Wind/Thunder, DEX 40% INT 40%
 	sets.precast.WS['Cyclone'] = set_combine(sets.precast.WS, {legs="Limbo Trousers",feet="Herculean Boots"})
@@ -377,8 +381,8 @@ function init_gear_sets()
 
 	-- Wind/Thunder/Earth, DEX 40% AGI 40%
     sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {
-        head="Wayfarer Circlet",ear1="Friomisi Earring",ear2="Crematio Earring",
-        body="Wayfarer Robe",hands="Pillager's Armlets +1",
+        ear1="Friomisi Earring",ear2="Crematio Earring",
+        hands="Pillager's Armlets +1",
         back="Toro Cape",legs="Limbo Trousers",feet="Herculean Boots"})
     sets.precast.WS['Aeolian Edge'].TH = set_combine(sets.precast.WS['Aeolian Edge'], sets.TreasureHunter)
 
@@ -413,11 +417,7 @@ function init_gear_sets()
 	--------------------------------------
     -- Midcast sets
     --------------------------------------
-
-    sets.midcast.FastRecast = {
-        head="Herculean Helm",
-        body="Pillager's Vest +1",hands="Pillager's Armlets +1",
-        back="Canny Cape",legs="Kaabnax Trousers"}
+    -- sets.midcast.FastRecast = {}
 	
 	sets.midcast['Elemental Magic'] = set_combine(sets.TreasureHunter, {ear1="Friomisi Earring",ear2="Crematio Earring",
 		neck="Melic Torque",ring1="Patricius Ring",ring2="Diamond Ring",
@@ -431,11 +431,11 @@ function init_gear_sets()
 
     -- Ranged gear
     sets.midcast.RA = {
-        head="Optical Hat",neck="Iqabi Necklace",ear2="Volley Earring",
+        head="Optical Hat",neck="Iqabi Necklace",
         body="Herculean Vest",hands="Herculean Gloves",ring1="Behemoth Ring",ring2="Scorpion Ring +1",
-        waist="Flax Sash",legs="Nahtirah Trousers",feet="Herculean Boots"}
+        waist="Yemaya Belt",legs="Nahtirah Trousers",feet="Herculean Boots"}
 
-    sets.midcast.RA.Acc = set_combine(sets.midcast.RA, {})
+    sets.midcast.RA.Acc = set_combine(sets.midcast.RA, {waist="Flax Sash",legs="Thur. Tights +1"})
 
 	-- Defense sets
 
@@ -447,7 +447,7 @@ function init_gear_sets()
     sets.defense.PDT = {
         head="Uk'uxkaj Cap",neck="Twilight Torque",
         body="Iuitl Vest",hands="Umuthi Gloves",ring1="Patricius Ring",
-        legs="Iuitl Tights",feet="Thurandaut Boots"}
+        legs="Iuitl Tights",feet="Thur. Boots +1"}
 
     sets.defense.MDT = {
         head="Uk'uxkaj Cap",neck="Twilight Torque",
@@ -559,7 +559,7 @@ end
 
 
 function customize_melee_set(meleeSet)
-    if state.TreasureMode.value == 'Fulltime' then
+	if state.TreasureMode.value == 'Fulltime' then
         meleeSet = set_combine(meleeSet, sets.TreasureHunter)
     end
 

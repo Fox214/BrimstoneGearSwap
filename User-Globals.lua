@@ -1,4 +1,4 @@
-
+require('functions')
 -- Assault equip.
 areas.Assault = S{
 	"Mamool Ja Training Grounds",
@@ -119,7 +119,7 @@ function set_combat_form()
 end
 
 function set_ranged_weapon()
-	-- add_to_chat(123, 'custome melee groups '..CustomMeleeGroups)
+	classes.CustomMeleeGroups:clear()
 	if state.RWeaponMode.value == 'Stats' then
 		classes.CustomMeleeGroups:append('Stats')
 	elseif state.RWeaponMode.value == 'Boomerrang' then
@@ -221,81 +221,60 @@ end
 -- job automation if stance is set correctly (outside of town)
 function handle_war_ja() 
 	if not areas.Cities:contains(world.area) and not (buffactive.Sneak or buffactive.Invisible) then
+		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if state.Stance.value == 'Offensive' then
-			if not buffactive.Berserk and flag.berserk then
-				windower.send_command('@input /ja "Berserk" <me>; wait 300; gs c reset_berserk_flag')
-				flag.berserk = false
+			if not buffactive.Berserk and player.status == "Engaged" and abil_recasts[1] == 0 then
+				windower.send_command('@input /ja "Berserk" <me>')
+				return
 			end
-			if not buffactive.Warcry and flag.warcry and player.status == "Engaged" and player.tp > 900 then
-				windower.send_command('@input /ja "Warcry" <me>; wait 300; gs c reset_warcry_flag')
-				flag.warcry = false
+			if not buffactive.Warcry and abil_recasts[2] == 0 and player.status == "Engaged" and player.tp > 900 then
+				windower.send_command('@input /ja "Warcry" <me>')
+				return
 			end
-			if not buffactive.Aggressor and flag.aggressor then
-				windower.send_command('@input /ja "Aggressor" <me>; wait 300; gs c reset_warcry_flag')
-				flag.aggressor = false
+			if not buffactive.Aggressor and abil_recasts[4] == 0 and player.status == "Engaged" then
+				windower.send_command('@input /ja "Aggressor" <me>')
+				return
 			end
 		end
 		if state.Stance.value == 'Defensive' then
-			if not buffactive.Defender and flag.defender then
-				windower.send_command('@input /ja "Defender" <me>; wait 300; gs c reset_defender_flag')
-				flag.defender = false
+			if not buffactive.Defender and abil_recasts[3] == 0 then
+				windower.send_command('@input /ja "Defender" <me>')
+				return
 			end
 		end
 	end
 end
 
-off_ja_tables = {}
-off_ja_tables.SAM = {"Hasso","Meditate","Sekkanoki","Third Eye"}
-
--- the id #s for each abil come from the index value in resources.xml
+-- the id #s for each abil come from the index value in abils.xml
 function handle_sam_ja() 
 	if not areas.Cities:contains(world.area) and not (buffactive.Sneak or buffactive.Invisible) then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
-		-- for __,spells in pairs(off_ja_tables) do
-			-- for ___,spell in pairs(spells) do
-				-- add_to_chat(2, 'sam-ja recast '..abil_recasts[spell.recast_id])
-				 -- for k in pairs(abil_recasts) do
-					-- add_to_chat(2, 'k '..k)
-					-- add_to_chat(2, 'both '..abil_recasts[k])
-				-- end
-				-- add_to_chat(2, 'sam-ja recast '..spell)
-			-- end
-		-- end
-		-- for spell in off_ja_tables.SAM do
-			-- add_to_chat(2, 'sam-ja recast '..abil_recasts[spell.recast_id])
-		-- end
 		if state.Stance.value == 'Offensive' then
-			if not buffactive.Hasso and abil_recasts[138] == 0 then
-				-- add_to_chat(122,'no hasso ')
+			if not buffactive.Hasso and player.status == "Engaged" and abil_recasts[138] == 0 then
 				windower.send_command('@input /ja "Hasso" <me>')
-				-- add_to_chat(1,'sleeping ')
-				-- user_sleep(2)
-				-- add_to_chat(3,'done sleeping ')
+				return
 			end
 			if player.tp < 400 and abil_recasts[134] == 0 then
-				-- add_to_chat(122,'low tp ')
-				-- windower.send_command('@input /ja "Meditate" <me>; wait 180; gs c reset_med_flag')
 				windower.send_command('@input /ja "Meditate" <me>')
-				-- user_sleep(1)
-				-- flag.med = false
+				return
 			end
 			if player.tp > 2000 and abil_recasts[140] == 0 and player.status == "Engaged" then
-				-- add_to_chat(122,'high tp ')
-				-- windower.send_command('@input /ja "Sekkanoki" <me>; wait 300; gs c reset_sekka_flag')
 				windower.send_command('@input /ja "Sekkanoki" <me>')
-				-- user_sleep(1)
-				-- flag.sekka = false
+				return
 			end
-			if not buffactive.ThirdEye and abil_recasts[133] == 0 then
-				-- windower.send_command('@input /ja "Third Eye" <me>; wait 60; gs c reset_thirdeye_flag')
+			if not buffactive.ThirdEye and abil_recasts[133] == 0 and player.status == "Engaged" then
 				windower.send_command('@input /ja "Third Eye" <me>')
-				-- user_sleep(1)
-				-- flag.thirdeye = false
+				return
 			end
 		end
 		if state.Stance.value == 'Defensive' then
-			if not buffactive.ThirdEye then
-				windower.send_command('@input  /ja "Seigan" <me>; wait 1.5; input /ja "Third Eye" <me>')
+			if not buffactive.Seigan and abil_recasts[139] == 0 then
+				windower.send_command('@input /ja "Seigan" <me>')
+				return
+			end
+			if not buffactive.ThirdEye and abil_recasts[133] == 0 then
+				windower.send_command('@input /ja "Third Eye" <me>')
+				return
 			end
 		end
 	end
@@ -323,15 +302,19 @@ function global_on_load()
 end
 
 function handle_twilight()
-	if player.hpp <= 11 or buffactive['Weakness'] then
+	if player.hpp <= 14 or buffactive['Weakness'] then
+		if Twilight == false then
+			add_to_chat(1,'equip rr')
+		end
         Twilight = true
         equip(sets.defense.Reraise)
 		disable('head','body')
-		-- add_to_chat(1,'equip rr')
     else
+		if Twilight == true then
+			add_to_chat(2,'rr off')
+		end
         Twilight = false
 		enable('head','body')
-		-- add_to_chat(2,'rr off')
     end
 end
 
@@ -360,18 +343,26 @@ degrade_tables.Stone = {"Stone","Stone II","Stone III","Stone IV","Stone V","Sto
 degrade_tables.Thunder = {"Thunder","Thunder II","Thunder III","Thunder IV","Thunder V","Thunder VI"}
 degrade_tables.Water = {"Water","Water II","Water III","Water IV","Water V","Water VI"}
 degrade_tables.Cure = {"Cure","Cure II","Cure III","Cure IV","Cure V","Cure VI"}
+degrade_tables.Regen = {"Regen","Regen II","Regen III","Regen IV","Regen V"}
 degrade_tables.Aeroga = {"Aeroga","Aeroga II","Aeroga III"}
+degrade_tables.Aeroja = {"Aeroga","Aeroga II","Aeroga III","Aeroja"}
 degrade_tables.Blizzaga = {"Blizzaga","Blizzaga II","Blizzaga III"}
+degrade_tables.Blizzaja = {"Blizzaga","Blizzaga II","Blizzaga III","Blizzaja"}
 degrade_tables.Firaga = {"Firaga","Firaga II","Firaga III"}
+degrade_tables.Firaja = {"Firaga","Firaga II","Firaga III","Firaja"}
 degrade_tables.Stonega = {"Stonega","Stonega II","Stonega III"}
+degrade_tables.Stoneja = {"Stonega","Stonega II","Stonega III","Stoneja"}
 degrade_tables.Thundaga = {"Thundaga","Thundaga II","Thundaga III"}
+degrade_tables.Thundaja = {"Thundaga","Thundaga II","Thundaga III","Thundaja"}
 degrade_tables.Waterga = {"Waterga","Waterga II","Waterga III"}
+degrade_tables.Waterja = {"Waterga","Waterga II","Waterga III","Waterja"}
 degrade_tables.Aera = {"Aera","Aera II","Aera III"}
 degrade_tables.Blizzara = {"Blizzara","Blizzara II","Blizzara III"}
 degrade_tables.Fira = {"Fira","Fira II","Fira III"}
 degrade_tables.Stonera = {"Stonera","Stonera II","Stonera III"}
 degrade_tables.Thundara = {"Thundara","Thundara II","Thundara III"}
 degrade_tables.Watera = {"Watera","Watera II","Watera III"}
+degrade_tables.Utsusemi = {"Utsusemi: Ichi","Utsusemi: Ni","Utsusemi: San"}
 
 function handle_spells(spell)
 	-- add_to_chat(2, 'Casting '..spell.name)

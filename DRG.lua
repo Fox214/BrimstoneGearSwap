@@ -32,13 +32,6 @@ function user_setup()
 	state.MagicalDefenseMode:options('MDT', 'Reraise')
 	state.WeaponMode:set('Polearm')
 	state.Stance:set('Offensive')
-	-- flag.sekka = true
-	-- flag.med = true
-	-- flag.berserk = true
-	-- flag.defender = true
-	-- flag.aggressor = true
-	-- flag.warcry = true
-	-- flag.thirdeye = true
 	Twilight = false
 
 	select_default_macro_book()
@@ -64,14 +57,17 @@ function init_gear_sets()
 		new2="",
 		new3="",
 		new5="",
+		food1="Squid Sushi",
+		food2="Red Curry Bun",
+		food3="Akamochi",
 		echos="Echo Drops",
 		-- shihei="Shihei",
 		orb="Macrocosmic Orb"
 	}
 	-- Idle sets
 	sets.idle = {head="Twilight Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Moonshade Earring",
-			body="Twilight Mail",hands="Umuthi Gloves",ring1="Patricius Ring",ring2="Renaye Ring",
-			back="Mecisto. Mantle",waist="Incarnation Sash",legs="Carmine Cuisses",feet="Valorous Greaves"}
+			body="Twilight Mail",hands="Sulev. Gauntlets +1",ring1="Patricius Ring",ring2="Renaye Ring",
+			back="Mecisto. Mantle",waist="Incarnation Sash",legs="Carmine Cuisses",feet="Sulev. Leggings +1"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Town = set_combine(sets.idle, {})
@@ -90,7 +86,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Potestas Bomblet",
 			head="Valorous Mask",neck="Ganesha's Mala",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Pelt. Plackart +1",hands="Valorous Mitts",ring1="Patricius Ring",ring2="Hetairoi Ring",
+			body="Emicho Haubert",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Hetairoi Ring",
 			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Emicho Hose",feet="Valorous Greaves"}
 	sets.engaged.Polearm = {}
 	sets.engaged.Staff = {}
@@ -98,33 +94,33 @@ function init_gear_sets()
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, { ammo="Amar Cluster",
-			head="Gavialis Helm",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Miki. Breastplate",hands="Valorous Mitts",ring1="Patricius Ring",ring2="Ulthalam's Ring",
-			back="Updraft Mantle",waist="Olseni Belt",legs="Carmine Cuisses",feet="Valorous Greaves"})
+			head="Sulevia's Mask +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
+			body="Sulevia's Plate. +1",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Ulthalam's Ring",
+			back="Updraft Mantle",waist="Olseni Belt",legs="Carmine Cuisses",feet="Sulev. Leggings +1"})
 	sets.Mode.Att= set_combine(sets.engaged, {ammo="Potestas Bomblet",
-			head="Valorous Mask",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
-			body="Rheic Korazin +3",hands="Valorous Mitts",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Phalangite Mantle",waist="Zoran's Belt",legs="Emicho Hose",feet="Valorous Greaves"})
+			head="Sulevia's Mask +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
+			body="Rheic Korazin +3",hands="Sulev. Gauntlets +1",ring1="Overbearing Ring",ring2="Cho'j Band",
+			back="Phalangite Mantle",waist="Zoran's Belt",legs="Emicho Hose",feet="Sulev. Leggings +1"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
 			head="Valorous Mask",hands="Valorous Mitts",ring1="Hetairoi Ring",
 			legs="Pelt. Cuissots +1",feet="Valorous Greaves"})
 	sets.Mode.DA = set_combine(sets.engaged, { ammo="Focal Orb",
 			head="Otomi Helm",neck="Ganesha's Mala",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Porthos Byrnie",hands="Pel. Vambraces +1",ring1="Hetairoi Ring",
-			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Valor. Hose",feet="Ejekamal Boots"})
+			body="Emicho Haubert",hands="Pel. Vambraces +1",ring1="Hetairoi Ring",
+			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Sulevi. Cuisses +1",feet="Ejekamal Boots"})
 	sets.Mode.Haste = set_combine(sets.engaged, {
 			head="Gavialis Helm",
 			body="Porthos Byrnie",hands="Regimen Mittens",
 			back="Grounded Mantle",waist="Zoran's Belt",legs="Phorcys Dirs",feet="Ejekamal Boots"})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
 	sets.Mode.sTP = set_combine(sets.engaged, { ammo="Ginsen",
-			head="Valorous Mask",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
-			body="Pelt. Plackart +1",hands="Cizin Mufflers",ring1="Rajas Ring",ring2="K'ayres Ring",
+			head="Sulevia's Mask +1",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
+			body="Pelt. Plackart +1",hands="Emicho Gauntlets",ring1="Rajas Ring",ring2="K'ayres Ring",
 			back="Laic Mantle",waist="Olseni Belt",legs="Phorcys Dirs",feet="Valorous Greaves"})
 	sets.Mode.STR = set_combine(sets.engaged, {ammo="Amar Cluster",
 			head="Valorous Mask",neck="Lacono Neck. +1",
-			body="Ptero. Mail +1",hands="Valorous Mitts",ring1="Rajas Ring",ring2="Apate Ring",
-			back="Buquwik Cape",waist="Wanion Belt",legs="Valor. Hose",feet="Valorous Greaves"})
+			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Rajas Ring",ring2="Apate Ring",
+			back="Brigantia's Mantle",waist="Wanion Belt",legs="Valor. Hose",feet="Valorous Greaves"})
 			
 	sets.engaged.Polearm = set_combine(sets.engaged, {main="Reienkyo",sub="Bloodrain Strap"})
 	sets.engaged.Polearm.Refresh = set_combine(sets.engaged.Polearm, {ear1="Ethereal Earring",ear2="Brutal Earring",
@@ -139,9 +135,7 @@ function init_gear_sets()
 	sets.engaged.Polearm.sTP = set_combine(sets.engaged.Polearm, sets.Mode.sTP)
 	sets.engaged.Polearm.STR = set_combine(sets.engaged.Polearm, sets.Mode.STR)
 
-	sets.engaged.Staff = set_combine(sets.engaged, {main="Chatoyant Staff",sub="Bloodrain Strap",
-			ear2="Terminus Earring",
-			ring2="Prouesse Ring"})
+	sets.engaged.Staff = set_combine(sets.engaged, {main="Chatoyant Staff",sub="Bloodrain Strap"})
 	sets.engaged.Staff.Acc = set_combine(sets.engaged.Staff, sets.Mode.Acc)
 	sets.engaged.Reraise = set_combine(sets.engaged,{
 			head="Twilight Helm",
@@ -152,7 +146,7 @@ function init_gear_sets()
 	sets.precast.JA.Jumps = { ammo="Amar Cluster",
 			head="Peltast's Mezail +1",neck="Ganesha's Mala",ear1="Steelflash Earring",ear2="Bladeborn Earring",
 			body="Pelt. Plackart +1",hands="Crusher's Gauntlets",ring1="Hetairoi Ring",ring2="K'ayres Ring",
-			back="Updraft Mantle",waist="Sarissapho. Belt",legs="Pelt. Cuissots +1",feet="Pelt. Schyn. +1"}
+			back="Brigantia's Mantle",waist="Sarissapho. Belt",legs="Pelt. Cuissots +1",feet="Pelt. Schyn. +1"}
 	sets.precast.JA['Jump'] = set_combine(sets.precast.JA.Jumps, {
 			body="Vishap Mail +1",hands="Vishap F. G. +1",
 			feet="Vishap Greaves +1"})
@@ -169,7 +163,7 @@ function init_gear_sets()
 			body="Twilight Mail"}
 	sets.precast.JA.Angon = {ammo="Angon",ear1="Dragoon's Earring",hands="Ptero. Fin. G. +1"}
 	sets.precast.JA['Ancient Circle'] = {legs="Vishap Brais +1"}
-	sets.precast.JA['Spirit Link'] = {head="Vishap Armet +1",hands="Pel. Vambraces +1",feet="Ptero. Greaves +1"}
+	sets.precast.JA['Spirit Link'] = {head="Vishap Armet +1",ear2="Pratik Earring",hands="Pel. Vambraces +1",feet="Ptero. Greaves +1"}
 	sets.precast.JA['Call Wyvern'] = {body="Ptero. Mail +1"}
 	sets.precast.JA['Deep Breathing'] = {head="Ptero. Armet +1",hands="Ptero. Fin. G. +1"}
 	sets.precast.JA['Spirit Surge'] = {body="Ptero. Mail +1"}
@@ -178,33 +172,34 @@ function init_gear_sets()
 	sets.Breath = {
 			head="Ptero. Armet +1",neck="Lancer's Torque",ear1="Dragoon's Earring",ear2="Lancer's Earring",
 			body="Wyvern Mail",hands="Crusher's Gauntlets",ring1="Overbearing Ring",ring2="K'ayres Ring",
-			back="Updraft Mantle",waist="Glassblower's Belt",legs="Vishap Brais +1",feet="Ptero. Greaves +1"}
+			-- back="Updraft Mantle",waist="Glassblower's Belt",legs="Vishap Brais +1",feet="Ptero. Greaves +1"}
+			back="Brigantia's Mantle",waist="Glassblower's Belt",legs="Vishap Brais +1",feet="Ptero. Greaves +1"}
 	sets.precast.Breath = set_combine(sets.Breath, {head="Vishap Armet +1",hands="Regimen Mittens"})
 	sets.midcast.Breath = set_combine(sets.Breath, {head="Ptero. Armet +1"})
 	sets.midcast.Breath.Food = set_combine(sets.Breath, {head="Ptero. Armet +1",body="Pelt. Plackart +1"})
 	--sets.midcast.Breath = set_combine(sets.midcast.FastRecast, { head="Vishap Armet +1" })
 			
 	-- Waltz set (chr and vit)
-	sets.precast.Waltz = {
-			head="Vishap Armet +1",neck="Phalaina Locket",
-			body="Vishap Mail +1",hands="Buremte Gloves",
-			legs="Cizin Breeches"}
+	sets.precast.Waltz = { neck="Phalaina Locket",hands="Buremte Gloves"}
 		   
 	-- Don't need any special gear for Healing Waltz.
 	sets.precast.Waltz['Healing Waltz'] = {}
    
 	-- Fast cast sets for spells
-	sets.precast.FC = {head="Vishap Armet +1",legs="Limbo Trousers"}
+	sets.precast.FC = {head="Vishap Armet +1",neck="Baetyl Pendant",legs="Limbo Trousers"}
 
 	-- Midcast Sets
-	sets.midcast.FastRecast = {head="Vishap Armet +1"}     
+	-- sets.midcast.FastRecast = {head="Vishap Armet +1"}     
 		   
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
 	sets.WSDayBonus = {head="Gavialis Helm"} 
 
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",body="Rheic Korazin +3",back="Updraft Mantle",waist="Fotia Belt"})
+	sets.precast.WS = set_combine(sets.Mode.STR, {
+		neck="Fotia Gorget",
+		body="Rheic Korazin +3",
+		back="Brigantia's Mantle",waist="Fotia Belt",feet="Sulev. Leggings +1"})
 	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
    
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
@@ -254,27 +249,26 @@ function init_gear_sets()
 	sets.defense = {}
 	
 	sets.defense.Evasion = {
-			head="Vishap Armet +1",ear1="Ethereal Earring",ear2="Assuage Earring",
+			head="Gavialis Helm",ear1="Ethereal Earring",ear2="Assuage Earring",
 			body="Ptero. Mail +1",hands="Regimen Mittens",ring1="Vengeful Ring",
-			legs="Cizin Breeches",feet="Ejekamal Boots"}
+			legs="Limbo Trousers",feet="Vishap Greaves +1"}
 
 	sets.defense.PDT = {
-			head="Otomi Helm",neck="Twilight Torque",
-			body="Miki. Breastplate",hands="Umuthi Gloves",ring1="Patricius Ring",
-			legs="Ptero. Brais +1",feet="Ejekamal Boots"}
+			head="Sulevia's Mask +1",neck="Twilight Torque",
+			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Patricius Ring",
+			legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
 
 	sets.defense.Reraise = {head="Twilight Helm", body="Twilight Mail"}
 
 	sets.defense.MDT = {
-			head="Vishap Armet +1",neck="Twilight Torque",
-			body="Ptero. Mail +1",hands="Ptero. Fin. G. +1",ring1="Vengeful Ring",
-			waist="Flax Sash",legs="Cizin Breeches",feet="Ejekamal Boots"}
+			head="Sulevia's Mask +1",neck="Twilight Torque",
+			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Vengeful Ring",
+			waist="Flax Sash",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
 
 	sets.Kiting = {legs="Carmine Cuisses"}
 
-	-- Melee sets for in Adoulin, which has an extra 2% Haste from Ionis.
-	sets.engaged.Adoulin = set_combine(sets.engaged, {})
-	sets.engaged.Assault = set_combine(sets.engaged, {ring2="Ulthalam's Ring"}) 
+	-- These sets use a piece of gear in specific situations, need to customize_idle_set or customize_melee_set
+	sets.Assault = {ring2="Ulthalam's Ring"}
 end
  
 -------------------------------------------------------------------------------------------------------------------
@@ -365,12 +359,12 @@ end
 function job_pet_midcast(spell, action, spellMap, eventArgs)
 	-- add_to_chat(3,'pet midcast')
 	if buffactive.food then
-		add_to_chat(122,' food breath ')
+		-- add_to_chat(122,' food breath ')
 		if spell.english:startswith('Healing Breath') or spell.english:startswith('Restoring Breath') or spell.english:startswith('Smiting Breath') then
 			equip(sets.midcast.Breath.Food)
 		end
 	else
-		add_to_chat(122,' breath no food ')
+		-- add_to_chat(122,' breath no food ')
 		if spell.english:startswith('Healing Breath') or spell.english:startswith('Restoring Breath') or spell.english:startswith('Smiting Breath') then
 			equip(sets.midcast.Breath)
 		end
@@ -403,10 +397,22 @@ end
 -- Run after the default aftercast() is done.
 -- eventArgs is the same one used in job_aftercast, in case information needs to be persisted.
 function job_post_aftercast(spell, action, spellMap, eventArgs)
-	-- add_to_chat(7,'post aftercast')
-	-- if player.sub_job == 'SAM' then
-		-- handle_sam_ja(spell)
-	-- end
+	-- add_to_chat(7,'post aftercast '..spell.name)
+	-- don't do anything after these conditions
+	if spell.type == 'Trust' or spell.name == 'Jump' or spell.name == 'Spirit Jump' then
+		return
+	end
+	if spell.type == 'WeaponSkill' then
+		delay = 4
+	else	
+		delay = 1
+	end
+	if player.sub_job == 'SAM' then
+		handle_sam_ja:schedule(delay)
+	end
+	if player.sub_job == 'WAR' then
+		handle_war_ja:schedule(delay)
+	end
 end
  
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
@@ -449,6 +455,9 @@ end
 -- Modify the default melee set after it was constructed.
 function customize_melee_set(meleeSet)
 	-- add_to_chat(122,'customize melee set')
+	if areas.Assault:contains(world.area) then
+		meleeSet = set_combine(meleeSet, sets.Assault)
+	end
     return meleeSet
 end
  
@@ -471,12 +480,12 @@ end
 -- gain == true if the buff was gained, false if it was lost.
 function job_buff_change(buff, gain)
 	determine_groups()
-	if player.sub_job == 'SAM' then
-		handle_sam_ja()
-	end
-	if player.sub_job == 'WAR' then
-		handle_war_ja()
-	end
+	-- if player.sub_job == 'SAM' then
+		-- handle_sam_ja()
+	-- end
+	-- if player.sub_job == 'WAR' then
+		-- handle_war_ja()
+	-- end
 end
  
 -------------------------------------------------------------------------------------------------------------------
@@ -492,12 +501,6 @@ end
 -- Set eventArgs.handled to true if we don't want automatic equipping of gear.
 function job_update(cmdParams, eventArgs)
 	-- add_to_chat(121,'job update')
-	if areas.Adoulin:contains(world.area) and buffactive.ionis then
-			classes.CustomMeleeGroups:append('Adoulin')
-	end
-	if areas.Assault:contains(world.area) then
-			classes.CustomMeleeGroups:append('Assault')
-	end
 	pick_tp_weapon()
 end
  
