@@ -184,15 +184,17 @@ end
 function init_gear_sets()
 	-- add_to_chat(122,'init gear sets')
 	organizer_items = {
-		new1="",
-		new2="",
-		new3="",
-		new4="",
-		new5="",
-		new6="",
-		new7="",
-		new8="",
-		new9="",
+		new1="Amm Greaves",
+		new2="Leyline Gloves",
+		new3="Infused Earring",
+		new4="Eschan Stone",
+		new5="Stout Bonnet",
+		new6="Jokushu Haidate",
+		new7="Meg. Gloves +1",
+		new8="Meghanada Visor +1",
+		new9="Meg. Chausses +1",
+		new10="Solemnity Cape",
+		new11="Meg. Cuirie +1",
 		food0="Akamochi",
 		food1="Pet Food Alpha",
 		food2="Pet Food Beta",
@@ -212,7 +214,7 @@ function init_gear_sets()
 	sets.idle = {ammo="Demonry Core",
 			head="Twilight Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Moonshade Earring",
 			body="Twilight Mail",hands="Umuthi Gloves",ring1="Patricius Ring",ring2="Renaye Ring",
-			back="Pastoralist's Mantle",waist="Incarnation Sash",legs="Ferine Quijotes +2",feet="Skd. Jambeaux +1"}
+			back="Artio's Mantle",waist="Incarnation Sash",legs="Ferine Quijotes +2",feet="Skd. Jambeaux +1"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Town = set_combine(sets.idle, {})
@@ -223,7 +225,7 @@ function init_gear_sets()
     sets.idle.Pet.Offensive = set_combine(sets.idle.Pet, {ammo="Demonry Core",
         head="Emicho Coronet",neck="Ferine Necklace",ear1="Ethereal Earring",ear2="Moonshade Earring",
         body="Emicho Haubert",hands="Regimen Mittens",ring1="Patricius Ring",ring2="Angel's Ring",
-        back="Pastoralist's Mantle",waist="Incarnation Sash",legs="Emicho Hose",feet="Emicho Gambieras"})
+        back="Artio's Mantle",waist="Incarnation Sash",legs="Emicho Hose",feet="Emicho Gambieras"})
     
 	sets.idle.Pet.Defensive = set_combine(sets.idle.Pet.Offensive, {
 		head="Anwig Salade",
@@ -242,8 +244,8 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Demonry Core",
 			head="Valorous Mask",neck="Ferine Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Emicho Haubert",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Hetairoi Ring",
-			back="Pastoralist's Mantle",waist="Hurch'lan Sash",legs="Emicho Hose",feet="Valorous Greaves"}
+			body="Emicho Haubert",hands="Emicho Gauntlets",ring1="Epona's Ring",ring2="Hetairoi Ring",
+			back="Artio's Mantle",waist="Hurch'lan Sash",legs="Emicho Hose",feet="Valorous Greaves"}
 	sets.engaged.Axe = {}
 	sets.engaged.Scythe = {}
 	sets.engaged.Sword = {}
@@ -255,23 +257,23 @@ function init_gear_sets()
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {
-			head="Gavialis Helm",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Miki. Breastplate",hands="Valorous Mitts",ring1="Patricius Ring",ring2="Ulthalam's Ring",
-			back="Grounded Mantle",waist="Olseni Belt",legs="Emicho Hose",feet="Valorous Greaves"})
+			head="Meghanada Visor +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
+			body="Valorous Mail",hands="Valorous Mitts",ring1="Patricius Ring",ring2="Ulthalam's Ring",
+			back="Artio's Mantle",waist="Olseni Belt",legs="Emicho Hose",feet="Valorous Greaves"})
 	sets.Mode.Att= set_combine(sets.engaged, {
 			head="Valorous Mask",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
-			body="Rheic Korazin +3",hands="Valorous Mitts",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Phalangite Mantle",waist="Zoran's Belt",legs="Valor. Hose",feet="Valorous Greaves"})
+			body="Phorcys Korazin",hands="Valorous Mitts",ring1="Overbearing Ring",ring2="Cho'j Band",
+			back="Phalangite Mantle",waist="Zoran's Belt",legs="Valor. Hose",feet="Meg. Jam. +1"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
 			hands="Nukumi Manoplas",ring1="Hetairoi Ring"})
 	sets.Mode.DA = set_combine(sets.engaged, {
-			head="Otomi Helm",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Porthos Byrnie",ring1="Hetairoi Ring",
-			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Xaddi Cuisses",feet="Ferine Ocreae +2"})
+			head="Skormoth Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
+			body="Valorous Mail",hands="Phorcys Mitts",ring1="Epona's Ring",ring2="Hetairoi Ring",
+			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Valor. Hose",feet="Ferine Ocreae +2"})
 	sets.Mode.Haste = set_combine(sets.engaged, {
 			head="Emicho Coronet",ear1="Heartseeker Earring",ear2="Dudgeon Earring",
 			body="Porthos Byrnie",hands="Regimen Mittens",
-			back="Grounded Mantle",waist="Hurch'lan Sash",legs="Ferine Quijotes +2",feet="Ejekamal Boots"})
+			back="Artio's Mantle",waist="Hurch'lan Sash",legs="Ferine Quijotes +2",feet="Ejekamal Boots"})
 	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
 	sets.Mode.sTP = set_combine(sets.engaged, {
 			head="Yaoyotl Helm",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
@@ -279,7 +281,7 @@ function init_gear_sets()
 			back="Laic Mantle",waist="Yemaya Belt",legs="Phorcys Dirs",feet="Valorous Greaves"})
 	sets.Mode.STR = set_combine(sets.engaged, { ammo="Amar Cluster",
 			head="Valorous Mask",neck="Lacono Neck. +1",
-			body="Savas Jawshan",hands="Valorous Mitts",ring1="Rajas Ring",ring2="Apate Ring",
+			body="Valorous Mail",hands="Valorous Mitts",ring1="Rajas Ring",ring2="Apate Ring",
 			back="Buquwik Cape",waist="Wanion Belt",legs="Valor. Hose",feet="Ejekamal Boots"})
 			
 	--Initialize Main Weapons
@@ -288,10 +290,10 @@ function init_gear_sets()
 	sets.engaged.Grip = set_combine(sets.engaged, {})
 	-- sets.engaged.DW.Axe = set_combine(sets.engaged, {main="Kumbhakarna",sub=gear.Offhand})
 	sets.engaged.DW.Axe = set_combine(sets.engaged, {main="Skullrender",sub=gear.Offhand})
-	sets.engaged.Shield.Axe = set_combine(sets.engaged, {main="Kumbhakarna",sub="Viking Shield"})
+	sets.engaged.Shield.Axe = set_combine(sets.engaged, {main="Skullrender",sub="Viking Shield"})
 	sets.engaged.DW.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub=gear.Offhand})
 	sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub="Viking Shield"})
-	sets.engaged.DW.Dagger = set_combine(sets.engaged, {main="Odium",sub="Kumbhakarna"})
+	sets.engaged.DW.Dagger = set_combine(sets.engaged, {main="Odium",sub=gear.Offhand})
 	sets.engaged.Shield.Dagger = set_combine(sets.engaged, {main="Odium",sub="Viking Shield"})
 	sets.engaged.Grip.Scythe = set_combine(sets.engaged, {main="Ark Scythe", sub="Pole Grip"})
 	sets.engaged.Grip.Staff = set_combine(sets.engaged, {main="Chatoyant Staff", sub="Pole Grip"})
@@ -382,7 +384,7 @@ function init_gear_sets()
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
 	sets.WSDayBonus = {head="Gavialis Helm"} 
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",body="Rheic Korazin +3",waist="Fotia Belt"})
+	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",body="Phorcys Korazin",waist="Fotia Belt"})
 	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
    
 	-- Thunder/Wind, STR 60%
@@ -395,19 +397,19 @@ function init_gear_sets()
 	sets.precast.WS['Gale Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Thunder, STR 60%
-	sets.precast.WS['Avalanche Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Avalanche Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Earth/Thunder/Fire, STR 60%
-	sets.precast.WS['Spinning Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Spinning Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Earth, STR 50%
-	sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Earth/Thunder, STR 50% VIT 50%
-	sets.precast.WS['Calamity'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Calamity'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 
 	-- Earth/Thunder, STR 50% 
-	sets.precast.WS['Mistral Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Mistral Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Fire/light/water, STR 50%
 	sets.precast.WS['Decimation'] = set_combine(sets.precast.WS, {})
@@ -427,7 +429,7 @@ function init_gear_sets()
     sets.precast.JA['Call Beast'] = sets.precast.JA['Bestial Loyalty']
     sets.precast.JA['Familiar'] = {legs="Ankusa Trousers +1"}
     sets.precast.JA['Tame'] = {ear1="Tamer's Earring",legs="Stout Kecks"}
-    sets.precast.JA['Spur'] = {feet="Ferine Ocreae +2"}
+    sets.precast.JA['Spur'] = {back="Artio's Mantle",feet="Ferine Ocreae +2"}
 
 	-- reward gear then MND
     sets.precast.JA['Reward'] = {ammo=RewardFood,
@@ -437,14 +439,14 @@ function init_gear_sets()
 
     sets.precast.JA['Charm'] = {
         head="Ankusa Helm",neck="Ferine Necklace",
-        body="Totemic Jackcoat",hands="Ankusa Gloves +1",
+        body="Tot. Jackcoat +1",hands="Ankusa Gloves +1",
         back="Laic Mantle",legs="Ankusa Trousers +1",feet="Ankusa Gaiters +1"}
 
     -- CURING WALTZ
     sets.precast.Waltz = {
-        head="Gavialis Helm",neck="Ferine Necklace",
-        hands="Emicho Gauntlets",ring1="Valseur's Ring",
-        back="Laic Mantle",legs="Emicho Hose",feet="Scamp's Sollerets"}
+        head="Skormoth Mask",neck="Ferine Necklace",
+        body="Tot. Jackcoat +1",hands="Emicho Gauntlets",ring1="Valseur's Ring",
+        back="Laic Mantle",legs="Emicho Hose",feet="Meg. Jam. +1"}
 
     -- HEALING WALTZ
     sets.precast.Waltz['Healing Waltz'] = {}
@@ -481,22 +483,25 @@ function init_gear_sets()
 	sets.midcast.Pet.ReadyRecast = {sub="Charmer's Merlin",legs="Desultor Tassets"}
 
     -- DEFENSE SETS
-    sets.defense.PDT = {
+ 	sets.defense.Evasion = {
+		head="Skormoth Mask",ear2="Assuage Earring",feet="Meg. Jam. +1"}	
+
+	sets.defense.PDT = {
         neck="Twilight Torque",
         body="Miki. Breastplate",hands="Umuthi Gloves",
-        legs="Valorous Hose",feet="Ejekamal Boots"}
+        legs="Valorous Hose",feet="Meg. Jam. +1"}
 
+    sets.defense.MDT = set_combine(sets.defense.PDT, {
+        head="Skormoth Mask",neck="Twilight Torque",
+        body="Savas Jawshan",ring1="Vengeful Ring",
+		feet="Ejekamal Boots"})
+	
     sets.defense.Killer = set_combine(sets.defense.PDT, {body="Ferine Gausape +2"})
 	
 	sets.defense.Reraise = {head="Twilight Helm", body="Twilight Mail"}
 
-    sets.defense.MDT = set_combine(sets.defense.PDT, {
-        neck="Twilight Torque",
-        body="Savas Jawshan",ring1="Vengeful Ring",
-		feet="Ejekamal Boots"})
+	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 
-	sets.defense.Evasion = {ear2="Assuage Earring",feet="Ankusa Gaiters +1"}	
-	
     sets.Kiting = {ammo="Demonry Core",
         neck="Twilight Torque",
         ring1="Vengeful Ring",
@@ -549,6 +554,7 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 function job_buff_change(buff, gain)
+	handle_debuffs()
     if buff == 'Killer Instinct' then
         handle_equipping_gear(player.status)
     end

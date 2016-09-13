@@ -237,7 +237,7 @@ function handle_war_ja()
 			end
 		end
 		if state.Stance.value == 'Defensive' then
-			if not buffactive.Defender and abil_recasts[3] == 0 then
+			if not buffactive.Defender and player.status == "Engaged" and abil_recasts[3] == 0 then
 				windower.send_command('@input /ja "Defender" <me>')
 				return
 			end
@@ -285,14 +285,14 @@ end
 function global_on_load()
 	send_command('bind f9 gs c cycle OffenseMode')
 	send_command('bind @f9 gs c cycle HybridMode') 
-	send_command('bind !f9 gs c cycle RangedMode') --alt
 	send_command('bind ^f9 gs c cycle WeaponskillMode') --ctrl
+	send_command('bind !f9 gs c cycle RangedMode') --alt
 	send_command('bind f10 gs c cycle WeaponMode')
-	send_command('bind !f10 gs c cycle PhysicalDefenseMode') --alt
-	send_command('bind !f10 gs c toggle Kiting') --ctrl
+	send_command('bind ^f10 gs c cycle PhysicalDefenseMode') --cntl
+	send_command('bind !f10 gs c cycle MagicalDefenseMode') --alt
 	send_command('bind f11 gs c cycle SubMode')
 	send_command('bind ^f11 gs c cycle CastingMode') --ctrl
-	send_command('bind !f10 gs c cycle MagicalDefenseMode') --alt
+	send_command('bind !f11 gs c toggle Kiting') --alt
 	send_command('bind f12 gs c cycle RWeaponMode')
 	send_command('bind ^f12 gs c cycle IdleMode') --ctrl
 	send_command('bind !f12 gs c cycle DefenseMode') -- alt
@@ -302,7 +302,7 @@ function global_on_load()
 end
 
 function handle_twilight()
-	if player.hpp <= 14 or buffactive['Weakness'] then
+	if player.hpp <= 18 or buffactive['Weakness'] then
 		if Twilight == false then
 			add_to_chat(1,'equip rr')
 		end
@@ -343,6 +343,8 @@ degrade_tables.Stone = {"Stone","Stone II","Stone III","Stone IV","Stone V","Sto
 degrade_tables.Thunder = {"Thunder","Thunder II","Thunder III","Thunder IV","Thunder V","Thunder VI"}
 degrade_tables.Water = {"Water","Water II","Water III","Water IV","Water V","Water VI"}
 degrade_tables.Cure = {"Cure","Cure II","Cure III","Cure IV","Cure V","Cure VI"}
+degrade_tables.Raise = {"Raise","Raise II","Raise III","Arise"}
+degrade_tables.Reraise = {"Reraise","Reraise II","Reraise III","Reraise IV"}
 degrade_tables.Regen = {"Regen","Regen II","Regen III","Regen IV","Regen V"}
 degrade_tables.Aeroga = {"Aeroga","Aeroga II","Aeroga III"}
 degrade_tables.Aeroja = {"Aeroga","Aeroga II","Aeroga III","Aeroja"}
@@ -363,6 +365,12 @@ degrade_tables.Stonera = {"Stonera","Stonera II","Stonera III"}
 degrade_tables.Thundara = {"Thundara","Thundara II","Thundara III"}
 degrade_tables.Watera = {"Watera","Watera II","Watera III"}
 degrade_tables.Utsusemi = {"Utsusemi: Ichi","Utsusemi: Ni","Utsusemi: San"}
+degrade_tables.Katon = {"Katon: Ichi","Katon: Ni","Katon: San"}
+degrade_tables.Hyoton = {"Hyoton: Ichi","Hyoton: Ni","Hyoton: San"}
+degrade_tables.Huton = {"Huton: Ichi","Huton: Ni","Huton: San"}
+degrade_tables.Doton = {"Doton: Ichi","Doton: Ni","Doton: San"}
+degrade_tables.Raiton = {"Raiton: Ichi","Raiton: Ni","Raiton: San"}
+degrade_tables.Suiton = {"Suiton: Ichi","Suiton: Ni","Suiton: San"}
 
 function handle_spells(spell)
 	-- add_to_chat(2, 'Casting '..spell.name)
@@ -394,7 +402,9 @@ end
  
 function change_spell(spellName,target)
     cancel_spell()
-    send_command(spellName..' '..target)
+	-- add_to_chat(3, 'Canceled sending '..spellName..' to '..target)
+    -- send_command(@input /ma "'..spellName..'" '..target)
+    send_command(spellName:gsub('%s','')..' '..target)
 end
  
 function actual_cost(spell)
@@ -417,4 +427,13 @@ function actual_cost(spell)
         end   
     end
     return cost
+end
+
+function handle_debuffs()
+	if buffactive['terror'] or buffactive['stun'] or buffactive['sleep'] or buffactive['lullaby'] then
+        equip(sets.debuffed)
+    end
+    if buffactive.Doom then
+        equip(sets.debuffed)
+    end
 end

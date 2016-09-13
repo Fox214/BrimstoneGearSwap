@@ -55,6 +55,8 @@ function user_setup()
 	flag.aggressor = true
 	flag.warcry = true
 	flag.thirdeye = true
+    gear.hercTH = { name="Herculean Helm", augments={'Attack+13','"Snapshot"+3','"Treasure Hunter"+1','Accuracy+5 Attack+5',}}
+    gear.hercAcc = { name="Herculean Helm", augments={'Accuracy+29','STR+6','Attack+3',}}
 
 	pick_tp_weapon()
 	select_default_macro_book()
@@ -95,7 +97,18 @@ function init_gear_sets()
 		new29="Thur. Boots +1",
 		new30="Orvail Pants +1",
 		new31="Wayfarer Circlet",
-		new32="Wayfarer Robe",
+		new32="Leyline Gloves",",
+		new33="Skormoth Mask",
+		new34="Epona's Ring",
+		new35="Meg. Jam. +1",
+		new36="Meg. Gloves +1",
+		new37="Meghanada Visor +1",
+		new38="Meg. Chausses +1",
+		new39="Loxotic Mace",
+		new40="Solemnity Cape",
+		new41="Meg. Cuirie +1",
+		new42="Infused Earring",
+		new43="Eschan Stone",
 		echos="Echo Drops",
 		-- shihei="Shihei",
 		orb="Macrocosmic Orb"
@@ -124,7 +137,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Potestas Bomblet",
 			head="Whirlpool Mask",neck="Asperity Necklace",ear1="Ethereal Earring",ear2="Brutal Earring",
-			body="Iuitl Vest",hands="Buremte Gloves",ring1="Rajas Ring",ring2="Moepapa Annulet",
+			body="Meg. Cuirie +1",hands="Buremte Gloves",ring1="Rajas Ring",ring2="Moepapa Annulet",
 			back="Atheling Mantle",waist="Twilight Belt",legs="Feast Hose",feet="Runeist Bottes"}
 	sets.engaged.GreatAxe = {}
 	sets.engaged.Axe = {}
@@ -148,7 +161,7 @@ function init_gear_sets()
 			legs="Quiahuiz Trousers",feet="Thaumas Nails"})
 	sets.Mode.Haste = set_combine(sets.engaged, {
 			head="Ejekamal Mask",ear1="Heartseeker Earring",ear2="Dudgeon Earring",
-			body="Iuitl Vest",hands="Umuthi Gloves",
+			body="Herculean Vest",hands="Umuthi Gloves",
 			back="Grounded Mantle",waist="Twilight Belt",legs="Quiahuiz Trousers",feet="Runeist Bottes"})
 	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
 	sets.Mode.sTP = set_combine(sets.engaged, {
@@ -157,7 +170,7 @@ function init_gear_sets()
 			legs="Iuitl Tights"})
 	sets.Mode.STR = set_combine(sets.engaged, {ammo="Amar Cluster",
 			head="Whirlpool Mask",neck="Lacono Neck. +1",
-			body="Iuitl Vest",hands="Umuthi Gloves",ring1="Rajas Ring",ring2="Aife's Ring",
+			body="Meg. Cuirie +1",hands="Umuthi Gloves",ring1="Rajas Ring",ring2="Aife's Ring",
 			back="Buquwik Cape",waist="Wanion Belt",legs="Nahtirah Trousers",feet="Runeist Bottes"})
 			
 	--Initialize Main Weapons
@@ -270,7 +283,7 @@ function init_gear_sets()
 	sets.precast.WS['Freezebite'] = set_combine(sets.precast.WS, {neck="Snow Gorget",waist="Snow Belt"})
 	
 	-- Water, STR 30% MND 30%
-	sets.precast.WS['Shockwaver'] = set_combine(sets.precast.WS, {neck="Aqua Gorget",waist="Aqua Belt"})
+	sets.precast.WS['Shockwaver'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth, STR 80% 
 	sets.precast.WS['Crescent Moon'] = set_combine(sets.precast.WS, {neck="Soil Gorget",waist="Soil Belt"})
@@ -336,23 +349,24 @@ function init_gear_sets()
 	--------------------------------------
 	-- Midcast sets
 	--------------------------------------
-	
-	sets.midcast.FastRecast = {}     
+	-- sets.midcast.FastRecast = {}     
     sets.midcast['Enhancing Magic'] = {neck="Melic Torque",ear2="Liminus Earring",hands="Runeist Mitons"}
     sets.midcast['Divine Magic'] = {ear2="Liminus Earring",waist="Yamabuki-no-Obi",legs="Runeist Trousers"}
-    sets.midcast['Regen'] = {head="Runeist Bandeau", legs="Futhark Trousers +1"}
+    sets.midcast['Regen'] = {head="Runeist Bandeau",ear1="Pratik Earring",legs="Futhark Trousers +1"}
     sets.midcast['Stoneskin'] = {waist="Siegel Sash"}
     sets.midcast.Cure = {neck="Phalaina Locket",hands="Buremte Gloves", feet="Futhark Boots +1"}
 	
 	--Defense
+	sets.defense.Evasion = {head="Whirlpool Mask",ear1="Ethereal Earring",
+		body="Herculean Vest",ring1="Alert Ring"}
+
 	sets.defense.PDT = {head="Ejekamal Mask",neck="Twilight Torque",
-		body="Iuitl Vest",hands="Umuthi Gloves"}
+		body="Meg. Cuirie +1",hands="Umuthi Gloves"}
 
 	sets.defense.MDT = {head="Ejekamal Mask",neck="Twilight Torque",
-		body="Iuitl Vest",hands="Umuthi Gloves"}
-	
-	sets.defense.Evasion = {head="Whirlpool Mask",ear1="Ethereal Earring",
-		body="Iuitl Vest",ring1="Alert Ring"}
+		body="Runeist Coat",hands="Umuthi Gloves"}
+		
+	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 
 	sets.Kiting = {feet="Skd. Jambeaux +1"}
 end
@@ -580,6 +594,7 @@ function select_default_macro_book()
 end
 
 function job_buff_change(buff, gain)
+	handle_debuffs()
 	determine_groups()
 	if player.sub_job == 'SAM' then
 		handle_sam_ja()

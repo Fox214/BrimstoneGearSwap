@@ -68,64 +68,66 @@ function init_gear_sets()
 	--------------------------------------
 	-- Sets to return to when not performing an action.
     organizer_items = {
-		new1="Grounded Mantle",
-		new2="Odium",
-		new3="Crusher's Gauntlets",
-		new4="Macbain",
-		new5="Lacono Neck. +1",
-		new6="Vengeful Ring",
-		new7="Nesanica Torque",
-		new8="Zennaroi Earring",
-		new9="Chaac Belt",
-		new10="Gavialis Helm",
-		new11="Maskirova Torque",
-		new12="Olseni Belt",
-		new13="Apate Ring",
-		new14="Sanctity Necklace",
-		new15="Valor. Hose",
-		new16="Valorous Mitts",
-		new17="Valorous Greaves",
-		new18="Valorous Mask",
-		new19="Ravager's Mask +2",
-		new20="Emicho Hose",
-		new21="Amar Cluster",
-		new22="Emicho Coronet",
-		new23="Ginsen",
-		new24="Savas Jawshan",
-		new25="Assuage Earring",
-		new26="Homeric Gorget",
-		new27="Odyss. Chestplate",
-		new28="Hetairoi Ring",
-		new29="Laic Mantle",
-		new30="Aganoshe",
-		new31="Sarissapho. Belt",
-		new32="Limbo Trousers",
-		new33="Obviation Cuirass",
-		new34="Combuster",
-		new35="Odyssean Cuisses",
-		new36="Perception Ring",
-		new37="Odyssean Cuisses",
-		new38="Phalangite Mantle",
-		new39="Sulev. Leggings +1",
-		new40="Sulev. Gauntlets +1",
-		new41="Sulevia's Mask +1",
-		new42="Sulevia's Plate. +1",
-		new43="Sulevi. Cuisses +1",
-		new44="Baetyl Pendant",
-		new45="Emicho Haubert",
-		new46="Emicho Gauntlets",
-		new47="Emicho Gambieras",
-		new48="Eminent Sheild",
-		new49="Kari. Brayettes +1",
+		new1="Cichol's Mantle",
+		new2="",
+		new3="",
+		new4="",
+		new5="",
+		new6="",
+		new7="",
+		new8="",
+		new9="",
+		new10="",
+		new11="",
+		new12="",
+		new13="",
+		new14="",
+		new15="",
+		new16="",
+		new17="",
+		new18="",
+		new19="",
+		new20="",
+		new21="",
+		new22="",
+		new23="",
+		new24="",
+		new25="",
+		new26="",
+		new27="",
+		new28="",
+		new29="",
+		new30="",
+		new31="",
+		new32="",
+		new33="",
+		new34="",
+		new35="",
+		new36="",
+		new37="",
+		new38="",
+		new39="",
+		new40="",
+		new41="",
+		new42="",
+		new43="",
+		new44="",
+		new45="",
+		new46="",
+		new47="",
+		new48="",
+		new49="",
+		new50="",
+		new51="",
 		echos="Echo Drops",
 		shihei="Shihei",
 		orb="Macrocosmic Orb"
 	}
 
 	-- Idle sets
-	sets.idle = {head="Twilight Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Moonshade Earring",
-			body="Twilight Mail",hands="Umuthi Gloves",ring1="Rajas Ring",ring2="Ulthalam's Ring",
-			back="Mauler's Mantle",waist="Zoran's Belt",legs="Xaddi Cuisses",feet="Scamp's Sollerets"}
+	sets.idle = {head="Twilight Helm",neck="Twilight Torque",ear1="Infused Earring",ear2="Moonshade Earring",
+			body="Twilight Mail",hands="Sulev. Gauntlets +1",ring1="Rajas Ring",ring2="Vengeful Ring",
+			back="Solemnity Cape",waist="Flax Sash",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Town = set_combine(sets.idle, {})
@@ -142,10 +144,10 @@ function init_gear_sets()
 	-- EG: sets.engaged.Dagger.Accuracy.Evasion
 
 	-- Normal melee group
-	sets.engaged = {ammo="Potestas Bomblet",
-			head="Yaoyotl Helm",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Miki. Breastplate",hands="Miki. Gauntlets",ring1="Rajas Ring",ring2="Cho'j Band",
-			back="Mauler's Mantle",waist="Zoran's Belt",legs="Wukong's Haka. +1",feet="Scamp's Sollerets"}
+	sets.engaged = {
+			head="Valorous Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
+			body="Valorous Mail",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Hetairoi Ring",
+			back="Mauler's Mantle",waist="Sarissapho. Belt",legs="Sulevi. Cuisses +1",feet="Valorous Greaves"}
 	sets.engaged.GreatAxe = {}
 	sets.engaged.Axe = {}
 	sets.engaged.GreatSword = {}
@@ -162,58 +164,60 @@ function init_gear_sets()
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {
-			head="Yaoyotl Helm",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Miki. Breastplate",hands="Buremte Gloves",ring1="Patricius Ring",ring2="Ulthalam's Ring",
-			back="Mauler's Mantle",waist="Nu Sash",legs="Wukong's Haka. +1",feet="Scamp's Sollerets"})
+			head="Sulevia's Mask +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
+			body="Valorous Mail",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Ulthalam's Ring",
+			back="Grounded Mantle",waist="Olseni Belt",legs="Sulevi. Cuisses +1",feet="Valorous Greaves"})
 	sets.Mode.Att= set_combine(sets.engaged, {
-			head="Valorous Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
-			body="Rheic Korazin +3",hands="Miki. Gauntlets",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Atheling Mantle",waist="Zoran's Belt",legs="Miki. Cuisses",feet="Mikinaak Greaves"})
+			head="Sulevia's Mask +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
+			body="Phorcys Korazin",hands="Sulev. Gauntlets +1",ring1="Overbearing Ring",ring2="Cho'j Band",
+			back="Phalangite Mantle",waist="Eschan Stone",legs="Emicho Hose",feet="Sulev. Leggings +1"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
-			feet="Rvg. Calligae +2"})
+			head="Valorous Mask",hands="Valorous Mitts",ring2="Hetairoi Ring",legs="Jokushu Haidate",feet="Valorous Greaves"})
 	sets.Mode.DA = set_combine(sets.engaged, {
-			head="Otomi Helm",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Porthos Byrnie",hands="Rvg. Mufflers +2",
-			back="Mauler's Mantle",legs="Rvg. Cuisses +2",feet="Ejekamal Boots"})
+			head="Skormoth Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
+			body="Valorous Mail",hands="Sulev. Gauntlets +1",ring2="Hetairoi Ring",
+			back="Cichol's Mantle",waist="Sarissapho. Belt",legs="Rvg. Cuisses +2",feet="Amm Greaves"})
 	sets.Mode.Haste = set_combine(sets.engaged, {
 			head="Otomi Helm",ear1="Heartseeker Earring",ear2="Dudgeon Earring",
-			body="Porthos Byrnie",hands="Umuthi Gloves",
-			waist="Zoran's Belt",legs="Rvg. Cuisses +2",feet="Ejekamal Boots"})
+			body="Porthos Byrnie",hands="Emicho Gauntlets",
+			waist="Zoran's Belt",legs="Jokushu Haidate",feet="Ejekamal Boots"})
 	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
 	sets.Mode.sTP = set_combine(sets.engaged, {
-			head="Yaoyotl Helm",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
-			body="Rvg. Lorica +2",hands="Cizin Mufflers",ring1="Rajas Ring",ring2="K'ayres Ring",
-			legs="Phorcys Dirs",feet="Mikinaak Greaves"})
+			head="Valorous Mask",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
+			body="Rvg. Lorica +2",hands="Emicho Gauntlets",ring1="Rajas Ring",ring2="K'ayres Ring",
+			back="Laic Mantle",waist="Olseni Belt",legs="Phorcys Dirs",feet="Valorous Greaves"})
 	sets.Mode.STR = set_combine(sets.engaged, {
-			head="Otomi Helm",
-			body="Miki. Breastplate",hands="Miki. Gauntlets",ring1="Rajas Ring",ring2="Aife's Ring",
-			back="Buquwik Cape",waist="Wanion Belt",legs="Wukong's Haka. +1",feet="Scamp's Sollerets"})
+			head="Sulevia's Mask +1",neck="Lacono Neck. +1",
+			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Rajas Ring",ring2="Apate Ring",
+			back="Buquwik Cape",waist="Wanion Belt",legs="Valor. Hose",feet="Sulev. Leggings +1"})
 			
 	--Initialize Main Weapons
 	sets.engaged.DW = set_combine(sets.engaged, {})
 	sets.engaged.Shield = set_combine(sets.engaged, {})
 	sets.engaged.Grip = set_combine(sets.engaged, {})
 	sets.engaged.DW.Axe = set_combine(sets.engaged, {main="Kumbhakarna",sub="Hatxiik"})
-	sets.engaged.Shield.Axe = set_combine(sets.engaged, {main="Kumbhakarna",sub="Viking Shield"})
-	sets.engaged.DW.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub="Kumbhakarna"})
-	sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub="Viking Shield"})
-	sets.engaged.DW.Dagger = set_combine(sets.engaged, {main="Twilight Knife",sub="Kumbhakarna"})
-	sets.engaged.Shield.Dagger = set_combine(sets.engaged, {main="Twilight Knife",sub="Viking Shield"})
-	sets.engaged.Grip.GreatAxe = set_combine(sets.engaged, {main="Ixtab",sub="Pole Grip"})
+	sets.engaged.Shield.Axe = set_combine(sets.engaged, {main="Kumbhakarna",sub="Eminent Shield"})
+	sets.engaged.DW.Club = set_combine(sets.engaged, {main="Loxotic Mace",sub="Kumbhakarna"})
+	-- sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub="Eminent Shield"})
+	sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Loxotic Mace",sub="Eminent Shield"})
+	sets.engaged.DW.Dagger = set_combine(sets.engaged, {main="Odium",sub="Kumbhakarna"})
+	sets.engaged.Shield.Dagger = set_combine(sets.engaged, {main="Odium",sub="Eminent Shield"})
+	sets.engaged.Grip.GreatAxe = set_combine(sets.engaged, {main="Aganoshe",sub="Pole Grip"})
 	sets.engaged.Grip.GreatKatana = set_combine(sets.engaged, {main="Hardwood Katana",sub="Pole Grip"})
-	sets.engaged.Grip.GreatSword = set_combine(sets.engaged, {main="Algol",sub="Pole Grip"})
+	sets.engaged.Grip.GreatSword = set_combine(sets.engaged, {main="Zulfiqar",sub="Pole Grip"})
 	sets.engaged.Grip.H2H = set_combine(sets.engaged, {main=empty,sub=empty})
 	sets.engaged.DW.Katana = set_combine(sets.engaged, {main="Trainee Burin",sub="Kumbhakarna"})
-	sets.engaged.Shield.Katana = set_combine(sets.engaged, {main="Trainee Burin",sub="Viking Shield"})
+	sets.engaged.Shield.Katana = set_combine(sets.engaged, {main="Trainee Burin",sub="Eminent Shield"})
 	sets.engaged.Grip.Polearm = set_combine(sets.engaged, {main="Gondo-Shizunori", sub="Pole Grip"})
 	sets.engaged.Grip.Scythe = set_combine(sets.engaged, {main="Ark Scythe", sub="Pole Grip"})
 	sets.engaged.Grip.Staff = set_combine(sets.engaged, {main="Chatoyant Staff", sub="Pole Grip"})
-	sets.engaged.DW.Sword = set_combine(sets.engaged, {main="Usonmunku",sub="Kumbhakarna"})
-	sets.engaged.Shield.Sword = set_combine(sets.engaged, {main="Usonmunku",sub="Viking Shield"})
+	sets.engaged.DW.Sword = set_combine(sets.engaged, {main="Combuster",sub="Kumbhakarna"})
+	sets.engaged.Shield.Sword = set_combine(sets.engaged, {main="Combuster",sub="Eminent Shield"})
 	--Add in appropriate Ranged weapons
 	sets.ranged = {}
-	sets.ranged.Stats = {ranged="",ammo="Ravager's Orb"}
+	sets.ranged.Stats = {ranged="",ammo="Amar Cluster"}
 	sets.ranged.Xbow = {ranged="Tsoa. Crossbow",ammo="Bloody Bolt"}
+	sets.ranged.Boomerrang = {ranged="Antitail +1",ammo=""}
 	
 	sets.engaged.DW.Axe.Xbow = set_combine(sets.engaged.DW.Axe, sets.ranged.Xbow)
 	sets.engaged.DW.Axe.Stats = set_combine(sets.engaged.DW.Axe, sets.ranged.Stats)
@@ -320,7 +324,7 @@ function init_gear_sets()
 	sets.engaged.DW.Dagger.Crit = set_combine(sets.engaged.DW.Dagger, sets.Mode.Crit)
 	sets.engaged.DW.Dagger.DA = set_combine(sets.engaged.DW.Dagger, sets.Mode.DA)
 	sets.engaged.DW.Dagger.Haste = set_combine(sets.engaged.DW.Dagger, sets.Mode.Haste)
-	sets.engaged.DW.Dagger.Skill = set_combine(sets.engaged.DW.Dagger, {})
+	sets.engaged.DW.Dagger.Skill = set_combine(sets.engaged.DW.Dagger, {neck="Maskirova Torque"})
 	sets.engaged.DW.Dagger.sTP = set_combine(sets.engaged.DW.Dagger, sets.Mode.sTP)
 	sets.engaged.DW.Dagger.STR = set_combine(sets.engaged.DW.Dagger, sets.Mode.STR)
 	sets.engaged.Shield.Dagger.Acc = set_combine(sets.engaged.Shield.Dagger, sets.Mode.Acc)
@@ -328,7 +332,7 @@ function init_gear_sets()
 	sets.engaged.Shield.Dagger.Crit = set_combine(sets.engaged.Shield.Dagger, sets.Mode.Crit)
 	sets.engaged.Shield.Dagger.DA = set_combine(sets.engaged.Shield.Dagger, sets.Mode.DA)
 	sets.engaged.Shield.Dagger.Haste = set_combine(sets.engaged.Shield.Dagger, sets.Mode.Haste)
-	sets.engaged.Shield.Dagger.Skill = set_combine(sets.engaged.Shield.Dagger, {})
+	sets.engaged.Shield.Dagger.Skill = set_combine(sets.engaged.Shield.Dagger, {neck="Maskirova Torque"})
 	sets.engaged.Shield.Dagger.sTP = set_combine(sets.engaged.Shield.Dagger, sets.Mode.sTP)
 	sets.engaged.Shield.Dagger.STR = set_combine(sets.engaged.Shield.Dagger, sets.Mode.STR)
 
@@ -372,9 +376,8 @@ function init_gear_sets()
 	sets.engaged.Grip.Polearm.DA = set_combine(sets.engaged.Grip.Polearm, sets.Mode.DA)
 	sets.engaged.Grip.Polearm.Haste = set_combine(sets.engaged.Grip.Polearm, sets.Mode.Haste)
 	sets.engaged.Grip.Polearm.Skill = set_combine(sets.engaged.Grip.Polearm, {
-			neck="Love Torque",ear1="Tripudio Earring",
-			body="Fazheluo R. Mail",ring2="Portus Ring",
-			feet="Etamin Gambieras"})
+			neck="Maskirova Torque",ear1="Tripudio Earring",
+			ring2="Portus Ring"})
 	sets.engaged.Grip.Polearm.sTP = set_combine(sets.engaged.Grip.Polearm, sets.Mode.sTP)
 	sets.engaged.Grip.Polearm.STR = set_combine(sets.engaged.Grip.Polearm, sets.Mode.STR)
 
@@ -382,7 +385,7 @@ function init_gear_sets()
 			
 	-- Precast Sets
 	-- Precast sets to enhance JAs
-    sets.precast.JA.Berserk = {body="Pumm. Lorica +1",feet="Agoge Calligae +1"}
+    sets.precast.JA.Berserk = {body="Pumm. Lorica +1",back="Cichol's Mantle",feet="Agoge Calligae +1"}
     sets.precast.JA['Aggressor'] = {head="Pumm. Mask +1",body="Agoge Lorica +1"}
     sets.precast.JA['Mighty Strikes'] = {hands="Agoge Mufflers +1"}
     sets.precast.JA['Blood Rage'] = {body="Rvg. Lorica +2"}
@@ -395,151 +398,159 @@ function init_gear_sets()
 	
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {
-			head="Yaoyotl Helm",
-			body="Mikinaak Breastplate",hands="Buremte Gloves",
-			legs="Cizin Breeches"}
+			head="Skormoth Mask",
+			body="Savas Jawshan",hands="Buremte Gloves",
+			back="Laic Mantle",legs="Emicho Hose",feet="Sulev. Leggings +1"}
 		   
 	-- Don't need any special gear for Healing Waltz.
 	sets.precast.Waltz['Healing Waltz'] = {}
    
 	-- Fast cast sets for spells
-	sets.precast.FC = {}
+	sets.precast.FC = {neck="Baetyl Pendant",body="Odyss. Chestplate",hands="Leyline Gloves",legs="Limbo Trousers"}
 
 	-- Midcast Sets
-	sets.midcast.FastRecast = {
-			body="Mikinaak Breastplate",hands="Cizin Mufflers",
-			legs="Cizin Breeches"}     
+	-- sets.midcast.FastRecast = {}     
+
+	-- Ranged gear
+    sets.midcast.RA = {
+        neck="Iqabi Necklace",
+        ring1="Behemoth Ring",ring2="Scorpion Ring +1",
+        waist="Eschan Stone"}
+
 		   
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
 	sets.WSDayBonus = {head="Gavialis Helm"} 
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",body="Rheic Korazin +3",waist="Fotia Belt"})
-	sets.precast.WS.Acc = set_combine(sets.precast.WS, {head="Yaoyotl Helm"})
+	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",body="Phorcys Korazin",hands="Odyssean Gauntlets",waist="Fotia Belt",feet="Sulev. Leggings +1"})
+	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
    
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	-- Thunder, STR 60% VIT 60%
-	sets.precast.WS['Shield Break'] = set_combine(sets.precast.WS, {neck="Thunder Gorget",body="Rheic Korazin +3",waist="Thunder Belt"})
+	sets.precast.WS['Shield Break'] = set_combine(sets.precast.WS, {neck="Thunder Gorget",body="Phorcys Korazin",waist="Thunder Belt"})
 
 	-- Earth, STR 60% 
-	sets.precast.WS['Iron Tempest'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Iron Tempest'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 
 	-- Earth/Water, STR 60% 
-	sets.precast.WS['Sturmwind'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Sturmwind'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 
 	-- Thunder, STR 60% VIT 60%
-	sets.precast.WS['Armor Break'] = set_combine(sets.precast.WS, {neck="Thunder Gorget",body="Rheic Korazin +3",waist="Thunder Belt"})
+	sets.precast.WS['Armor Break'] = set_combine(sets.precast.WS, {neck="Thunder Gorget",body="Phorcys Korazin",waist="Thunder Belt"})
 
 	-- Dark, STR 100%
-	sets.precast.WS['Keen Edge'] = set_combine(sets.precast.WS, {neck="Dark Gorget",body="Rheic Korazin +3",waist="Dark Belt"})
+	sets.precast.WS['Keen Edge'] = set_combine(sets.precast.WS, {})
 
 	-- Thunder, STR 60% VIT 60%
-	sets.precast.WS['Weapon Break'] = set_combine(sets.precast.WS, {neck="Thunder Gorget",body="Rheic Korazin +3",waist="Thunder Belt"})
+	sets.precast.WS['Weapon Break'] = set_combine(sets.precast.WS, {neck="Thunder Gorget",body="Phorcys Korazin",waist="Thunder Belt"})
 
 	-- Ice/Water, STR 50% 
-	sets.precast.WS['Raging Rush'] = set_combine(sets.precast.WS, {neck="Snow Gorget",body="Rheic Korazin +3",waist="Snow Belt"})
+	sets.precast.WS['Raging Rush'] = set_combine(sets.precast.WS, {neck="Snow Gorget",body="Phorcys Korazin",waist="Snow Belt"})
 	
 	-- Ice/Water, STR 50% VIT 50%
-	sets.precast.WS['Full Break'] = set_combine(sets.precast.WS, {neck="Snow Gorget",body="Rheic Korazin +3",waist="Snow Belt"})
+	sets.precast.WS['Full Break'] = set_combine(sets.precast.WS, {neck="Snow Gorget",body="Phorcys Korazin",waist="Snow Belt"})
 	
 	-- Ice/Water/Wind, STR 60% VIT 60%
-	sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Thunder/Wind, STR 60%
-	sets.precast.WS['Fell Cleave'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Fell Cleave'] = set_combine(sets.precast.WS, {})
 	
 	-- Fire/Light/Dark, STR 60%
-	sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 	
 	-- Wind/Thunder/Light, STR 80%
-	sets.precast.WS['Ukko\'s Fury'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Ukko\'s Fury'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 	
 	-- Earth/Thunder/Wind, STR 50%
-	sets.precast.WS['King\'s Justice'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['King\'s Justice'] = set_combine(sets.precast.WS, {})
 	
 	-- Thunder/Wind, STR 60%
-	sets.precast.WS['Raging Axe'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Raging Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Ice/Water, STR 100%
-	sets.precast.WS['Smash Axe'] = set_combine(sets.precast.WS, {neck="Aqua Gorget",body="Rheic Korazin +3",waist="Aqua Belt"})
+	sets.precast.WS['Smash Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Wind, STR 100%
-	sets.precast.WS['Gale Axe'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Gale Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Thunder, STR 60%
-	sets.precast.WS['Avalanche Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Avalanche Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Earth/Thunder/Fire, STR 60%
-	sets.precast.WS['Spinning Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Spinning Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Earth, STR 50%
-	sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Earth/Thunder, STR 50% VIT 50%
-	sets.precast.WS['Calamity'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Calamity'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 
 	-- Earth/Thunder, STR 50% 
-	sets.precast.WS['Mistral Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Rheic Korazin +3",waist="Soil Belt"})
+	sets.precast.WS['Mistral Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
 	
 	-- Fire/light/water, STR 50%
-	sets.precast.WS['Decimation'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Decimation'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 	
 	-- Earth/Wind, DEX 100%
-	sets.precast.WS['Bora Axe'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Bora Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Wind, STR 73%
-	sets.precast.WS['Ruinator'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Ruinator'] = set_combine(sets.precast.WS, {})
 	
 	-- Dark/Wind/Thunder, STR 40% MND 40%
-	sets.precast.WS['Cloudsplitter'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Cloudsplitter'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Wind/Thunder, STR 73%
-	sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {neck="Breeze Gorget",body="Rheic Korazin +3",waist="Breeze Belt"})
+	sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {})
 
 	-- Light, STR 30% DEX 30%
-	sets.precast.WS['Double Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Double Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 		
 	-- Light/Thunder, STR 40% INT 40%
-	sets.precast.WS['Thunder Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Thunder Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 
 	-- Light/Thunder, STR 40% INT 40% 
-	sets.precast.WS['Raiden Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Raiden Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 
 	-- Thunder, STR 100%
-	sets.precast.WS['Leg Sweep'] = set_combine(sets.precast.WS, {body="Rheic Korazin +3"})
+	sets.precast.WS['Leg Sweep'] = set_combine(sets.precast.WS, {body="Phorcys Korazin"})
 
 	-- Darkness, STR 20% DEX 20% 
-	sets.precast.WS['Penta Thrust'] = set_combine(sets.precast.WS, {neck="Shadow Gorget",body="Rheic Korazin +3",waist="Shadow Belt"})
+	sets.precast.WS['Penta Thrust'] = set_combine(sets.precast.WS, {neck="Shadow Gorget",body="Phorcys Korazin",waist="Shadow Belt"})
 
 	-- Light/Water, STR 50% AGI 50% 
-	sets.precast.WS['Vorpal Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Vorpal Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 
 	-- Dark/Earth/Ice, STR 100% -->
-	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, {body="Rheic Korazin +3"})
+	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, {body="Phorcys Korazin"})
 
 	-- Light/Earth, STR 40% DEX 40%-->
-	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",waist="Light Belt"})
+	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",waist="Light Belt"})
 
 	-- Dark/Earth/Light, STR 85% -->
-	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Rheic Korazin +3",back="Atheling Mantle",waist="Light Belt"})
+	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS, {neck="Light Gorget",body="Phorcys Korazin",back="Atheling Mantle",waist="Light Belt"})
 
 	-- Defense sets
 	sets.defense = {}
 	
-	sets.defense.Evasion = {
-			head="Yaoyotl Helm",ear1="Ethereal Earring",
-			body="Miki. Breastplate",hands="Umuthi Gloves",
-			legs="Wukong's Haka +1",feet="Scamp's Sollerets"}
-
-	sets.defense.PDT = {
-			neck="Twilight Torque",
-			hands="Umuthi Gloves",ring1="Patricius Ring"}
-
 	sets.defense.Reraise = {head="Twilight Helm", body="Twilight Mail"}
 
+	sets.defense.Evasion = {
+		head="Valorous Mask",ear1="Infused Earring",ear2="Assuage Earring",
+		body="Valorous Mail",hands="Umuthi Gloves",ring2="Vengeful Ring",
+		legs="Valor. Hose",feet="Valorous Greaves"}
+
+	sets.defense.PDT = {
+		head="Sulevia's Mask +1",neck="Homeric Gorget",
+		body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Patricius Ring",
+		back="Solemnity Cape",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
+
 	sets.defense.MDT = {
-			head="Yaoyotl Helm",neck="Twilight Torque",
-			body="Miki. Breastplate",hands="Umuthi Gloves",
-			waist="Flax Sash",legs="Cizin Breeches",feet="Scamp's Sollerets"}
+		head="Sulevia's Mask +1",neck="Twilight Torque",
+		body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring2="Vengeful Ring",
+		back="Solemnity Cape",waist="Flax Sash",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
+	
+	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 
 	sets.Kiting = {}
 
@@ -686,6 +697,7 @@ end
 -- buff == buff gained or lost
 -- gain == true if the buff was gained, false if it was lost.
 function job_buff_change(buff, gain)
+	handle_debuffs()
 	handle_war_ja()
 	if player.sub_job == 'SAM' then
 		handle_sam_ja()

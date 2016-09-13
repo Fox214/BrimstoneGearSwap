@@ -44,6 +44,8 @@ function user_setup()
 	state.WeaponskillMode:options('Normal', 'Acc')
 	
 	gear.default.weaponskill_neck = "Ocachi Gorget"
+    gear.hercTH = { name="Herculean Helm", augments={'Attack+13','"Snapshot"+3','"Treasure Hunter"+1','Accuracy+5 Attack+5',}}
+    gear.hercAcc = { name="Herculean Helm", augments={'Accuracy+29','STR+6','Attack+3',}}
 	
 	DefaultAmmo = {['Yoichinoyumi'] = "Achiyalabopa arrow", ['Annihilator'] = "Achiyalabopa bullet"}
 	U_Shot_Ammo = {['Yoichinoyumi'] = "Achiyalabopa arrow", ['Annihilator'] = "Achiyalabopa bullet"}
@@ -73,15 +75,21 @@ function init_gear_sets()
 		new4="Yemaya Belt",
 		new5="Baetyl Pendant",
 		new6="Wayfarer Circlet",
-		new7="Wayfarer Robe",
-		new8="",
-		new9="",
-		new10="",
+		new7="Antitail +1",
+		new8="Epona's Ring",
+		new9="Meg. Jam. +1",
+		new10="Meg. Gloves +1",
 		new11="Thur. Chapeau +1",
 		new12="Thur. Tights +1",
 		new13="Thur. Boots +1",
-		new14="",
-		new15="",
+		new14="Meghanada Visor +1",
+		new15="Meg. Chausses +1",
+		new16="Solemnity Cape",
+		new17="Meg. Cuirie +1",
+		new18="Leyline Gloves",
+		new22="Infused Earring",
+		new23="Eschan Stone",
+		new24="Jokushu Haidate",
 		-- echos="Echo Drops",
 		shihei="Shihei",
 		orb="Macrocosmic Orb"
@@ -89,7 +97,7 @@ function init_gear_sets()
 	-- Idle sets
 	sets.idle = {
 		head="Herculean Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Assuage Earring",
-		body="Iuitl Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Apate Ring",
+		body="Meg. Cuirie +1",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Apate Ring",
 		back="Lutian Cape",waist="Flax Sash",legs="Carmine Cuisses",feet="Herculean Boots"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
@@ -108,8 +116,8 @@ function init_gear_sets()
 
 	-- Normal melee group
 	sets.engaged = {
-			head="Whirlpool Mask",neck="Sanctity Necklace",ear1="Suppanomimi",ear2="Ethereal Earring",
-			body="Iuitl Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Apate Ring",
+			head="Whirlpool Mask",neck="Sanctity Necklace",ear1="Ethereal Earring",ear2="Suppanomimi",
+			body="Meg. Cuirie +1",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Apate Ring",
 			back="Grounded Mantle",waist="Sarissapho. Belt",legs="Carmine Cuisses",feet="Herculean Boots"}
 	sets.engaged.Axe = {}
 	sets.engaged.Sword = {}
@@ -125,12 +133,12 @@ function init_gear_sets()
 		legs="Carmine Cuisses"})
 	sets.Mode.Crit = set_combine(sets.engaged, {ring1="Hetairoi Ring"})
 	sets.Mode.DA = set_combine(sets.engaged, {ring1="Hetairoi Ring",waist="Sarissapho. Belt"})
-	sets.Mode.Haste = set_combine(sets.engaged, {})
+	sets.Mode.Haste = set_combine(sets.engaged, {body="Herculean Vest"})
 	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ring2="Prouesse Ring"})
 	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",back="Laic Mantle"})
 	sets.Mode.STR = set_combine(sets.engaged, {
 		head="Lilitu Headpiece",neck="Lacono Neck. +1",
-		body="Iuitl Vest",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
+		body="Meg. Cuirie +1",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
 		back="Buquwik Cape",waist="Wanion Belt",legs="Herculean Trousers",feet="Herculean Boots"})
 			
 	--Initialize Main Weapons
@@ -241,9 +249,8 @@ function init_gear_sets()
 
 
 	-- Fast cast sets for spells
-
 	sets.precast.FC = {
-		head="Herculean Helm",ear2="Loquacious Earring",
+		head="Herculean Helm",
 		hands="Thaumas Gloves",ring1="Prolix Ring",legs="Limbo Trousers"}
 
 	sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
@@ -260,11 +267,7 @@ function init_gear_sets()
 	--------------------------------------
 
 	-- Fast recast for spells
-	
-	sets.midcast.FastRecast = {
-		head="Orion Beret +1",ear1="Loquacious Earring",
-		ring1="Prolix Ring",
-		waist="Pya'ekue Belt +1",legs="Orion Braccae +1",feet="Orion Socks +1"}
+	-- sets.midcast.FastRecast = {}
 
 	sets.midcast.Utsusemi = {}
 
@@ -281,19 +284,21 @@ function init_gear_sets()
 		back="Lutian Cape",waist="Flax Sash",legs="Feast Hose",feet="Herculean Boots"})
 
 	-- Defense sets
+	sets.defense.Evasion = {body="Herculean Vest"}
+	
 	sets.defense.PDT = {
 		head="Whirlpool Mask",neck="Twilight Torque",
-		body="Orion Jerkin +1",hands="Orion Bracers +1",
+		body="Meg. Cuirie +1",hands="Orion Bracers +1",
 		back="Mollusca Mantle",legs="Nahtirah Trousers",feet="Orion Socks +1"}
 
 	sets.defense.MDT = {
 		head="Orion Beret +1",neck="Twilight Torque",
 		body="Orion Jerkin +1",hands="Orion Bracers +1",ring2="Shadow Ring",
 		back="Mollusca Cape",legs="Nahtirah Trousers",feet="Orion Socks +1"}
+		
+	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 
 	sets.Kiting = {legs="Carmine Cuisses",feet="Skd. Jambeaux +1"}
-
-
 
 	--------------------------------------
 	-- Custom buff sets
@@ -342,6 +347,7 @@ end
 -- buff == buff gained or lost
 -- gain == true if the buff was gained, false if it was lost.
 function job_buff_change(buff, gain)
+	handle_debuffs()
 	if buff == "Camouflage" then
 		if gain then
 			equip(sets.buff.Camouflage)

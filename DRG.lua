@@ -56,7 +56,7 @@ function init_gear_sets()
 		new1="",
 		new2="",
 		new3="",
-		new5="",
+		new4="",
 		food1="Squid Sushi",
 		food2="Red Curry Bun",
 		food3="Akamochi",
@@ -67,7 +67,7 @@ function init_gear_sets()
 	-- Idle sets
 	sets.idle = {head="Twilight Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Moonshade Earring",
 			body="Twilight Mail",hands="Sulev. Gauntlets +1",ring1="Patricius Ring",ring2="Renaye Ring",
-			back="Mecisto. Mantle",waist="Incarnation Sash",legs="Carmine Cuisses",feet="Sulev. Leggings +1"}
+			back="Solemnity Cape",waist="Incarnation Sash",legs="Carmine Cuisses",feet="Sulev. Leggings +1"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Town = set_combine(sets.idle, {})
@@ -86,7 +86,7 @@ function init_gear_sets()
 	-- Normal melee group
 	sets.engaged = {ammo="Potestas Bomblet",
 			head="Valorous Mask",neck="Ganesha's Mala",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Emicho Haubert",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Hetairoi Ring",
+			body="Valorous Mail",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Hetairoi Ring",
 			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Emicho Hose",feet="Valorous Greaves"}
 	sets.engaged.Polearm = {}
 	sets.engaged.Staff = {}
@@ -95,19 +95,19 @@ function init_gear_sets()
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, { ammo="Amar Cluster",
 			head="Sulevia's Mask +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Sulevia's Plate. +1",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Ulthalam's Ring",
-			back="Updraft Mantle",waist="Olseni Belt",legs="Carmine Cuisses",feet="Sulev. Leggings +1"})
+			body="Valorous Mail",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Ulthalam's Ring",
+			back="Updraft Mantle",waist="Olseni Belt",legs="Carmine Cuisses",feet="Valorous Greaves"})
 	sets.Mode.Att= set_combine(sets.engaged, {ammo="Potestas Bomblet",
 			head="Sulevia's Mask +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
-			body="Rheic Korazin +3",hands="Sulev. Gauntlets +1",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Phalangite Mantle",waist="Zoran's Belt",legs="Emicho Hose",feet="Sulev. Leggings +1"})
+			body="Phorcys Korazin",hands="Sulev. Gauntlets +1",ring1="Overbearing Ring",ring2="Cho'j Band",
+			back="Phalangite Mantle",waist="Eschan Stone",legs="Emicho Hose",feet="Sulev. Leggings +1"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
 			head="Valorous Mask",hands="Valorous Mitts",ring1="Hetairoi Ring",
 			legs="Pelt. Cuissots +1",feet="Valorous Greaves"})
 	sets.Mode.DA = set_combine(sets.engaged, { ammo="Focal Orb",
 			head="Otomi Helm",neck="Ganesha's Mala",ear1="Bladeborn Earring",ear2="Steelflash Earring",
 			body="Emicho Haubert",hands="Pel. Vambraces +1",ring1="Hetairoi Ring",
-			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Sulevi. Cuisses +1",feet="Ejekamal Boots"})
+			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Sulevi. Cuisses +1",feet="Amm Greaves"})
 	sets.Mode.Haste = set_combine(sets.engaged, {
 			head="Gavialis Helm",
 			body="Porthos Byrnie",hands="Regimen Mittens",
@@ -120,7 +120,7 @@ function init_gear_sets()
 	sets.Mode.STR = set_combine(sets.engaged, {ammo="Amar Cluster",
 			head="Valorous Mask",neck="Lacono Neck. +1",
 			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Rajas Ring",ring2="Apate Ring",
-			back="Brigantia's Mantle",waist="Wanion Belt",legs="Valor. Hose",feet="Valorous Greaves"})
+			back="Brigantia's Mantle",waist="Wanion Belt",legs="Valor. Hose",feet="Sulev. Leggings +1"})
 			
 	sets.engaged.Polearm = set_combine(sets.engaged, {main="Reienkyo",sub="Bloodrain Strap"})
 	sets.engaged.Polearm.Refresh = set_combine(sets.engaged.Polearm, {ear1="Ethereal Earring",ear2="Brutal Earring",
@@ -137,6 +137,8 @@ function init_gear_sets()
 
 	sets.engaged.Staff = set_combine(sets.engaged, {main="Chatoyant Staff",sub="Bloodrain Strap"})
 	sets.engaged.Staff.Acc = set_combine(sets.engaged.Staff, sets.Mode.Acc)
+	sets.engaged.Sword = set_combine(sets.engaged, {main="Usonmunku",sub=""})
+	sets.engaged.Sword.Acc = set_combine(sets.engaged.Polearm, sets.Mode.Acc)
 	sets.engaged.Reraise = set_combine(sets.engaged,{
 			head="Twilight Helm",
 			body="Twilight Mail"})
@@ -152,12 +154,12 @@ function init_gear_sets()
 			feet="Vishap Greaves +1"})
 	sets.precast.JA['High Jump'] = set_combine(sets.precast.JA.Jumps, {
 			body="Vishap Mail +1",hands="Vishap F. G. +1",
-			legs="Vishap Brais +1",feet="Cizin Greaves"})
+			legs="Vishap Brais +1",feet="Amm Greaves"})
 	sets.precast.JA['Spirit Jump'] = set_combine(sets.precast.JA.Jumps, {
 			legs="Pelt. Cuissots +1",feet="Pelt. Schyn. +1"})
 	sets.precast.JA['Soul Jump'] = set_combine(sets.precast.JA.Jumps, {
 			body="Pelt. Plackart +1",
-			waist="Zoran's Belt",legs="Pelt. Cuissots +1",feet="Cizin Greaves"})
+			waist="Zoran's Belt",legs="Pelt. Cuissots +1",feet="Amm Greaves"})
 	sets.precast.JA['Super Jump'] = {
 			head="Twilight Helm",
 			body="Twilight Mail"}
@@ -186,7 +188,7 @@ function init_gear_sets()
 	sets.precast.Waltz['Healing Waltz'] = {}
    
 	-- Fast cast sets for spells
-	sets.precast.FC = {head="Vishap Armet +1",neck="Baetyl Pendant",legs="Limbo Trousers"}
+	sets.precast.FC = {head="Vishap Armet +1",neck="Baetyl Pendant",hands="Leyline Gloves",legs="Limbo Trousers"}
 
 	-- Midcast Sets
 	-- sets.midcast.FastRecast = {head="Vishap Armet +1"}     
@@ -198,7 +200,7 @@ function init_gear_sets()
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	sets.precast.WS = set_combine(sets.Mode.STR, {
 		neck="Fotia Gorget",
-		body="Rheic Korazin +3",
+		body="Phorcys Korazin",
 		back="Brigantia's Mantle",waist="Fotia Belt",feet="Sulev. Leggings +1"})
 	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
    
@@ -237,7 +239,7 @@ function init_gear_sets()
 	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS, {})
 
 	-- Water/Ice/Light, DEX 80% -->
-	sets.precast.WS['Geirskogul'] = set_combine(sets.precast.WS, {head="Quiahuiz Helm",hands="Regimen Mittens",legs="Cizin Breeches",feet="Cizin Greaves"})
+	sets.precast.WS['Geirskogul'] = set_combine(sets.precast.WS, {head="Quiahuiz Helm",hands="Regimen Mittens"})
 
 	-- Light/Fire, STR 50% -->
 	sets.precast.WS['Drakesbane'] = set_combine(sets.precast.WS, {})
@@ -249,22 +251,24 @@ function init_gear_sets()
 	sets.defense = {}
 	
 	sets.defense.Evasion = {
-			head="Gavialis Helm",ear1="Ethereal Earring",ear2="Assuage Earring",
+			head="Gavialis Helm",ear1="Infused Earring",ear2="Assuage Earring",
 			body="Ptero. Mail +1",hands="Regimen Mittens",ring1="Vengeful Ring",
 			legs="Limbo Trousers",feet="Vishap Greaves +1"}
 
 	sets.defense.PDT = {
 			head="Sulevia's Mask +1",neck="Twilight Torque",
 			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Patricius Ring",
-			legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
-
-	sets.defense.Reraise = {head="Twilight Helm", body="Twilight Mail"}
+			back="Solemnity Cape",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
 
 	sets.defense.MDT = {
 			head="Sulevia's Mask +1",neck="Twilight Torque",
 			body="Sulevia's Plate. +1",hands="Sulev. Gauntlets +1",ring1="Vengeful Ring",
-			waist="Flax Sash",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
+			back="Solemnity Cape",waist="Flax Sash",legs="Sulevi. Cuisses +1",feet="Sulev. Leggings +1"}
 
+	sets.defense.Reraise = {head="Twilight Helm", body="Twilight Mail"}
+
+	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
+	
 	sets.Kiting = {legs="Carmine Cuisses"}
 
 	-- These sets use a piece of gear in specific situations, need to customize_idle_set or customize_melee_set
@@ -278,6 +282,10 @@ end
 -- Set eventArgs.handled to true if we don't want any automatic target handling to be done.
 function job_pretarget(spell, action, spellMap, eventArgs)
 	-- add_to_chat(1,'pretarget stance is '..state.Stance.value)
+	if midaction() or pet_midaction() then
+        cancel_spell()
+        return
+	end
 	if state.Stance.value ~= 'Off' then
 		if spell.english == "Spirit Jump" then
 			if player.tp > 1000 then 
@@ -305,6 +313,10 @@ end
 -- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
 function job_precast(spell, action, spellMap, eventArgs)
 	-- add_to_chat(2,'job precast')
+	if midaction() or pet_midaction() then
+        cancel_spell()
+        return
+	end
     if spell.type == 'PetCommand' then
 		if pet.isvalid == true then
 			-- midcast delay
@@ -480,12 +492,7 @@ end
 -- gain == true if the buff was gained, false if it was lost.
 function job_buff_change(buff, gain)
 	determine_groups()
-	-- if player.sub_job == 'SAM' then
-		-- handle_sam_ja()
-	-- end
-	-- if player.sub_job == 'WAR' then
-		-- handle_war_ja()
-	-- end
+	handle_debuffs()
 end
  
 -------------------------------------------------------------------------------------------------------------------
