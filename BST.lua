@@ -25,6 +25,27 @@ function get_sets()
 end
 
 function job_setup()
+	DisplayPetBuffTimers = 'true'
+	-- Input Pet:TP Bonus values for Skirmish Axes used during Pet Buffs
+    TP_Bonus_Main = 0
+    TP_Bonus_Sub = 0
+
+    -- 1200 Job Point Gift Bonus (Set equal to 0 if below 1200 Job Points)
+    TP_Gift_Bonus = 40
+
+    -- (Adjust Run Wild Duration based on # of Job Points)
+    RunWildDuration = 340
+	RunWildIcon = 'abilities/00121.png'
+    RewardRegenIcon = 'spells/00023.png'
+    SpurIcon = 'abilities/00037.png'
+    BubbleCurtainDuration = 180
+	BubbleCurtainIcon = 'spells/00048.png'
+    ScissorGuardIcon = 'spells/00043.png'
+    SecretionIcon = 'spells/00053.png'
+    RageIcon = 'abilities/00002.png'
+    RhinoGuardIcon = 'spells/00053.png'
+    ZealousSnortIcon = 'spells/00057.png'
+
 	state.WeaponMode = M{['description']='Weapon Mode', 'Axe', 'Scythe', 'Sword', 'Staff', 'Club', 'Dagger'}
 	state.SubMode = M{['description']='Sub Mode', 'DW', 'Shield', 'Grip' }
 	state.Stance = M{['description']='Stance', 'Off', 'None', 'Offensive', 'Defensive'}
@@ -116,23 +137,44 @@ function job_setup()
     state.CorrelationMode = M{['description']='Correlation Mode', 'Neutral','Favorable'}
     send_command('bind !f8 gs c cycle CorrelationMode')
     
-    ready_moves_to_check = S{'Sic','Whirl Claws','Dust Cloud','Foot Kick','Sheep Song','Sheep Charge','Lamb Chop',
-		'Rage','Head Butt','Scream','Dream Flower','Wild Oats','Leaf Dagger','Claw Cyclone','Razor Fang',
-		'Roar','Gloeosuccus','Palsy Pollen','Soporific','Cursed Sphere','Venom','Geist Wall','Toxic Spit',
-		'Numbing Noise','Nimble Snap','Cyclotail','Spoil','Rhino Guard','Rhino Attack','Power Attack',
-		'Hi-Freq Field','Sandpit','Sandblast','Venom Spray','Mandibular Bite','Metallic Body','Bubble Shower',
-		'Bubble Curtain','Scissor Guard','Big Scissors','Grapple','Spinning Top','Double Claw','Filamented Hold',
-		'Frog Kick','Queasyshroom','Silence Gas','Numbshroom','Spore','Dark Spore','Shakeshroom','Blockhead',
-		'Secretion','Fireball','Tail Blow','Plague Breath','Brain Crush','Infrasonics','??? Needles',
-		'Needleshot','Chaotic Eye','Blaster','Scythe Tail','Ripper Fang','Chomp Rush','Intimidate','Recoil Dive',
-		'Water Wall','Snow Cloud','Wild Carrot','Sudden Lunge','Spiral Spin','Noisome Powder','Wing Slap',
-		'Beak Lunge','Suction','Drainkiss','Acid Mist','TP Drainkiss','Back Heel','Jettatura','Choke Breath',
-		'Fantod','Charged Whisker','Purulent Ooze','Corrosive Ooze','Tortoise Stomp','Harden Shell','Aqua Breath',
-		'Sensilla Blades','Tegmina Buffet','Molting Plumage','Swooping Frenzy','Pentapeck','Sweeping Gouge',
-		'Zealous Snort','Somersault ','Tickling Tendrils','Stink Bomb','Nectarous Deluge','Nepenthic Plunge',
-        'Pecking Flurry','Pestilent Plume','Foul Waters','Spider Web','Sickle Slash','Frogkick','Ripper Fang',
-		'Scythe Tail','Chomp Rush'
-	}
+	-- Complete list of Ready moves
+	physical_ready_moves = S{'Foot Kick','Whirl Claws','Sheep Charge','Lamb Chop','Head Butt','Wild Oats',
+		'Leaf Dagger','Claw Cyclone','Razor Fang','Nimble Snap','Cyclotail','Rhino Attack','Power Attack',
+		'Mandibular Bite','Big Scissors','Grapple','Spinning Top','Double Claw','Frogkick','Blockhead',
+		'Brain Crush','Tail Blow','??? Needles','Needleshot','Scythe Tail','Ripper Fang','Chomp Rush',
+		'Recoil Dive','Sudden Lunge','Spiral Spin','Wing Slap','Beak Lunge','Suction','Back Heel',
+		'Choke Breath','Fantod','Tortoise Stomp','Sensilla Blades','Tegmina Buffet','Swooping Frenzy',
+		'Pentapeck','Sweeping Gouge','Somersault','Tickling Tendrils','Pecking Flurry','Sickle Slash'}
+
+	magic_atk_ready_moves = S{'Dust Cloud','Cursed Sphere','Venom','Toxic Spit','Bubble Shower','Drainkiss',
+		'Silence Gas','Dark Spore','Fireball','Plague Breath','Snow Cloud','Charged Whisker','Purulent Ooze',
+		'Corrosive Ooze','Aqua Breath','Stink Bomb','Nectarous Deluge','Nepenthic Plunge','Pestilent Plume',
+		'Foul Waters','Acid Spray','Infected Leech','Gloom Spray'}
+
+	magic_acc_ready_moves = S{'Sheep Song','Scream','Dream Flower','Roar','Gloeosuccus','Palsy Pollen',
+		'Soporific','Geist Wall','Toxic Spit','Numbing Noise','Spoil','Hi-Freq Field','Sandpit','Sandblast',
+		'Venom Spray','Filamented Hold','Queasyshroom','Numbshroom','Spore','Shakeshroom','Infrasonics',
+		'Chaotic Eye','Blaster','Intimidate','Noisome Powder','Acid Mist','TP Drainkiss','Jettatura',
+		'Molting Plumage','Spider Web'}
+
+	multi_hit_ready_moves = S{'Pentapeck','Tickling Tendrils','Sweeping Gouge','Chomp Rush','Wing Slap',
+		'Pecking Flurry'}
+
+	tp_based_ready_moves = S{'Foot Kick','Dust Cloud','Snow Cloud','Sheep Song','Sheep Charge','Lamb Chop',
+		'Head Butt','Scream','Dream Flower','Wild Oats','Leaf Dagger','Claw Cyclone','Razor Fang','Roar',
+		'Gloeosuccus','Palsy Pollen','Soporific','Cursed Sphere','Somersault','Geist Wall','Numbing Noise',
+		'Frogkick','Nimble Snap','Cyclotail','Spoil','Rhino Attack','Hi-Freq Field','Sandpit','Sandblast',
+		'Mandibular Bite','Metallic Body','Bubble Shower','Grapple','Spinning Top','Double Claw','Spore',
+		'Filamented Hold','Blockhead','Fireball','Tail Blow','Plague Breath','Brain Crush','Infrasonics',
+		'Needleshot','Chaotic Eye','Blaster','Ripper Fang','Intimidate','Recoil Dive','Water Wall',
+		'Sudden Lunge','Noisome Powder','Wing Slap','Beak Lunge','Suction','Drainkiss','Acid Mist',
+		'TP Drainkiss','Back Heel','Jettatura','Choke Breath','Fantod','Charged Whisker','Purulent Ooze',
+		'Corrosive Ooze','Tortoise Stomp','Aqua Breath','Sensilla Blades','Tegmina Buffet','Sweeping Gouge',
+		'Tickling Tendrils','Pecking Flurry','Pestilent Plume','Foul Waters','Spider Web','Gloom Spray'}
+
+	-- List of Pet Buffs and Ready moves exclusively modified by Pet TP Bonus gear.
+	pet_buff_moves = S{'Reward','Spur','Run Wild','Wild Carrot','Bubble Curtain','Scissor Guard','Secretion','Rage',
+		'Harden Shell','Rhino Guard','Zealous Snort'}
 
 	include('Mote-TreasureHunter')	
 end
@@ -158,13 +200,6 @@ function user_setup()
 	state.loyalty:set('true')
 	gear.Broth = {name=""}
 	gear.Offhand = {name=""}
-	flag.sekka = true
-	flag.med = true
-	flag.berserk = true
-	flag.defender = true
-	flag.aggressor = true
-	flag.warcry = true
-	flag.thirdeye = true
 
 	pick_tp_weapon()
 	select_offhand()
@@ -184,17 +219,21 @@ end
 function init_gear_sets()
 	-- add_to_chat(122,'init gear sets')
 	organizer_items = {
-		new1="Amm Greaves",
-		new2="Leyline Gloves",
-		new3="Infused Earring",
-		new4="Eschan Stone",
-		new5="Stout Bonnet",
-		new6="Jokushu Haidate",
-		new7="Meg. Gloves +1",
-		new8="Meghanada Visor +1",
-		new9="Meg. Chausses +1",
-		new10="Solemnity Cape",
-		new11="Meg. Cuirie +1",
+		new1="",
+		new2="",
+		new3="",
+		new4="",
+		new5="",
+		new6="",
+		new7="",
+		new8="",
+		new9="",
+		new10="",
+		new11="",
+		new12="",
+		new13="",
+		new14="",
+		new15="",
 		food0="Akamochi",
 		food1="Pet Food Alpha",
 		food2="Pet Food Beta",
@@ -212,9 +251,9 @@ function init_gear_sets()
 	
 	-- Idle sets
 	sets.idle = {ammo="Demonry Core",
-			head="Twilight Helm",neck="Twilight Torque",ear1="Ethereal Earring",ear2="Moonshade Earring",
-			body="Twilight Mail",hands="Umuthi Gloves",ring1="Patricius Ring",ring2="Renaye Ring",
-			back="Artio's Mantle",waist="Incarnation Sash",legs="Ferine Quijotes +2",feet="Skd. Jambeaux +1"}
+			head="Meghanada Visor +1",neck="Twilight Torque",ear1="Infused Earring",ear2="Moonshade Earring",
+			body="Meg. Cuirie +1",hands="Umuthi Gloves",ring1="Defending Ring",ring2="Renaye Ring",
+			back="Solemnity Cape",waist="Incarnation Sash",legs="Nukumi Quijotes +1",feet="Skd. Jambeaux +1"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Town = set_combine(sets.idle, {})
@@ -222,18 +261,19 @@ function init_gear_sets()
 	sets.idle.Weak = set_combine(sets.idle, {})
     sets.idle.Pet = set_combine(sets.idle, {})
 	
+	-- haste: head 5%, back 10%, feet 7%, offhand 8%
     sets.idle.Pet.Offensive = set_combine(sets.idle.Pet, {ammo="Demonry Core",
-        head="Emicho Coronet",neck="Ferine Necklace",ear1="Ethereal Earring",ear2="Moonshade Earring",
-        body="Emicho Haubert",hands="Regimen Mittens",ring1="Patricius Ring",ring2="Angel's Ring",
-        back="Artio's Mantle",waist="Incarnation Sash",legs="Emicho Hose",feet="Emicho Gambieras"})
+        head="Emicho Coronet",neck="Ferine Necklace",ear1="Infused Earring",ear2="Domes. Earring",
+        body="Emicho Haubert",hands="Tali'ah Gages +1",ring1="Defending Ring",ring2="Angel's Ring",
+        back="Artio's Mantle",waist="Incarnation Sash",legs="Tali'ah Sera. +1",feet="Tali'ah Crackows +1"})
     
 	sets.idle.Pet.Defensive = set_combine(sets.idle.Pet.Offensive, {
-		head="Anwig Salade",
+		main="Kumbhakarna",sub="Astolfo",head="Anwig Salade",
 		body="Emicho Haubert",hands="Ankusa Gloves +1",
-		legs="Ferine Quijotes +2",feet="Ankusa Gaiters +1"})
+		back="Pastoralist's Mantle",legs="Nukumi Quijotes +1",feet="Ankusa Gaiters +1"})
 
 	-- Resting sets
-	sets.resting = set_combine(sets.idle, {})
+	sets.resting = set_combine(sets.idle.Pet.Defensive, {})
 
 	-- Engaged sets
 	-- Variations for TP weapon and (optional) offense/defense modes.  Code will fall back on previous
@@ -245,60 +285,59 @@ function init_gear_sets()
 	sets.engaged = {ammo="Demonry Core",
 			head="Valorous Mask",neck="Ferine Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
 			body="Emicho Haubert",hands="Emicho Gauntlets",ring1="Epona's Ring",ring2="Hetairoi Ring",
-			back="Artio's Mantle",waist="Hurch'lan Sash",legs="Emicho Hose",feet="Valorous Greaves"}
+			back="Artio's Mantle",waist="Hurch'lan Sash",legs="Emicho Hose",feet="Tali'ah Crackows +1"}
 	sets.engaged.Axe = {}
 	sets.engaged.Scythe = {}
 	sets.engaged.Sword = {}
 	sets.engaged.Staff = {}
 	sets.engaged.Club = {}
 	sets.engaged.Dagger = {}
-    sets.engaged.Killer = set_combine(sets.engaged, {body="Ferine Gausape +2"})
+    sets.engaged.Killer = set_combine(sets.engaged, {body="Nukumi Gausape"})
 			
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {
 			head="Meghanada Visor +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Valorous Mail",hands="Valorous Mitts",ring1="Patricius Ring",ring2="Ulthalam's Ring",
-			back="Artio's Mantle",waist="Olseni Belt",legs="Emicho Hose",feet="Valorous Greaves"})
+			body="Valorous Mail",hands="Emicho Gauntlets",ring1="Patricius Ring",ring2="Cacoethic Ring +1",
+			back="Artio's Mantle",waist="Olseni Belt",legs="Meg. Chausses +1",feet="Valorous Greaves"})
 	sets.Mode.Att= set_combine(sets.engaged, {
-			head="Valorous Mask",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
+			head="Meghanada Visor +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
 			body="Phorcys Korazin",hands="Valorous Mitts",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Phalangite Mantle",waist="Zoran's Belt",legs="Valor. Hose",feet="Meg. Jam. +1"})
+			back="Phalangite Mantle",waist="Eschan Stone",legs="Emicho Hose",feet="Meg. Jam. +1"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
-			hands="Nukumi Manoplas",ring1="Hetairoi Ring"})
+			body="Meg. Cuirie +1",hands="Tali'ah Gages +1",ring1="Hetairoi Ring",legs="Jokushu Haidate",feet="Thereoid Greaves"})
 	sets.Mode.DA = set_combine(sets.engaged, {
 			head="Skormoth Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Valorous Mail",hands="Phorcys Mitts",ring1="Epona's Ring",ring2="Hetairoi Ring",
-			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Valor. Hose",feet="Ferine Ocreae +2"})
+			body="Tali'ah Manteel +1",hands="Phorcys Mitts",ring1="Epona's Ring",ring2="Hetairoi Ring",
+			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Meg. Chausses +1",feet="Loyalist Sabatons"})
 	sets.Mode.Haste = set_combine(sets.engaged, {
 			head="Emicho Coronet",ear1="Heartseeker Earring",ear2="Dudgeon Earring",
 			body="Porthos Byrnie",hands="Regimen Mittens",
-			back="Artio's Mantle",waist="Hurch'lan Sash",legs="Ferine Quijotes +2",feet="Ejekamal Boots"})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
+			back="Artio's Mantle",waist="Hurch'lan Sash",legs="Jokushu Haidate",feet="Ejekamal Boots"})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
 	sets.Mode.sTP = set_combine(sets.engaged, {
-			head="Yaoyotl Helm",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
+			head="Tali'ah Turban +1",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
 			ring1="Rajas Ring",ring2="K'ayres Ring",
 			back="Laic Mantle",waist="Yemaya Belt",legs="Phorcys Dirs",feet="Valorous Greaves"})
 	sets.Mode.STR = set_combine(sets.engaged, { ammo="Amar Cluster",
 			head="Valorous Mask",neck="Lacono Neck. +1",
-			body="Valorous Mail",hands="Valorous Mitts",ring1="Rajas Ring",ring2="Apate Ring",
+			body="Meg. Cuirie +1",hands="Meg. Gloves +1",ring1="Rajas Ring",ring2="Apate Ring",
 			back="Buquwik Cape",waist="Wanion Belt",legs="Valor. Hose",feet="Ejekamal Boots"})
 			
 	--Initialize Main Weapons
 	sets.engaged.DW = set_combine(sets.engaged, {})
 	sets.engaged.Shield = set_combine(sets.engaged, {})
 	sets.engaged.Grip = set_combine(sets.engaged, {})
-	-- sets.engaged.DW.Axe = set_combine(sets.engaged, {main="Kumbhakarna",sub=gear.Offhand})
-	sets.engaged.DW.Axe = set_combine(sets.engaged, {main="Skullrender",sub=gear.Offhand})
-	sets.engaged.Shield.Axe = set_combine(sets.engaged, {main="Skullrender",sub="Viking Shield"})
+	sets.engaged.DW.Axe = set_combine(sets.engaged, {main="Arktoi",sub=gear.Offhand})
+	sets.engaged.Shield.Axe = set_combine(sets.engaged, {main="Skullrender",sub="Deliverance"})
 	sets.engaged.DW.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub=gear.Offhand})
-	sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub="Viking Shield"})
+	sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Warp Cudgel",sub="Deliverance"})
 	sets.engaged.DW.Dagger = set_combine(sets.engaged, {main="Odium",sub=gear.Offhand})
-	sets.engaged.Shield.Dagger = set_combine(sets.engaged, {main="Odium",sub="Viking Shield"})
+	sets.engaged.Shield.Dagger = set_combine(sets.engaged, {main="Odium",sub="Deliverance"})
 	sets.engaged.Grip.Scythe = set_combine(sets.engaged, {main="Ark Scythe", sub="Pole Grip"})
 	sets.engaged.Grip.Staff = set_combine(sets.engaged, {main="Chatoyant Staff", sub="Pole Grip"})
 	sets.engaged.DW.Sword = set_combine(sets.engaged, {main="Apaisante",sub=gear.Offhand})
-	sets.engaged.Shield.Sword = set_combine(sets.engaged, {main="Apaisante",sub="Viking Shield"})
+	sets.engaged.Shield.Sword = set_combine(sets.engaged, {main="Apaisante",sub="Deliverance"})
 	
 	sets.engaged.Grip.Scythe.Acc = set_combine(sets.engaged.Grip.Scythe, sets.Mode.Acc)
 	sets.engaged.Grip.Scythe.Att = set_combine(sets.engaged.Grip.Scythe, sets.Mode.Att)
@@ -384,7 +423,7 @@ function init_gear_sets()
 	-- Weaponskill sets
 	-- Default set for any weaponskill that isn't any more specifically defined
 	sets.WSDayBonus = {head="Gavialis Helm"} 
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",body="Phorcys Korazin",waist="Fotia Belt"})
+	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",body="Phorcys Korazin",hands="Meg. Gloves +1",waist="Fotia Belt"})
 	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
    
 	-- Thunder/Wind, STR 60%
@@ -397,19 +436,19 @@ function init_gear_sets()
 	sets.precast.WS['Gale Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Thunder, STR 60%
-	sets.precast.WS['Avalanche Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
+	sets.precast.WS['Avalanche Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Thunder/Fire, STR 60%
-	sets.precast.WS['Spinning Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
+	sets.precast.WS['Spinning Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth, STR 50%
-	sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
+	sets.precast.WS['Rampage'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Thunder, STR 50% VIT 50%
-	sets.precast.WS['Calamity'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
+	sets.precast.WS['Calamity'] = set_combine(sets.precast.WS, {})
 
 	-- Earth/Thunder, STR 50% 
-	sets.precast.WS['Mistral Axe'] = set_combine(sets.precast.WS, {neck="Soil Gorget",body="Phorcys Korazin",waist="Soil Belt"})
+	sets.precast.WS['Mistral Axe'] = set_combine(sets.precast.WS, {})
 	
 	-- Fire/light/water, STR 50%
 	sets.precast.WS['Decimation'] = set_combine(sets.precast.WS, {})
@@ -428,12 +467,12 @@ function init_gear_sets()
     sets.precast.JA['Bestial Loyalty'] = {main="Skullrender",ammo=gear.Broth,hands="Ankusa Gloves +1"}
     sets.precast.JA['Call Beast'] = sets.precast.JA['Bestial Loyalty']
     sets.precast.JA['Familiar'] = {legs="Ankusa Trousers +1"}
-    sets.precast.JA['Tame'] = {ear1="Tamer's Earring",legs="Stout Kecks"}
-    sets.precast.JA['Spur'] = {back="Artio's Mantle",feet="Ferine Ocreae +2"}
+    sets.precast.JA['Tame'] = {}
+    sets.precast.JA['Spur'] = {back="Artio's Mantle",feet="Nukumi Ocreae"}
 
 	-- reward gear then MND
     sets.precast.JA['Reward'] = {ammo=RewardFood,
-        head="Khimaira Bonnet",ear1="Lifestorm Earring",ear2="Pratik Earring",
+        head="Stout Bonnet",ear1="Lifestorm Earring",ear2="Pratik Earring",
         body="Tot. Jackcoat +1",ring1="Diamond Ring",ring2="Perception Ring",
         back="Pastoralist's Mantle",legs="Ankusa Trousers +1",feet="Ankusa Gaiters +1"}
 
@@ -445,7 +484,7 @@ function init_gear_sets()
     -- CURING WALTZ
     sets.precast.Waltz = {
         head="Skormoth Mask",neck="Ferine Necklace",
-        body="Tot. Jackcoat +1",hands="Emicho Gauntlets",ring1="Valseur's Ring",
+        body="Tot. Jackcoat +1",hands="Emicho Gauntlets",
         back="Laic Mantle",legs="Emicho Hose",feet="Meg. Jam. +1"}
 
     -- HEALING WALTZ
@@ -458,7 +497,7 @@ function init_gear_sets()
     sets.precast.Flourish1 = {}
     sets.precast.Flourish1['Violent Flourish'] = {body="Ankusa Jackcoat",legs="Iuitl Tights"}
 
-    sets.precast.FC = {neck="Baetyl Pendant",legs="Limbo Trousers"}
+    sets.precast.FC = {neck="Baetyl Pendant",ear1="Etiolation Earring",hands="Leyline Gloves",legs="Limbo Trousers"}
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
 
     --------------------------------------
@@ -470,33 +509,37 @@ function init_gear_sets()
     sets.midcast.Utsusemi = sets.midcast.FastRecast
 
     -- PET SIC & READY MOVES
-    sets.midcast.Pet.WS = set_combine(sets.idle.Pet.Offensive, {
-        ear2="Sabong Earring",
-        hands="Nukumi Manoplas",
-        waist="Incarnation Sash"})
-
-    sets.midcast.Pet.WS.Unleash = set_combine(sets.midcast.Pet.WS, {hands="Scorpion Mittens"})
+    sets.midcast.Pet.Ready = set_combine(sets.idle.Pet.Offensive, {
+        hands="Nukumi Manoplas +1",
+        waist="Incarnation Sash",feet="Emicho Gambieras"})
+		
+    sets.midcast.Pet.ReadyPhys = set_combine(sets.midcast.Pet.Ready, {})
+    sets.midcast.Pet.ReadyMA = set_combine(sets.midcast.Pet.ReadyPhys, {})
+    sets.midcast.Pet.ReadyMacc = set_combine(sets.midcast.Pet.Ready, {})
+    sets.midcast.Pet.ReadyMAB = set_combine(sets.midcast.Pet.ReadyMacc, {})
+    sets.midcast.Pet.ReadyBuff = set_combine(sets.midcast.Pet.Ready, {})
+    sets.midcast.Pet.Ready.Unleash = set_combine(sets.midcast.Pet.Ready, {})
 
     sets.midcast.Pet.Neutral = {}
-    sets.midcast.Pet.Favorable = {head="Ferine Cabasset +2"}
+    sets.midcast.Pet.Favorable = {head="Nukumi Cabasset"}
 	
 	sets.midcast.Pet.ReadyRecast = {sub="Charmer's Merlin",legs="Desultor Tassets"}
 
     -- DEFENSE SETS
  	sets.defense.Evasion = {
-		head="Skormoth Mask",ear2="Assuage Earring",feet="Meg. Jam. +1"}	
+		head="Meghanada Visor +1",ear1="Infused Earring",ear2="Assuage Earring",feet="Meg. Jam. +1"}	
 
 	sets.defense.PDT = {
-        neck="Twilight Torque",
-        body="Miki. Breastplate",hands="Umuthi Gloves",
-        legs="Valorous Hose",feet="Meg. Jam. +1"}
+        head="Meghanada Visor +1",neck="Twilight Torque",
+        body="Miki. Breastplate",hands="Umuthi Gloves",ring1="Defending Ring",ring2="Patricius Ring",
+        back="Solemnity Cape",legs="Meg. Chausses +1",feet="Amm Greaves"}
 
     sets.defense.MDT = set_combine(sets.defense.PDT, {
-        head="Skormoth Mask",neck="Twilight Torque",
-        body="Savas Jawshan",ring1="Vengeful Ring",
-		feet="Ejekamal Boots"})
+        head="Skormoth Mask",neck="Twilight Torque",ear1="Etiolation Earring",
+        body="Savas Jawshan",ring1="Defending Ring",ring2="Vengeful Ring",
+		back="Solemnity Cape",feet="Amm Greaves"})
 	
-    sets.defense.Killer = set_combine(sets.defense.PDT, {body="Ferine Gausape +2"})
+    sets.defense.Killer = set_combine(sets.defense.PDT, {body="Nukumi Gausape"})
 	
 	sets.defense.Reraise = {head="Twilight Helm", body="Twilight Mail"}
 
@@ -511,9 +554,10 @@ function init_gear_sets()
     -- Custom buff sets
     --------------------------------------
 
-    sets.buff['Killer Instinct'] = {body="Ferine Gausape +2"}
+    sets.buff['Killer Instinct'] = {body="Nukumi Gausape"}
 
     sets.TreasureHunter = {waist="Chaac Belt"}
+    sets.Assault = {ring2="Ulthalam's Ring"}
 end
 
 
@@ -524,15 +568,31 @@ end
 function job_precast(spell, action, spellMap, eventArgs)
     -- Define class for Sic and Ready moves.
 	-- add_to_chat(122,'job precast')
-    if ready_moves_to_check:contains(spell.english) and pet.status == 'Engaged' then
-        classes.CustomClass = "WS"
-		equip(sets.midcast.Pet.ReadyRecast)
+	    
+    if physical_ready_moves:contains(spell.english) and pet.status == 'Engaged' then
+		equip(sets.midcast.Pet.ReadyPhys, sets.midcast.Pet.ReadyRecast)
     end
+    if multi_hit_ready_moves:contains(spell.english) and pet.status == 'Engaged' then
+		equip(sets.midcast.Pet.ReadyMA, sets.midcast.Pet.ReadyRecast)
+    end
+    if magic_acc_ready_moves:contains(spell.english) and pet.status == 'Engaged' then
+		equip(sets.midcast.Pet.ReadyMacc, sets.midcast.Pet.ReadyRecast)
+    end
+    if magic_atk_ready_moves:contains(spell.english) and pet.status == 'Engaged' then
+		equip(sets.midcast.Pet.ReadyMAB, sets.midcast.Pet.ReadyRecast)
+    end
+    if pet_buff_moves:contains(spell.english) and pet.status == 'Engaged' then
+		equip(sets.midcast.Pet.ReadyBuff, sets.midcast.Pet.ReadyRecast)
+    end
+	if spell.skill == 'Ninjutsu' then
+		-- add_to_chat(1, 'Casting '..spell.name)
+        handle_spells(spell)
+	end
 	check_ws_dist(spell)
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
-    -- If Killer Instinct is active during WS, equip Ferine Gausape +2.
+    -- If Killer Instinct is active during WS, equip Nukumi Gausape.
     if spell.type:lower() == 'weaponskill' and buffactive['Killer Instinct'] then
         equip(sets.buff['Killer Instinct'])
     end
@@ -543,6 +603,8 @@ function job_post_precast(spell, action, spellMap, eventArgs)
         end
 	end 
 end
+
+
 
 function job_pet_post_midcast(spell, action, spellMap, eventArgs)
     -- Equip monster correlation gear, as appropriate
@@ -558,12 +620,67 @@ function job_buff_change(buff, gain)
     if buff == 'Killer Instinct' then
         handle_equipping_gear(player.status)
     end
+end
+
+function job_post_aftercast(spell, action, spellMap, eventArgs)
+	-- add_to_chat(7,'post aftercast '..spell.name)
+	-- don't do anything after these conditions
+	if spell.type == 'Trust' or spell.name == 'Jump' or spell.name == 'Spirit Jump' then
+		return
+	end
+	if spell.type == 'WeaponSkill' then
+		delay = 4
+	else	
+		delay = 1
+	end
 	if player.sub_job == 'SAM' then
-		handle_sam_ja()
+		handle_sam_ja:schedule(delay)
 	end
 	if player.sub_job == 'WAR' then
-		handle_war_ja()
+		handle_war_ja:schedule(delay)
 	end
+	handle_pet_ja()
+end
+
+function job_pet_aftercast(spell, action, spellMap, eventArgs)
+    if pet_buff_moves:contains(spell.name) and DisplayPetBuffTimers == 'true' then
+        -- Pet TP calculations for Ready Buff Durations
+        local TP_Amount = 1000
+        -- if pet_tp < 1000 then TP_Amount = TP_Amount + TP_Gift_Bonus;end
+        -- if pet_tp > 1000 then TP_Amount = pet_tp + TP_Gift_Bonus;end
+        if player.equipment.hands == "Ferine Manoplas +1" then TP_Amount = TP_Amount + 250;end
+        if player.equipment.hands == "Ferine Manoplas +2" then TP_Amount = TP_Amount + 500;end
+        if player.equipment.hands == "Nukumi Manoplas" then TP_Amount = TP_Amount + 550;end
+        if player.equipment.hands == "Nukumi Manoplas +1" then TP_Amount = TP_Amount + 600;end
+        if player.equipment.main == "Aymur" or player.equipment.sub == "Aymur" then TP_Amount = TP_Amount + 500;end
+        if player.equipment.main == "Kumbhakarna" then TP_Amount = TP_Amount + TP_Bonus_Main;end
+        if player.equipment.sub == "Kumbhakarna" then TP_Amount = TP_Amount + TP_Bonus_Sub;end
+        if TP_Amount > 3000 then TP_Amount = 3000;end
+
+        if spell.english == 'Bubble Curtain' then
+            local TP_Buff_Duration = math.floor((TP_Amount - 1000)* 0.09) + BubbleCurtainDuration
+            send_command('timers c "'..spell.english..'" '..TP_Buff_Duration..' down '..BubbleCurtainIcon..'')
+        elseif spell.english == 'Scissor Guard' then
+            local TP_Buff_Duration = math.floor(TP_Amount * 0.06)
+            send_command('timers c "'..spell.english..'" '..TP_Buff_Duration..' down '..ScissorGuardIcon..'')
+        elseif spell.english == 'Secretion' then
+            TP_Amount = TP_Amount + 500
+            if TP_Amount > 3000 then TP_Amount = 3000;end
+            local TP_Buff_Duration = math.floor(TP_Amount * 0.18)
+            send_command('timers c "Secretion" '..TP_Buff_Duration..' down '..SecretionIcon..'')
+        elseif spell.english == 'Rage' then
+            TP_Amount = TP_Amount + 500
+            if TP_Amount > 3000 then TP_Amount = 3000;end
+            local TP_Buff_Duration = math.floor(TP_Amount * 0.18)
+            send_command('timers c "'..spell.english..'" '..TP_Buff_Duration..' down '..RageIcon..'')
+        elseif spell.english == 'Rhino Guard' then
+            local TP_Buff_Duration = math.floor(TP_Amount * 0.18)
+            send_command('timers c "Rhino Guard" '..TP_Buff_Duration..' down '..RhinoGuardIcon..'')
+        elseif spell.english == 'Zealous Snort' then
+            local TP_Buff_Duration = math.floor(TP_Amount * 0.06)
+            send_command('timers c "'..spell.english..'" '..TP_Buff_Duration..' down '..ZealousSnortIcon..'')
+        end
+    end
 end
 
 -- Called when the pet's status changes.
@@ -603,7 +720,6 @@ end
 -------------------------------------------------------------------------------------------------------------------
 function job_self_command(cmdParams, eventArgs)
 	-- add_to_chat(122,'self command')
-	handle_flags(cmdParams, eventArgs)
     if cmdParams[1]:lower() == 'callbeast' then
         handle_callbeast(cmdParams)
         eventArgs.handled = true
@@ -613,6 +729,16 @@ end
 function get_custom_wsmode(spell, spellMap, defaut_wsmode)
     
 end
+
+-- Modify the default melee set after it was constructed.
+function customize_melee_set(meleeSet)
+	if areas.Assault:contains(world.area) then
+		meleeSet = set_combine(meleeSet, sets.Assault)
+	end
+
+    return meleeSet
+end
+
 
 -- Called by the 'update' self-command, for common needs.
 -- Set eventArgs.handled to true if we don't want automatic equipping of gear.
@@ -674,13 +800,16 @@ function select_offhand()
 		gear.Offhand.name = "Astolfo"
 	else 
 		-- add_to_chat(122,'notD')
-		gear.Offhand.name = "Arktoi"
+		gear.Offhand.name = "Skullrender"
 	end
 	-- add_to_chat(123,'shuld use'..gear.Offhand.name)
 end
 
 function customize_idle_set(idleSet)
 	-- add_to_chat(122,'cust idle')
+	if not buffactive["Reraise"] then
+		idleSet = set_combine(idleSet, sets.defense.Reraise)
+	end
     if pet.isvalid then
 		-- add_to_chat(122,'pet valid')
         if pet.status == 'Engaged' then
@@ -697,6 +826,18 @@ function customize_idle_set(idleSet)
   
     return idleSet
 end
+
+function handle_pet_ja() 
+	if not areas.Cities:contains(world.area) and not (buffactive.Sneak or buffactive.Invisible) then
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		if not buffactive.Spur and pet.status == 'Engaged' and abil_recasts[45] == 0 then
+			add_to_chat(3,'doing spur ') 
+			windower.send_command('@input /pet "Spur" <me>')
+			return
+		end
+	end
+end
+
 
 function handle_callbeast(cmdParams)
 	-- add_to_chat(1,'Loyalty '..state.loyalty.value)

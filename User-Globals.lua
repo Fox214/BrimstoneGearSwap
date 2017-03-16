@@ -33,17 +33,6 @@ jobs.MP = S{
 -- Set eventArgs.handled to true if we don't want automatic equipping of gear.
 function job_update(cmdParams, eventArgs)
 	classes.CustomMeleeGroups:clear()
-	-- add_to_chat(122,'job update')
-	-- if buffactive['reive mark'] then
-			-- add_to_chat(122,'In Reive')
-			-- classes.CustomMeleeGroups:append('Reive')
-	-- elseif areas.Adoulin:contains(world.area) and buffactive.ionis then
-			-- add_to_chat(122,'IN Adoulin')
-			-- classes.CustomMeleeGroups:append('Adoulin')
-	-- end
-	if areas.Assault:contains(world.area) then
-			classes.CustomMeleeGroups:append('Assault')
-	end
 	pick_tp_weapon()
 end
 
@@ -53,7 +42,7 @@ state.SubMode = M{['description'] = 'Sub Mode'}
 state.Stance = M{['description'] = 'Stance'}
 state.holdtp = M{['description'] = 'holdtp'}
 state.loyalty = M{['description'] = 'loyalty'}
-flag = {}
+state.ElementMode = M{['description'] = 'elementmode'}
 
 function set_stance()
 	if state.Stance.value == 'Off' then
@@ -192,32 +181,6 @@ function check_tp_lock()
 	end
 end
 
--- flags for when JA are up
-function handle_flags(cmdParams, eventArgs)
-    if cmdParams[1]:lower() == 'reset_sekka_flag' then
-        flag.sekka = true
-        eventArgs.handled = true
-    elseif cmdParams[1]:lower() == 'reset_med_flag' then
-        flag.med = true
-        eventArgs.handled = true
-    elseif cmdParams[1]:lower() == 'reset_thirdeye_flag' then
-        flag.thirdeye = true
-        eventArgs.handled = true
-    elseif cmdParams[1]:lower() == 'reset_berserk_flag' then
-        flag.berserk = true
-        eventArgs.handled = true
-    elseif cmdParams[1]:lower() == 'reset_defender_flag' then
-        flag.defender = true
-        eventArgs.handled = true
-    elseif cmdParams[1]:lower() == 'reset_aggressor_flag' then
-        flag.aggressor = true
-        eventArgs.handled = true
-    elseif cmdParams[1]:lower() == 'reset_warcry_flag' then
-        flag.warcry = true
-        eventArgs.handled = true
-    end
-end
-
 -- job automation if stance is set correctly (outside of town)
 function handle_war_ja() 
 	if not areas.Cities:contains(world.area) and not (buffactive.Sneak or buffactive.Invisible) then
@@ -302,13 +265,16 @@ function global_on_load()
 end
 
 function handle_twilight()
-	if player.hpp <= 18 or buffactive['Weakness'] then
+	if player.hpp <= 19 or buffactive['Weakness'] and not buffactive.Reraise then
 		if Twilight == false then
 			add_to_chat(1,'equip rr')
 		end
         Twilight = true
         equip(sets.defense.Reraise)
-		disable('head','body')
+		if player.equipment.body == "Twilight Mail" and player.equipment.head == "Twilight Helm" then
+			disable('head','body')
+			add_to_chat(1,'head and body disabled')
+		end 
     else
 		if Twilight == true then
 			add_to_chat(2,'rr off')
@@ -343,6 +309,7 @@ degrade_tables.Stone = {"Stone","Stone II","Stone III","Stone IV","Stone V","Sto
 degrade_tables.Thunder = {"Thunder","Thunder II","Thunder III","Thunder IV","Thunder V","Thunder VI"}
 degrade_tables.Water = {"Water","Water II","Water III","Water IV","Water V","Water VI"}
 degrade_tables.Cure = {"Cure","Cure II","Cure III","Cure IV","Cure V","Cure VI"}
+degrade_tables.Curaga = {"Curaga","Curaga II","Curaga III","Curaga IV","Curaga V"}
 degrade_tables.Raise = {"Raise","Raise II","Raise III","Arise"}
 degrade_tables.Reraise = {"Reraise","Reraise II","Reraise III","Reraise IV"}
 degrade_tables.Regen = {"Regen","Regen II","Regen III","Regen IV","Regen V"}
@@ -435,5 +402,100 @@ function handle_debuffs()
     end
     if buffactive.Doom then
         equip(sets.debuffed)
+    end
+end
+
+function handle_useElement(cmdParams)
+    -- cmdParams[1] == 'useElement'
+    -- cmdParams[2] == type of spell to cast (ie nuke, helix, storm..)
+
+    if not cmdParams[2] then
+        add_to_chat(123,'Error: No spell type given.')
+        return
+    end
+    local spellType = cmdParams[2]:lower()
+
+    if state.ElementMode.value == 'dark' then
+        if spellType == 'helix' then
+            send_command('input /ma "Noctohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Bio II" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Voidstorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'earth' then
+        if spellType == 'helix' then
+            send_command('input /ma "Geohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Stone V" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Sandstorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'fire' then
+        if spellType == 'helix' then
+            send_command('input /ma "Pyrohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Fire V" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Firestorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'ice' then
+        if spellType == 'helix' then
+            send_command('input /ma "Cryohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Blizzard V" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Hailstorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'light' then
+        if spellType == 'helix' then
+            send_command('input /ma "Luminohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Dia II" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Aurorastorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'thunder' then
+        if spellType == 'helix' then
+            send_command('input /ma "Ionohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Thunder V" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Thunderstorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'water' then
+        if spellType == 'helix' then
+            send_command('input /ma "Hydrohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Water V" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Rainstorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    elseif state.ElementMode.value == 'wind' then
+        if spellType == 'helix' then
+            send_command('input /ma "Anemohelix II" <t>')
+        elseif spellType == 'nuke' then
+            send_command('input /ma "Aero V" <t>')
+		elseif spellType == 'storm' then
+            send_command('input /ma "Windstorm II" <me>')
+        else
+            add_to_chat(122,'Error: Unknown spellType '..spellType)
+        end
+    else
+        add_to_chat(123,'ElementMode not set to a valid value.')
     end
 end

@@ -34,10 +34,6 @@ function user_setup()
 	state.Stance:set('None')
 	state.holdtp:set('false')
 
-    gear.macc_staff = { name="Grioavolr", augments={'Magic burst mdg.+3%','INT+6','Mag. Acc.+24','"Mag.Atk.Bns."+22',}}
-    gear.idleCape = { name="Nantosuelta's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}}
-    gear.nukeCape = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Mag.Atk.Bns."+10',}}
-
 	pick_tp_weapon()
  
     select_default_macro_book()
@@ -45,9 +41,13 @@ end
 
 -- Define sets and vars used by this job file.
 function init_gear_sets()
+    gear.macc_staff = { name="Grioavolr", augments={'Magic burst dmg.+3%','INT+6','Mag. Acc.+24','"Mag.Atk.Bns."+22',}}
+    gear.idleCape = { name="Nantosuelta's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}}
+    gear.nukeCape = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Mag.Atk.Bns."+10',}}
+
 	-- extra stuff
 	organizer_items = {
-		new1="Jokushu Chain",
+		new1="",
 		new2="",
 		new3="",
 		new4="",
@@ -91,10 +91,10 @@ function init_gear_sets()
 	sets.Weather.Dark = {waist='Hachirin-no-Obi',back='Twilight Cape'}
 
     -- Normal refresh idle set
-    sets.idle = {ranged="Dunna",
+    sets.idle = {range="Dunna",
         head="Befouled Crown",neck="Twilight Torque",ear1="Moonshade Earring",ear2="Ethereal Earring",
-        body="Jhakri Robe +1",hands="Bagua Mitaines +1",ring1="Strendu Ring",ring2="Renaye Ring",
-        back="Solemnity Cape",waist="Siegel Sash",legs="Merlinic Shalwar",feet="Geo. Sandals +1"}
+        body="Jhakri Robe +1",hands="Bagua Mitaines +1",ring1="Defending Ring",ring2="Renaye Ring",
+        back="Solemnity Cape",waist="Siegel Sash",legs="Merlinic Shalwar",feet="Geo. Sandals +2"}
 	sets.idle.PDT = set_combine(sets.idle, {})
 	sets.idle.Capacity = set_combine(sets.idle, {back="Mecisto. Mantle"})
 
@@ -103,7 +103,7 @@ function init_gear_sets()
     sets.idle.Pet = set_combine(sets.idle, {main="Solstice",sub="Genmei Shield",range="Dunna",
         head="Azimuth Hood +1",neck="Twilight Torque",
         body="Amalric Doublet",hands="Geo. Mitaines +1",ring2="Renaye Ring",
-        back=gear.idleCape,legs="Psycloth Lappas",feet="Geo. Sandals +1"})
+        back=gear.idleCape,legs="Psycloth Lappas",feet="Bagua Sandals +1"})
 
     -- .Indi sets are for when an Indi-spell is active.
     sets.idle.Indi = set_combine(sets.idle, {back=gear.idleCape,legs="Bagua Pants +1"})
@@ -113,7 +113,7 @@ function init_gear_sets()
     sets.resting = set_combine(sets.idle, {main="Chatoyant Staff"})
 
     -- Normal melee group
-    sets.engaged = {ranged="Dunna",
+    sets.engaged = {range="Dunna",
         head="Jhakri Coronal +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Ethereal Earring",
         body="Jhakri Robe +1",hands="Jhakri Cuffs +1",ring1="Patricius Ring",ring2="Apate Ring",
         back="Kumbira Cape",waist="Olseni Belt",legs="Miasmic Pants",feet="Battlecast Gaiters"}
@@ -125,7 +125,7 @@ function init_gear_sets()
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {head="Jhakri Coronal +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-		body="Jhakri Robe +1",hands="Jhakri Cuffs +1",
+		body="Jhakri Robe +1",hands="Jhakri Cuffs +1",ring1="Patricius Ring",ring2="Cacoethic Ring +1",
 		waist="Olseni Belt",legs="Jhakri Slops +1",feet="Jhakri Pigaches +1"})
 	sets.Mode.Att= set_combine(sets.engaged, {
 		head="Jhakri Coronal +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",ring1="Overbearing Ring",
@@ -134,8 +134,8 @@ function init_gear_sets()
 	sets.Mode.Crit = set_combine(sets.engaged, {ring1="Hetairoi Ring"})
 	sets.Mode.DA = set_combine(sets.engaged, {ring1="Hetairoi Ring"})
 	sets.Mode.Haste = set_combine(sets.engaged, {})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
-	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",waist="Olseni Belt",;egs="Jhakri Slops +1",feet="Battlecast Gaiters"})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
+	sets.Mode.sTP = set_combine(sets.engaged, {ear2="Digni. Earring",waist="Olseni Belt",legs="Jhakri Slops +1",feet="Battlecast Gaiters"})
 	sets.Mode.STR = set_combine(sets.engaged, {
 		head="Jhakri Coronal +1",neck="Lacono Neck. +1",
 		body="Jhakri Robe +1",hands="Jhakri Cuffs +1",ring1="Apate Ring",ring2="Rajas Ring",
@@ -163,7 +163,7 @@ function init_gear_sets()
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",hands="Jhakri Cuffs +1",waist="Fotia Belt"})    
+	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",hands="Jhakri Cuffs +1",waist="Fotia Belt"})    
 	
 	-- none, INT 50% MND 50%
 	sets.precast.WS['Spirit Taker'] = set_combine(sets.precast.WS, {})
@@ -193,8 +193,8 @@ function init_gear_sets()
     sets.precast.JA['Full Circle'] = {head="Azimuth Hood +1",hands="Bagua Mitaines +1"}
 
     -- Fast cast sets for spells
-    sets.precast.FC = { ranged="Dunna",
-        head="Vanya Hood",neck="Baetyl Pendant",
+    sets.precast.FC = { range="Dunna",
+        head="Vanya Hood",neck="Baetyl Pendant",ear1="Etiolation Earring",
         body="Shango Robe",
         back="Lifestream Cape",waist="Channeler's Stone",legs="Geomancy Pants"}
 
@@ -225,7 +225,7 @@ function init_gear_sets()
     sets.midcast['Elemental Magic'].MB = set_combine(sets.midcast['Elemental Magic'], {hands="Amalric Gages",feet="Jhakri Pigaches +1"})
   
 	sets.midcast['Elemental Magic'].Macc = set_combine(sets.midcast['Elemental Magic'], 
-	   {main=gear.macc_staff,sub="Niobid Strap",ranged="Dunna",
+	   {main=gear.macc_staff,sub="Niobid Strap",range="Dunna",
         head="Merlinic Hood",neck="Sanctity Necklace",ear1="Barkaro. Earring",ear2="Digni. Earring",
         body="Merlinic Jubbah",hands="Jhakri Cuffs +1",ring1="Strendu Ring",ring2="Perception Ring",
         back=gear.nukeCape,waist="Luminary Sash",legs="Merlinic Shalwar",feet="Merlinic Crackows"})
@@ -234,41 +234,43 @@ function init_gear_sets()
 	   {main=gear.macc_staff,sub="Thrace Strap",ammo="Ghastly Tathlum +1",
         head="Buremte Hat",ear1="Crematio Earring",
         hands="Otomi Gloves",
-        back=gear.nukeCape,legs="Merlinic Shalwar"})
+        back=gear.nukeCape,legs="Merlinic Shalwar",feet="Umbani Boots"})
  
     sets.midcast['Elemental Magic'].Skill = set_combine(sets.midcast['Elemental Magic'], 
-	   {head="Geomancy Galero",neck="Melic Torque",
+	   {head="Geomancy Galero",neck="Incanter's Torque",
 		body="Azimuth Coat",
         hands="Amalric Gages",feet="Rubeus Boots"})
 
     sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast['Elemental Magic'].Macc, {
-        head="Befouled Crown",
+        head="Befouled Crown",neck="Incanter's Torque",
         body="Shango Robe",hands="Azimuth Gloves",ring1="Globidonta Ring",
-        back="Lifestream Cape",waist="Rumination Sash",legs="Psycloth Lappas",feet="Uk'uxkaj Boots"})
+        back="Lifestream Cape",waist="Rumination Sash",legs="Psycloth Lappas",feet="Bagua Sandals +1"})
 
     sets.midcast['Dark Magic'] = set_combine(sets.midcast['Elemental Magic'].Macc, {
-        body="Geomancy Tunic",ring1="Strendu Ring",ring2="Diamond Ring",
+        neck="Incanter's Torque",
+		body="Geomancy Tunic",ring1="Strendu Ring",ring2="Diamond Ring",
         back="Perimede Cape",waist="Rumination Sash",legs="Azimuth Tights"})
 
     sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'],{head="Bagua Galero",ring2="Excelsis Ring",waist="Fucho-no-obi",feet="Merlinic Crackows"})
     
     sets.midcast.Aspir = sets.midcast.Drain
 		
-	sets.midcast['Enhancing Magic'] = {head="Befouled Crown",neck="Melic Torque",back="Perimede Cape"}
+	sets.midcast['Enhancing Magic'] = {head="Befouled Crown",neck="Incanter's Torque",ear1="Andoaa Earring",body="Telchine Chas.",hands="Telchine Gloves",back="Perimede Cape"}
 	sets.midcast['Enhancing Magic']['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{
 		back="Grapevine Cape"})
-	
+	sets.midcast.Regen = {main="Bolelabunga",sub="Genmei Shield",ear1="Pratik Earring",body="Telchine Chas.",feet="Telchine Pigaches"}
+
     -- Base fast recast for spells
     -- sets.midcast.FastRecast = { head="Zelus Tiara",legs="Hagondes Pants +1",feet="Tutyr Sabots"}
 
     sets.midcast.Geomancy = {range="Dunna",
-		head="Azimuth Hood +1",neck="Melic Torque",
+		head="Azimuth Hood +1",neck="Incanter's Torque",
 		body="Bagua Tunic +1",hands="Geo. Mitaines +1",ring2="Renaye Ring",
 		back="Lifestream Cape"}
-    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy,{main="Solstice",back="Lifestream Cape",legs="Bagua Pants +1",feet="Azimuth Gaiters"})
+    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy,{main="Solstice",back=gear.idleCape,legs="Bagua Pants +1",feet="Azimuth Gaiters"})
 
 	-- healing skill
-    sets.midcast.StatusRemoval = {neck="Nesanica Torque",ring1="Ephedra Ring"}
+    sets.midcast.StatusRemoval = {neck="Incanter's Torque",ring1="Ephedra Ring"}
 
 	-- Cure %+ > healing skill > MND
     sets.midcast.Cure = set_combine(sets.midcast.StatusRemoval, {main="Tamaxchi",sub="Genmei Shield",
@@ -286,16 +288,17 @@ function init_gear_sets()
 
     sets.defense.PDT = {
         head="Hagondes Hat",
-        body="Hagondes Coat",hands="Geo. Mitaines +1",
+        body="Hagondes Coat",hands="Geo. Mitaines +1",ring1="Defending Ring",ring2="Patricius Ring",
         back="Solemnity Cape",legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
 
     sets.defense.MDT = {
-        hands="Yaoyotl Gloves",ring1="Vengeful Ring",
+		ear1="Etiolation Earring",
+        hands="Yaoyotl Gloves",ring1="Defending Ring",ring2="Vengeful Ring",
         back="Solemnity Cape",feet="Merlinic Crackows"}
 		
 	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 
-    sets.Kiting = {feet="Geo. Sandals +1"}
+    sets.Kiting = {feet="Geo. Sandals +2"}
 
     sets.latent_refresh = {waist="Fucho-no-obi"}
  
