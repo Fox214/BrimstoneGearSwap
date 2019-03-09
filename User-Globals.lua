@@ -1,4 +1,5 @@
 require('functions')
+include('closetCleaner')
 -- Assault equip.
 areas.Assault = S{
 	"Mamool Ja Training Grounds",
@@ -185,7 +186,7 @@ end
 function handle_war_ja() 
 	if not areas.Cities:contains(world.area) and not (buffactive.Sneak or buffactive.Invisible) then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
-		if state.Stance.value == 'Offensive' then
+		if state.Stance.value == 'Offensive' or state.Stance.value == 'DmgTank' then
 			if not buffactive.Berserk and player.status == "Engaged" and abil_recasts[1] == 0 then
 				windower.send_command('@input /ja "Berserk" <me>')
 				return
@@ -198,11 +199,31 @@ function handle_war_ja()
 				windower.send_command('@input /ja "Aggressor" <me>')
 				return
 			end
+			if player.main_job == 'WAR' then
+				if not buffactive.Restraint and abil_recasts[9] == 0 and player.status == "Engaged" then
+					windower.send_command('@input /ja "Restraint" <me>')
+					return
+				end
+				if not buffactive.BloodRage and abil_recasts[11] == 0 and player.status == "Engaged" then
+					windower.send_command('@input /ja "Blood Rage" <me>')
+					return
+				end
+			end
 		end
 		if state.Stance.value == 'Defensive' then
 			if not buffactive.Defender and player.status == "Engaged" and abil_recasts[3] == 0 then
 				windower.send_command('@input /ja "Defender" <me>')
 				return
+			end
+			if not buffactive.Warcry and abil_recasts[2] == 0 and player.status == "Engaged" and player.tp > 900 then
+				windower.send_command('@input /ja "Warcry" <me>')
+				return
+			end
+			if player.main_job == 'WAR' then
+				if not buffactive.Retaliation and abil_recasts[8] == 0 and player.status == "Engaged" then
+					windower.send_command('@input /ja "Retaliation" <me>')
+					return
+				end
 			end
 		end
 	end
@@ -265,22 +286,26 @@ function global_on_load()
 end
 
 function handle_twilight()
-	if player.hpp <= 19 or buffactive['Weakness'] and not buffactive.Reraise then
-		if Twilight == false then
-			add_to_chat(1,'equip rr')
-		end
-        Twilight = true
-        equip(sets.defense.Reraise)
-		if player.equipment.body == "Twilight Mail" and player.equipment.head == "Twilight Helm" then
-			disable('head','body')
-			add_to_chat(1,'head and body disabled')
-		end 
-    else
-		if Twilight == true then
-			add_to_chat(2,'rr off')
-		end
+    if not buffactive.Reraise then
+        if player.hpp <= 22 or buffactive['Weakness'] then
+            if Twilight == false then
+                add_to_chat(1,'equip rr')
+            end
+            equip(sets.defense.Reraise)
+            if player.equipment.body == "Twilight Mail" and player.equipment.head == "Twilight Helm" then
+                disable('head','body')
+                Twilight = true
+                add_to_chat(1,'head and body disabled')
+            end 
+        else
+            if Twilight == true then
+                add_to_chat(2,'rr off')
+            end
+            Twilight = false
+            enable('head','body')
+        end
+    else    
         Twilight = false
-		enable('head','body')
     end
 end
 
@@ -348,6 +373,7 @@ function handle_spells(spell)
 end
  
 function find_degrade_table(lookup_spell)
+	-- add_to_chat(2, 'lookupspell '..lookup_spell.name)
     for __,spells in pairs(degrade_tables) do
         for ___,spell in pairs(spells) do
             if spell == lookup_spell.english then
@@ -359,8 +385,9 @@ function find_degrade_table(lookup_spell)
 end
  
 function degrade_spell(spell,degrade_array)
+	-- add_to_chat(3, 'Degrading '..spell.name)
     local spell_index = table.find(degrade_array,spell.english)
-    if spell_index>1 then        
+	if spell_index>1 then        
         local new_spell = degrade_array[spell_index - 1]
         change_spell(new_spell,spell.target.id)
         add_to_chat(140,spell.english..' has been canceled. Using '..new_spell..' instead.')

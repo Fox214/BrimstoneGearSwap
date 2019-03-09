@@ -16,7 +16,7 @@ function job_setup()
 	state.SubMode = M{['description']='Sub Mode', 'DW', 'Shield'}
  	state.Stance = M{['description']='Stance', 'Off', 'None', 'Offensive', 'Defensive'}
 	state.holdtp = M{['description']='holdtp', 'false', 'true'}
-
+    
 	set_combat_form()
 	pick_tp_weapon()
 
@@ -154,6 +154,7 @@ function job_setup()
 		'Droning Whirlwind','Gates of Hades','Harden Shell','Mighty Guard','Pyric Bulwark','Tearing Gust','Thunderbolt',
 		'Tourbillion'
 	}
+    
 	include('Mote-TreasureHunter')
 end
 
@@ -164,18 +165,18 @@ end
 function user_setup()
 	-- add_to_chat(122,'user setup')
 	-- Options: Override default values
-	state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'Haste', 'Skill', 'sTP', 'STR', 'Learning')
-	state.WeaponskillMode:options('Normal', 'Acc', 'Att', 'Mod')
+	state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'sTP', 'STR', 'Learning')
+	state.WeaponskillMode:options('Normal')
 	state.CastingMode:options('Normal')
-	state.IdleMode:options('Normal', 'Learning', 'Capacity')
+	state.IdleMode:options('Normal', 'Learning')
 	state.WeaponMode:set('Sword')
 	state.SubMode:set('DW')
+	state.TreasureMode:set('Tag')
 	state.DefenseMode:options('None', 'Physical', 'Magical')
 	state.PhysicalDefenseMode:options('PDT', 'Evasion')
 	state.MagicalDefenseMode:options('MDT')
 	state.Stance:set('None')
 	state.holdtp:set('false')
-	state.TreasureMode:set('Tag')
     gear.hercTH = { name="Herculean Helm", augments={'Attack+13','"Snapshot"+3','"Treasure Hunter"+1','Accuracy+5 Attack+5',}}
     gear.hercAcc = { name="Herculean Helm", augments={'Accuracy+29','STR+6','Attack+3',}}
 
@@ -213,6 +214,7 @@ function init_gear_sets()
 		new8="",
 		new9="",
 		food="Squid Sushi",
+		food="Sublime Sushi",
 		echos="Echo Drops",
 		shihei="Shihei",
 		orb="Macrocosmic Orb"
@@ -220,18 +222,17 @@ function init_gear_sets()
 	-- Sets to return to when not performing an action.
 	sets.Learning = {ammo="Mavi Tathlum",
 		head="Luh. Keffiyeh +1",neck="Incanter's Torque",
-		body="Assim. Jubbah +1",hands="Assim. Bazu. +1",ring1="Defending Ring",ring2="Renaye Ring",
+		body="Assim. Jubbah +3",hands="Assim. Bazu. +1",ring1="Defending Ring",ring2="Renaye Ring +1",
 		back="Cornflower Cape",legs="Hashishin Tayt +1",feet="Luhlaza Charuqs +1"}
    
 	-- Idle sets
 	sets.idle = {ammo="Mavi Tathlum",
-		head="Luh. Keffiyeh +1",neck="Mavi Scarf",ear1="Moonshade Earring",ear2="Ethereal Earring",
-		body="Jhakri Robe +1",hands="Aya. Manopolas +1",ring1="Defending Ring",ring2="Renaye Ring",
-		back="Solemnity Cape",waist="Flax Sash",legs="Carmine Cuisses +1",feet="Hippomenes Socks"}
+		head="Rawhide Mask",neck="Mavi Scarf",ear1="Moonshade Earring",ear2="Ethereal Earring",
+		body="Jhakri Robe +2",hands="Telchine Gloves",ring1="Defending Ring",ring2="Renaye Ring +1",
+		back="Solemnity Cape",waist="Flax Sash",legs="Carmine Cuisses +1",feet="Aya. Gambieras +2"}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Learning = set_combine(sets.idle, sets.Learning)
-	sets.idle.Capacity = set_combine(sets.idle, {back="Mecisto. Mantle"})
 
 	-- Resting sets
 	sets.resting = set_combine(sets.idle, {})
@@ -242,45 +243,39 @@ function init_gear_sets()
 	-- If you create a set with both offense and defense modes, the offense mode should be first.
 	-- EG: sets.engaged.Dagger.Accuracy.Evasion
 	-- Normal melee group
-	sets.engaged = {ammo="Amar Cluster",
-		head="Adhemar Bonnet",neck="Asperity Necklace",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-		body="Herculean Vest",hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
+	sets.engaged = {ammo="Mantoptera Eye",
+		head="Adhemar Bonnet",neck="Asperity Necklace",ear1="Suppanomimi",ear2="Eabani Earring",
+		body="Assim. Jubbah +3",hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
 		back="Atheling Mantle",waist="Sarissapho. Belt",legs="Carmine Cuisses +1",feet="Herculean Boots"}
  	sets.engaged.Club = {}
 	sets.engaged.Sword = {}
 
 	-- Basic Mode definitions
 	sets.Mode = {}
-	sets.Mode.Acc = set_combine(sets.engaged, {ammo="Honed Tathlum",
-			head="Jhakri Coronal +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Herculean Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Cacoethic Ring +1",
-			back="Rosmerta's Cape",waist="Olseni Belt",legs="Carmine Cuisses +1",feet="Herculean Boots"})
+	sets.Mode.Acc = set_combine(sets.engaged, {ammo="Mantoptera Eye",
+			head="Aya. Zucchetto +2",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
+			body="Assim. Jubbah +3",hands="Aya. Manopolas +2",ring1="Mars's Ring",ring2="Cacoethic Ring +1",
+			back="Rosmerta's Cape",waist="Olseni Belt",legs="Carmine Cuisses +1",feet="Aya. Gambieras +2"})
 	sets.Mode.Att= set_combine(sets.engaged, {
-			head="Jhakri Coronal +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
-			body="Jhakri Robe +1",hands="Jhakri Cuffs +1",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Phalangite Mantle",waist="Eschan Stone",legs="Jhakri Slops +1",feet="Jhakri Pigaches +1"})
+			head="Jhakri Coronal +2",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
+			body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Overbearing Ring",ring2="Cho'j Band",
+			back="Phalangite Mantle",waist="Sulla Belt",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"})
 	sets.Mode.Crit = set_combine(sets.engaged, {
 			head="Adhemar Bonnet",ring2="Hetairoi Ring",
-			body="Herculean Vest",hands="Herculean Gloves",
+			body="Sayadio's Kaftan",hands="Herculean Gloves",
 			feet="Thereoid Greaves"})
 	sets.Mode.DA = set_combine(sets.engaged, {
-			head="Adhemar Bonnet",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
-			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Quiahuiz Trousers",feet="Herculean Boots"})
-	-- DW then haste
-	sets.Mode.Haste = set_combine(sets.engaged, {
-			head="Thur. Chapeau +1",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-			body="Mextli Harness",hands="Leyline Gloves",
-			back="Ground. Mantle +1",waist="Sailfi Belt +1",legs="Carmine Cuisses +1",feet="Herculean Boots"})
-	sets.Mode.Skill = set_combine(sets.engaged, {})
+			head="Adhemar Bonnet",neck="Asperity Necklace",ear1="Trux Earring",ear2="Brutal Earring",
+			body="Ayanmo Corazza +2",hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
+			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Zoar Subligar",feet="Herculean Boots"})
 	sets.Mode.sTP = set_combine(sets.engaged, { ammo="Ginsen",
-			neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Digni. Earring",
+			head="Aya. Zucchetto +2",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Digni. Earring",
 			body="Herculean Vest",ring1="Rajas Ring",ring2="K'ayres Ring",
-			waist="Yemaya Belt",legs="Jhakri Slops +1",feet="Battlecast Gaiters"})
-	sets.Mode.STR = set_combine(sets.engaged, {ammo="Amar Cluster",
-			head="Jhakri Coronal +1",neck="Lacono Neck. +1",
-			body="Jhakri Robe +1",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
-			back="Buquwik Cape",waist="Wanion Belt",legs="Jhakri Slops +1",feet="Jhakri Pigaches +1"})
+			waist="Yemaya Belt",legs="Jhakri Slops +2",feet="Battlecast Gaiters"})
+	sets.Mode.STR = set_combine(sets.engaged, {ammo="Mantoptera Eye",
+			head="Jhakri Coronal +2",neck="Lacono Neck. +1",
+			body="Assim. Jubbah +3",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
+			back="Buquwik Cape",waist="Wanion Belt",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"})
 
 	sets.engaged.DW = set_combine(sets.engaged, {})
 	sets.engaged.Shield = set_combine(sets.engaged, {})
@@ -290,10 +285,9 @@ function init_gear_sets()
 	sets.engaged.DW.Sword.Att = set_combine(sets.engaged.DW.Sword, sets.Mode.Att)
 	sets.engaged.DW.Sword.Crit = set_combine(sets.engaged.DW.Sword, sets.Mode.Crit)
 	sets.engaged.DW.Sword.DA = set_combine(sets.engaged.DW.Sword, sets.Mode.DA)
-	sets.engaged.DW.Sword.Haste = set_combine(sets.engaged.DW.Sword, sets.Mode.Haste)
-	sets.engaged.DW.Sword.Skill = set_combine(sets.engaged.DW.Sword, {
-			head="Hashishin Kavuk",neck="Mavi Scarf",ear2="Suppanomimi",
-			body="Mextli Harness",ring2="Tjukurrpa Annulet"})
+	-- sets.engaged.DW.Sword.Skill = set_combine(sets.engaged.DW.Sword, {
+			-- head="Hashishin Kavuk",neck="Mavi Scarf",ear2="Suppanomimi",
+			-- body="Mextli Harness",ring2="Tjukurrpa Annulet"})
 	sets.engaged.DW.Sword.sTP = set_combine(sets.engaged.DW.Sword, sets.Mode.sTP)
 	sets.engaged.DW.Sword.STR = set_combine(sets.engaged.DW.Sword, sets.Mode.STR)
 	sets.engaged.DW.Sword.Learning = set_combine(sets.engaged.DW.Sword, sets.Learning)
@@ -301,10 +295,9 @@ function init_gear_sets()
 	sets.engaged.Shield.Sword.Att = set_combine(sets.engaged.Shield.Sword, sets.Mode.Att)
 	sets.engaged.Shield.Sword.Crit = set_combine(sets.engaged.Shield.Sword, sets.Mode.Crit)
 	sets.engaged.Shield.Sword.DA = set_combine(sets.engaged.Shield.Sword, sets.Mode.DA)
-	sets.engaged.Shield.Sword.Haste = set_combine(sets.engaged.Shield.Sword, sets.Mode.Haste)
-	sets.engaged.Shield.Sword.Skill = set_combine(sets.engaged.Shield.Sword, {
-			head="Hashishin Kavuk",neck="Mavi Scarf",ear2="Suppanomimi",
-			body="Mextli Harness",ring2="Tjukurrpa Annulet"})
+	-- sets.engaged.Shield.Sword.Skill = set_combine(sets.engaged.Shield.Sword, {
+			-- head="Hashishin Kavuk",neck="Mavi Scarf",ear2="Suppanomimi",
+			-- body="Mextli Harness",ring2="Tjukurrpa Annulet"})
 	sets.engaged.Shield.Sword.sTP = set_combine(sets.engaged.Shield.Sword, sets.Mode.sTP)
 	sets.engaged.Shield.Sword.STR = set_combine(sets.engaged.Shield.Sword, sets.Mode.STR)
 	sets.engaged.Shield.Sword.Learning = set_combine(sets.engaged.Shield.Sword, sets.Learning)
@@ -312,8 +305,8 @@ function init_gear_sets()
 	sets.engaged.Shield.Club = set_combine(sets.engaged, {main="Tamaxchi",sub="Genmei Shield"})
 	sets.engaged.DW.Club.Acc = set_combine(sets.engaged.DW.Club, sets.Mode.Acc)
 	sets.engaged.Shield.Club.Acc = set_combine(sets.engaged.Shield.Club, sets.Mode.Acc)
-	sets.engaged.DW.Staff = set_combine(sets.engaged, {main="Chatoyant Staff",sub="Bloodrain Strap"})
-	sets.engaged.Shield.Staff = set_combine(sets.engaged, {main="Chatoyant Staff",sub="Bloodrain Strap"})
+	sets.engaged.DW.Staff = set_combine(sets.engaged, {main="Gozuki Mezuki",sub="Bloodrain Strap"})
+	sets.engaged.Shield.Staff = set_combine(sets.engaged, {main="Gozuki Mezuki",sub="Bloodrain Strap"})
 	sets.engaged.DW.Staff.Acc = set_combine(sets.engaged.DW.Staff, sets.Mode.Acc, {})
 	sets.engaged.Shield.Staff.Acc = set_combine(sets.engaged.Shield.Staff, sets.Mode.Acc, {})
 	sets.engaged.DW.Polearm = set_combine(sets.engaged, {main="Pitchfork +1",sub="Bloodrain Strap"})
@@ -326,28 +319,28 @@ function init_gear_sets()
 	sets.engaged.Shield.Scythe.Acc = set_combine(sets.engaged.Shield.Polearm, sets.Mode.Acc)
 
 	sets.engaged.DEX = {
-		head="Adhemar Bonnet",neck="Love Torque",
-		body="Assim. Jubbah +1",hands="Aya. Manopolas +1",ring1="Rajas Ring",ring2="Apate Ring",
-		back="Rosmerta's Cape",waist="Wanion Belt",legs="Manibozho Brais",feet="Aya. Gambieras +1"}
+		head="Aya. Zucchetto +2",neck="Love Torque",
+		body="Ayanmo Corazza +2",hands="Aya. Manopolas +2",ring1="Rajas Ring",ring2="Apate Ring",
+		back="Rosmerta's Cape",waist="Wanion Belt",legs="Gyve Trousers",feet="Aya. Gambieras +2"}
 	sets.engaged.AGI = {
 		head="Adhemar Bonnet",ear1="Infused Earring",ear2="Suppanomimi",
-		body="Herculean Vest",hands="Iuitl Wristbands",ring2="Apate Ring",
-		back="Laic Mantle",legs="Herculean Trousers",feet="Aya. Gambieras +1"}
+		body="Sayadio's Kaftan",hands="Iuitl Wristbands",ring2="Apate Ring",
+		back="Laic Mantle",legs="Aya. Cosciales +2",feet="Aya. Gambieras +2"}
 	sets.engaged.Physical = {ammo="Mavi Tathlum",
-		head="Jhakri Coronal +1",neck="Mavi Scarf",ear1="Mavi Earring",
-		body="Assim. Jubbah +1",hands="Jhakri Cuffs +1",ring1="Rajas Ring",ring2="Apate Ring",
+		head="Jhakri Coronal +2",neck="Mavi Scarf",ear1="Mavi Earring",
+		body="Assim. Jubbah +3",hands="Jhakri Cuffs +2",ring1="Rajas Ring",ring2="Apate Ring",
 		back="Cornflower Cape",waist="Wanion Belt",legs="Hashishin Tayt +1",feet="Assim. Charuqs +1"}
 	sets.engaged.MAB = { main="Colada",sub="Iris",ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
-		body="Jhakri Robe +1",hands="Amalric Gages",ring1="Strendu Ring",
-		back="Cornflower Cape",waist="Eschan Stone",legs="Jhakri Slops +1",feet="Jhakri Pigaches +1"}
+		head="Jhakri Coronal +2",neck="Baetyl Pendant",ear1="Friomisi Earring",ear2="Crematio Earring",
+		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Strendu Ring",
+		back="Cornflower Cape",waist="Eschan Stone",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
 	sets.engaged.Macc = {ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +1",neck="Sanctity Necklace",ear1="Mavi Earring",
-		body="Jhakri Robe +1",hands="Jhakri Cuffs +1",ring1="Strendu Ring",ring2="Perception Ring",
-		back="Cornflower Cape",waist="Luminary Sash",legs="Jhakri Slops +1",feet="Jhakri Pigaches +1"}
+		head="Jhakri Coronal +2",neck="Erra Pendant",ear1="Mavi Earring",
+		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Kishar Ring",ring2="Perception Ring",
+		back="Cornflower Cape",waist="Luminary Sash",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
 	sets.engaged.BlueSkill = set_combine(sets.engaged.Macc, {ammo="Mavi Tathlum",
 		head="Luh. Keffiyeh +1",neck="Incanter's Torque",ear1="Mavi Earring",
-		body="Assim. Jubbah +1",hands="Assim. Bazu. +1",ring2="Renaye Ring",
+		body="Assim. Jubbah +3",hands="Assim. Bazu. +1",ring2="Renaye Ring +1",
 		back="Cornflower Cape",legs="Hashishin Tayt +1",feet="Luhlaza Charuqs +1"})
 	sets.engaged.Learning = set_combine(sets.engaged, sets.Learning)
 	sets.self_healing = {neck="Phalaina Locket",hands="Buremte Gloves"}
@@ -364,22 +357,23 @@ function init_gear_sets()
 	-- Waltz set (chr and vit)
 	sets.precast.Waltz = {
 		head="Uk'uxkaj Cap",
-		hands="Buremte Gloves",
-		legs="Hagondes Pants +1",feet="Jhakri Pigaches +1"}
+		body="Passion Jacket",hands="Jhakri Cuffs +2",
+		legs="Hashishin Tayt +1",feet="Hippomenes Socks"}
 	-- Don't need any special gear for Healing Waltz.
 	sets.precast.Waltz['Healing Waltz'] = {}
 	-- Fast cast sets for spells
 	sets.precast.FC = {
-		head=gear.hercAcc,neck="Baetyl Pendant",ear1="Etiolation Earring",
-		body="Luhlaza Jubbah",hands="Leyline Gloves",
+		head=gear.hercAcc,neck="Orunmila's Torque",ear1="Etiolation Earring",
+		body="Luhlaza Jubbah",hands="Leyline Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
 		back="Perimede Cape",legs="Psycloth Lappas"}
 	sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, {body="Hashishin Mintan +1",hands="Hashi. Bazubands"})
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",hands="Jhakri Cuffs +1",back="Rosmerta's Cape",waist="Fotia Belt"})
-	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
+	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",
+        body="Assim. Jubbah +3",hands="Jhakri Cuffs +2",ring2="Epaminondas's Ring",
+        back="Rosmerta's Cape",waist="Fotia Belt"})
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	-- Earth, STR 40% DEX 40%
@@ -407,7 +401,7 @@ function init_gear_sets()
 	sets.precast.WS['Spirits Within'] = set_combine(sets.precast.WS, {})
 
 	-- Earth/Thunder, STR 60%
-	sets.precast.WS['Vorpal Blade'] = set_combine(sets.precast.WS, sets.Mode.Crit, {body="Assim. Jubbah +1"})
+	sets.precast.WS['Vorpal Blade'] = set_combine(sets.precast.WS, sets.Mode.Crit, {body="Assim. Jubbah +3"})
 
 	-- Earth/Thunder/Wind, STR 50% MND 50%
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
@@ -464,13 +458,13 @@ function init_gear_sets()
 	-- Breath Spells --
 	sets.midcast['Blue Magic'].Breath = {ammo="Mavi Tathlum",
 		head="Luh. Keffiyeh +1",ear1="Lifestorm Earring",ear2="Psystorm Earring",
-		body="Assim. Jubbah +1",hands="Hashi. Bazubands",
+		body="Assim. Jubbah +3",hands="Hashi. Bazubands",
 		back="Cornflower Cape",waist="Glassblower's Belt",legs="Hashishin Tayt +1",feet="Hashishin Basmak"}
 	-- Other Types --
 	sets.midcast['Blue Magic'].Stun = set_combine(sets.midcast['Blue Magic'].MagicAccuracy,
 		{waist="Chaac Belt"})
 	sets.midcast['Blue Magic']['White Wind'] = {
-		head="Whirlpool Mask",neck="Phalaina Locket",
+		neck="Phalaina Locket",
 		hands="Buremte Gloves",ring1="K'ayres Ring",
 		legs="Carmine Cuisses +1",feet="Battlecast Gaiters"}
 	sets.midcast['Blue Magic'].Healing = {
@@ -486,24 +480,26 @@ function init_gear_sets()
 
 	-- Cure %+ > healing skill > MND
     sets.midcast.Cure = set_combine(sets.midcast.StatusRemoval, {
-        neck="Phalaina Locket",hands="Telchine Gloves",back="Solemnity Cape"})
+        neck="Phalaina Locket",
+        body="Vrikodara Jupon",hands="Telchine Gloves",ring1="Ephedra Ring",ring2="Lebeche Ring",
+        back="Solemnity Cape",legs="Gyve Trousers"})
 
 	-- Sets to return to when not performing an action.
 	-- Gear for learning spells: +skill and AF hands.
 	sets.latent_refresh = {waist="Fucho-no-obi"}
 	-- Defense sets
 	sets.defense.Evasion = {
-		head=gear.hercAcc,ear1="Infused Earring",ear2="Assuage Earring",
-		body="Assim. Jubbah +1",hands="Herculean Gloves",ring1="Vengeful Ring",
-		legs="Herculean Trousers",feet="Hippomenes Socks"}
+		head=gear.hercAcc,ear1="Infused Earring",ear2="Eabani Earring",
+		body="Assim. Jubbah +3",hands="Herculean Gloves",ring1="Vengeful Ring",ring2="Beeline Ring",
+		legs="Herculean Trousers",feet="Ahosi Leggings"}
 	sets.defense.PDT = {
-		head="Uk'uxkaj Cap",neck="Twilight Torque",
-		body="Hagondes Coat",hands="Umuthi Gloves",ring1="Defending Ring",ring2="Patricius Ring",
-		back="Solemnity Cape",legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
+		head="Lithelimb Cap",neck="Twilight Torque",
+		body="Ayanmo Corazza +2",hands="Umuthi Gloves",ring1="Defending Ring",ring2="Patricius Ring",
+		back="Solemnity Cape",legs="Aya. Cosciales +2",feet="Ahosi Leggings"}
 	sets.defense.MDT = {
-		head="Uk'uxkaj Cap",neck="Twilight Torque",ear1="Etiolation Earring",
-		body="Amalric Doublet",hands="Amalric Gages",ring1="Defending Ring",ring2="Vengeful Ring",
-		back="Solemnity Cape",waist="Flax Sash",legs="Feast Hose",feet="Aya. Gambieras +1"}
+		head="Aya. Zucchetto +2",neck="Twilight Torque",ear1="Etiolation Earring",ear2="Eabani Earring",
+		body="Ayanmo Corazza +2",hands="Amalric Gages",ring1="Defending Ring",ring2="Moonbeam Ring",
+		back="Reiki Cloak",waist="Flax Sash",legs="Aya. Cosciales +2",feet="Aya. Gambieras +2"}
 	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 	sets.Kiting = {legs="Carmine Cuisses +1"}
 	sets.TreasureHunter = {head=gear.hercTH,waist="Chaac Belt"}

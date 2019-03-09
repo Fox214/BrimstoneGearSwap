@@ -19,12 +19,10 @@ function job_setup()
     state.Buff.Yonin = buffactive.Yonin or false
     state.Buff.Innin = buffactive.Innin or false
     state.Buff.Futae = buffactive.Futae or false
-	state.Stance = M{['description']='Stance', 'Off', 'None', 'Offensive', 'Defensive'}
+	state.Stance = M{['description']='Stance', 'Off', 'None', 'Offensive', 'Defensive', 'DmgTank'}
  
-    -- determine_haste_group()
-
 	state.WeaponMode = M{['description']='Weapon Mode', 'Katana', 'Dagger', 'Club', 'Sword', 'GreatKatana', 'Scythe', 'Polearm', 'Staff' }
-	state.RWeaponMode = M{['description']='RWeapon Mode', 'Stats', 'Bow', 'Gun', 'Boomerrang', 'Shuriken'}
+	state.RWeaponMode = M{['description']='RWeapon Mode', 'Stats', 'Boomerrang', 'Shuriken'}
  
 	set_combat_form()
 	pick_tp_weapon()
@@ -36,30 +34,30 @@ end
 
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
-	state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'Haste', 'Skill', 'sTP', 'STR')
-    state.WeaponskillMode:options('Normal', 'Acc', 'Mod')
+	state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'Skill', 'sTP', 'STR')
+    state.WeaponskillMode:options('Normal')
     state.CastingMode:options('Normal', 'Resistant')
 	state.DefenseMode:options('None', 'Physical', 'Magical')
 	state.PhysicalDefenseMode:options('PDT', 'Evasion')
 	state.MagicalDefenseMode:options('MDT')
 	state.WeaponMode:set('Katana')
-	state.RWeaponMode:set('Boomerrang') 
+	state.RWeaponMode:set('Shuriken') 
 	state.Stance:set('None')
 	
     gear.MovementFeet = {name="Danzo Sune-ate"}
     gear.DayFeet = "Danzo Sune-ate"
     gear.NightFeet = "Hachi. Kyahan +1"
-	gear.NinAmmo = {name="Amar Cluster"}
+	gear.NinAmmo = {name="Seeth. Bomblet +1"}
 	gear.NinRanged = {name=""}
-	gear.StatsAmmo = "Amar Cluster"
+	gear.StatsAmmo = "Seeth. Bomblet +1"
 	gear.MaccAmmo = "Pemphredo Tathlum"
 	gear.empty = ""
-	gear.BowAmmo = "Fang Arrow"
-	gear.BowRanged = "Killer Shortbow"
-	gear.GunAmmo = "Bronze Bullet"
-	gear.GunRanged = "Shark Gun"
+	-- gear.BowAmmo = "Fang Arrow"
+	-- gear.BowRanged = "Killer Shortbow"
+	-- gear.GunAmmo = "Bronze Bullet"
+	-- gear.GunRanged = "Shark Gun"
 	gear.BoomerrangRanged = "Aliyat Chakram"
-	gear.Shuriken = "Manji Shuriken"
+	gear.Shuriken = "Togakushi Shuriken"
     gear.hercTH = { name="Herculean Helm", augments={'Attack+13','"Snapshot"+3','"Treasure Hunter"+1','Accuracy+5 Attack+5',}}
     gear.hercAcc = { name="Herculean Helm", augments={'Accuracy+29','STR+6','Attack+3',}}
     
@@ -75,27 +73,26 @@ end
 function init_gear_sets()
 	-- extra stuff
 	organizer_items = {
-		new1="",
-		new2="",
-		new3="",
-		new4="",
+        new1="Tali'ah Sera. +2",
+		new2="Sulevia's Plate. +2",
+		new3="Mummu Wrists +2",
+		new4="Hiza. Haramaki +2",
 		new5="",
 		new6="",
 		new7="",
 		new8="",
 		new9="",
-		new10="",
-		new11="",
-		new12="",
 		Food1="Squid Sushi",
-		StatsAmmo="Amar Cluster",
+		Food2="Red Curry Bun",
+		Food3="Sublime Sushi",
+		StatsAmmo="Yamarang",
 		MaccAmmo="Pemphredo Tathlum",
-		BowAmmo="Fang Arrow",
-		Bowrange="Killer Shortbow",
-		GunAmmo="Bronze Bullet",
-		Gunrange="Shark Gun",
+		-- BowAmmo="Fang Arrow",
+		-- Bowrange="Killer Shortbow",
+		-- GunAmmo="Bronze Bullet",
+		-- Gunrange="Shark Gun",
 		Boomerrangrange="Aliyat Chakram",
-		Shuriken="Manji Shuriken",
+		Shuriken="Togakushi Shuriken",
 		echos="Echo Drops",
 		Chonofuda="Chonofuda",
 		Furusumi="Furusumi",
@@ -124,25 +121,31 @@ function init_gear_sets()
     gear.MovementFeet = {name="Danzo Sune-ate"}
     gear.DayFeet = "Danzo Sune-ate"
     gear.NightFeet = "Hachi. Kyahan +1"
-	gear.NinAmmo = {name="Amar Cluster"}
+	gear.NinAmmo = {name="Yamarang"}
 	gear.NinRanged = {name=""}
-	gear.StatsAmmo = "Amar Cluster"
+	gear.StatsAmmo = "Yamarang"
 	gear.MaccAmmo = "Pemphredo Tathlum"
 	gear.empty = ""
-	gear.BowAmmo = "Fang Arrow"
-	gear.BowRanged = "Killer Shortbow"
-	gear.GunAmmo = "Bronze Bullet"
-	gear.GunRanged = "Shark Gun"
+	-- gear.BowAmmo = "Fang Arrow"
+	-- gear.BowRanged = "Killer Shortbow"
+	-- gear.GunAmmo = "Bronze Bullet"
+	-- gear.GunRanged = "Shark Gun"
 	gear.BoomerrangRanged = "Aliyat Chakram"
-	gear.Shuriken = "Manji Shuriken"
+	gear.Shuriken = "Togakushi Shuriken"
     gear.hercTH = { name="Herculean Helm", augments={'Attack+13','"Snapshot"+3','"Treasure Hunter"+1','Accuracy+5 Attack+5',}}
     gear.hercAcc = { name="Herculean Helm", augments={'Accuracy+29','STR+6','Attack+3',}}
+	-- For closetCleaner
+	sets.vars = { main=gear.MaccAmmo, sub=gear.BowAmmo, ranged=gear.BowRanged, ammo=gear.StatsAmmo,
+		-- body=gear.GunAmmo, hands=gear.GunRanged, 
+        ring1=gear.BoomerrangRanged, ring2=gear.Shuriken,
+		legs=gear.NightFeet,feet=gear.DayFeet
+		}
  
 	-- Idle sets
     sets.idle = {
-        head=gear.hercAcc,neck="Twilight Torque",ear1="Infused Earring",ear2="Etiolation Earring",
-        body="Hiza. Haramaki +1",hands="Hizamaru Kote +1",ring1="Defending Ring",ring2="Vengeful Ring",
-        back="Solemnity Cape",waist="Flax Sash",legs="Mummu Kecks +1",feet=gear.MovementFeet}
+        head="Hizamaru Somen +2",neck="Twilight Torque",ear1="Infused Earring",ear2="Etiolation Earring",
+        body="Hiza. Haramaki +2",hands="Hizamaru Kote +1",ring1="Defending Ring",ring2="Vengeful Ring",
+        back="Solemnity Cape",waist="Flax Sash",legs="Mummu Kecks +2",feet=gear.MovementFeet}
 
 	-- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 	sets.idle.Town = set_combine(sets.idle, {})
@@ -163,8 +166,8 @@ function init_gear_sets()
 	-- Normal melee group
     sets.engaged = {
         head="Hattori Zukin +1",neck="Sanctity Necklace",ear1="Brutal Earring",ear2="Suppanomimi",
-        body="Hachi. Chain. +1",hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
-        back="Yokaze Mantle",waist="Sarissapho. Belt",legs="Mochi. Hakama +1",feet="Hiza. Sune-Ate +1"}
+        body="Hachiya Chain. +3",hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
+        back="Yokaze Mantle",waist="Sarissapho. Belt",legs="Mochi. Hakama +1",feet="Hiza. Sune-Ate +2"}
  	sets.engaged.Katana = {}
 	sets.engaged.Dagger = {}
 	sets.engaged.Club = {}
@@ -177,53 +180,48 @@ function init_gear_sets()
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {
-			head="Mummu Bonnet +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Herculean Vest",hands="Herculean Gloves",ring1="Patricius Ring",ring2="Cacoethic Ring +1",
-			back="Andartia's Mantle",waist="Olseni Belt",legs="Mummu Kecks +1",feet="Herculean Boots"})
+        head="Hizamaru Somen +2",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
+        body="Hachiya Chain. +3",hands="Herculean Gloves",ring1="Cacoethic Ring +1",ring2="Regal Ring",
+        back="Andartia's Mantle",waist="Olseni Belt",legs="Mummu Kecks +2",feet="Herculean Boots"})
 	sets.Mode.Att= set_combine(sets.engaged, {
-			head="Lilitu Headpiece",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
-			body="Hiza. Haramaki +1",hands="Count's Cuffs",ring1="Overbearing Ring",ring2="Cho'j Band",
-			back="Phalangite Mantle",waist="Eschan Stone",legs="Hiza. Hizayoroi +1",feet="Hiza. Sune-Ate +1"})
+        head=gear.hercTH,neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
+        body="Tatena. Haramaki",hands="Count's Cuffs",ring1="Overbearing Ring",ring2="Regal Ring",
+        back="Phalangite Mantle",waist="Sulla Belt",legs="Hiza. Hizayoroi +2",feet="Hiza. Sune-Ate +2"})
 	-- Crit then dex
 	sets.Mode.Crit = set_combine(sets.engaged, {
-			head="Adhemar Bonnet",neck="Iga Erimaki",
-			back="Mummu Jacket +1",hands="Mummu Wrists +1",ring1="Epona's Ring",ring2="Hetairoi Ring",
-			back="Andartia's Mantle",waist="Chaac Belt",legs="Mummu Kecks +1",feet="Mummu Gamash. +1"})
+        head="Adhemar Bonnet",neck="Iga Erimaki",
+        body="Hachiya Chain. +3",hands="Mummu Wrists +2",ring1="Epona's Ring",ring2="Hetairoi Ring",
+        back="Andartia's Mantle",waist="Chaac Belt",legs="Mummu Kecks +2",feet="Mummu Gamash. +1"})
 	sets.Mode.DA = set_combine(sets.engaged, {
-			head="Skormoth Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Hattori Ningi",hands="Herculean Gloves",ring1="Hetairoi Ring",
-			back="Atheling Mantle",waist="Sarissapho. Belt",legs="Quiahuiz Trousers",feet="Loyalist Sabatons"})
-	-- DW then haste
-	sets.Mode.Haste = set_combine(sets.engaged, {
-			head="Hattori Zukin +1",ear1="Dudgeon Earring",ear2="Heartseeker Earring",
-			body="Hachi. Chain. +1",hands="Herculean Gloves",
-			back="Ground. Mantle +1",waist="Sailfi Belt +1",legs="Mochi. Hakama +1",feet="Hiza. Sune-Ate +1"})
+        head="Skormoth Mask",neck="Asperity Necklace",ear1="Trux Earring",ear2="Brutal Earring",
+        body="Hattori Ningi +1",hands="Herculean Gloves",ring1="Epona's Ring",ring2="Hetairoi Ring",
+        back="Atheling Mantle",waist="Sarissapho. Belt",legs="Zoar Subligar",feet="Loyalist Sabatons"})
 	sets.Mode.Skill = set_combine(sets.engaged, {})
 	-- sTP then subtle blow
 	sets.Mode.sTP = set_combine(sets.engaged, {
-			head="Adhemar Bonnet",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
-			body="Mummu Jacket +1",hands="Otronif Gloves +1",ring1="Rajas Ring",ring2="K'ayres Ring",
-			back="Laic Mantle",waist="Olseni Belt",legs="Herculean Trousers",feet="Otronif Boots"})
+        head="Adhemar Bonnet",neck="Asperity Necklace",ear1="Tripudio Earring",ear2="Digni. Earring",
+        body="Tatena. Haramaki",hands="Otronif Gloves +1",ring1="Rajas Ring",ring2="K'ayres Ring",
+        back="Laic Mantle",waist="Olseni Belt",legs="Herculean Trousers",feet="Otronif Boots"})
 	sets.Mode.STR = set_combine(sets.engaged, {
-			head="Hizamaru Somen +1",neck="Lacono Neck. +1",
-			body="Hiza. Haramaki +1",hands="Herculean Gloves",ring1="Rajas Ring",ring2="Apate Ring",
-			back="Buquwik Cape",legs="Hiza. Hizayoroi +1",feet="Hiza. Sune-Ate +1"})
+        head="Hachiya Hatsu. +3",neck="Lacono Neck. +1",
+        body="Hachiya Chain. +3",hands="Herculean Gloves",ring1="Apate Ring",ring2="Regal Ring",
+        back="Buquwik Cape",waist="Wanion Belt",legs="Hiza. Hizayoroi +2",feet="Hiza. Sune-Ate +2"})
 
 	--Initialize Main Weapons
 	sets.engaged.Stats = set_combine(sets.engaged, {})
 	sets.engaged.Boomerrang = set_combine(sets.engaged, {})
 	sets.engaged.Shuriken = set_combine(sets.engaged, {})
-	-- sets.engaged.KatanaOld = set_combine(sets.engaged, {main="Kannagi", sub="Kanaria"})
-	sets.engaged.Katana = set_combine(sets.engaged, {main="Aizushintogo", sub="Achiuchikapu"})
+	-- sets.engaged.KatanaOld = set_combine(sets.engaged, {main="Aizushintogo", sub="Kanaria"})
+	sets.engaged.Katana = set_combine(sets.engaged, {main="Kannagi", sub="Achiuchikapu"})
 	--Add in appropriate Ranged weapons
 	sets.ranged = {}
 	sets.ranged.Stats = {range=gear.NinRanged,ammo=gear.NinAmmo}
 	sets.ranged.Boomerrang = {range=gear.NinRanged,ammo=gear.NinAmmo}
 	sets.ranged.Shuriken = {range=gear.NinRanged,ammo=gear.NinAmmo}
-	sets.ranged.Bow = {range=gear.NinRanged,ammo=gear.NinAmmo}
-	sets.ranged.Gun = {range=gear.NinRanged,ammo=gear.NinAmmo}
-	sets.engaged.Katana.Bow = set_combine(sets.engaged.Katana, sets.ranged.Bow)
-	sets.engaged.Katana.Gun = set_combine(sets.engaged.Katana, sets.ranged.Gun)
+	-- sets.ranged.Bow = {range=gear.NinRanged,ammo=gear.NinAmmo}
+	-- sets.ranged.Gun = {range=gear.NinRanged,ammo=gear.NinAmmo}
+	-- sets.engaged.Katana.Bow = set_combine(sets.engaged.Katana, sets.ranged.Bow)
+	-- sets.engaged.Katana.Gun = set_combine(sets.engaged.Katana, sets.ranged.Gun)
 
 	sets.engaged.Katana.Stats = set_combine(sets.engaged.Katana, sets.ranged.Stats)
 	sets.engaged.Katana.Boomerrang = set_combine(sets.engaged.Katana, sets.ranged.Boomerrang)
@@ -233,15 +231,12 @@ function init_gear_sets()
 	sets.engaged.Katana.Att = set_combine(sets.engaged.Katana, sets.Mode.Att)
 	sets.engaged.Katana.Crit = set_combine(sets.engaged.Katana, sets.Mode.Crit)
 	sets.engaged.Katana.DA = set_combine(sets.engaged.Katana, sets.Mode.DA)
-	sets.engaged.Katana.Haste = set_combine(sets.engaged.Katana, sets.Mode.Haste)
 	sets.engaged.Katana.Skill = set_combine(sets.engaged.Katana, sets.Mode.Skill, {
-		neck="Hope Torque",
-		body="Mextli Harness",
 		legs="Hattori Hakama +1"})
 	sets.engaged.Katana.sTP = set_combine(sets.engaged.Katana, sets.Mode.sTP)
 	sets.engaged.Katana.STR = set_combine(sets.engaged.Katana, sets.Mode.STR)
 	--Other weapons (should inherit most recent ranged, no need to explicitly set)
-	sets.engaged.Staff = set_combine(sets.engaged, {main="Chatoyant Staff",sub="Pole Grip"})
+	sets.engaged.Staff = set_combine(sets.engaged, {main="Gozuki Mezuki",sub="Pole Grip"})
 	sets.engaged.Staff.Acc = set_combine(sets.engaged.Staff, sets.Mode.Acc, {})
 	sets.engaged.Dagger = set_combine(sets.engaged, {main="Odium"})
 	sets.engaged.Dagger.Acc = set_combine(sets.engaged.Dagger, sets.Mode.Acc)
@@ -249,30 +244,31 @@ function init_gear_sets()
 	sets.engaged.Club.Acc = set_combine(sets.engaged.Club, sets.Mode.Acc)
 	sets.engaged.Sword = set_combine(sets.engaged, {main="Apaisante"})
 	sets.engaged.Sword.Acc = set_combine(sets.engaged.Sword, sets.Mode.Acc)
-	sets.engaged.Polearm = set_combine(sets.engaged, {main="Pitchfork",sub="Pole Grip"})
+	sets.engaged.Polearm = set_combine(sets.engaged, {main="Pitchfork +1",sub="Pole Grip"})
 	sets.engaged.Polearm.Acc = set_combine(sets.engaged.Polearm, sets.Mode.Acc)
 	sets.engaged.Scythe = set_combine(sets.engaged, {main="Ark Scythe",sub="Pole Grip"})
 	sets.engaged.Scythe.Acc = set_combine(sets.engaged.Scythe, sets.Mode.Acc)
 	sets.engaged.GreatKatana = set_combine(sets.engaged, {main="Hardwood Katana",sub="Pole Grip"})
-	sets.engaged.GreatKatana.Bow = set_combine(sets.engaged.GreatKatana, sets.ranged.Bow)
-	sets.engaged.GreatKatana.Gun = set_combine(sets.engaged.GreatKatana, sets.ranged.Gun)
+	-- sets.engaged.GreatKatana.Bow = set_combine(sets.engaged.GreatKatana, sets.ranged.Bow)
+	-- sets.engaged.GreatKatana.Gun = set_combine(sets.engaged.GreatKatana, sets.ranged.Gun)
 	sets.engaged.GreatKatana.Stats = set_combine(sets.engaged.GreatKatana, sets.ranged.Stats)
 	sets.engaged.GreatKatana.Boomerrang = set_combine(sets.engaged.GreatKatana, sets.ranged.Boomerrang)
 	sets.engaged.GreatKatana.Shuriken = set_combine(sets.engaged.GreatKatana, sets.ranged.Shuriken)
 	sets.engaged.GreatKatana.Acc = set_combine(sets.engaged.GreatKatana, sets.Mode.Acc)
 	sets.engaged.GreatKatana.Skill = set_combine(sets.engaged.GreatKatana, sets.Mode.Skill)
-	sets.engaged.GreatKatana.Skill.Bow = set_combine(sets.engaged.GreatKatana, sets.Mode.Skill, sets.ranged.Bow)
-	sets.engaged.GreatKatana.Skill.Gun = set_combine(sets.engaged.GreatKatana, sets.Mode.Skill, sets.ranged.Gun)
+	-- sets.engaged.GreatKatana.Skill.Bow = set_combine(sets.engaged.GreatKatana, sets.Mode.Skill, sets.ranged.Bow)
+	-- sets.engaged.GreatKatana.Skill.Gun = set_combine(sets.engaged.GreatKatana, sets.Mode.Skill, sets.ranged.Gun)
 	sets.engaged.GreatKatana.Skill.Boomerrang = set_combine(sets.engaged.GreatKatana, sets.Mode.Skill, sets.ranged.Boomerrang)
 
 	-- Precast sets
     sets.precast.JA['Mijin Gakure'] = {legs="Mochi. Hakama +1"}
     sets.precast.JA['Futae'] = {legs="Hattori Tekko"}
-    sets.precast.JA['Sange'] = {legs="Mochi. Chainmail"}
+    sets.precast.JA['Sange'] = {legs="Mochi. Chainmail +1"}
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
-        head="Uk'uxkaj Cap",body="Hiza. Haramaki +1",hands="Hizamaru Kote +1",
+        head="Hachiya Hatsu. +3",
+		body="Passion Jacket",hands="Hizamaru Kote +1",
         legs="Feast Hose",feet="Hachi. Kyahan +1"}
         
     -- Don't need any special gear for Healing Waltz.
@@ -284,8 +280,10 @@ function init_gear_sets()
     sets.precast.Flourish1 = {waist="Chaac Belt"}
 
     -- Fast cast sets for spells
-    sets.precast.FC = {head=gear.hercAcc,neck="Baetyl Pendant",ear1="Etiolation Earring",hands="Leyline Gloves"}
-    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads",body="Mochi. Chainmail"})
+    sets.precast.FC = {head=gear.hercAcc,neck="Orunmila's Torque",ear1="Etiolation Earring",
+        hands="Leyline Gloves",ring1="Kishar Ring",ring2="Prolix Ring",
+        legs="Gyve Trousers"}
+    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads",body="Mochi. Chainmail +1",back="Andartia's Mantle",feet="Hattori Kyahan +1"})
 
     -- Snapshot for ranged
     sets.precast.RA = {head=gear.hercTH,waist="Yemaya Belt",legs="Nahtirah Trousers"}
@@ -293,10 +291,11 @@ function init_gear_sets()
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
 	-- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",body="Herculean Vest",
-		back="Andartia's Mantle",waist="Fotia Belt",legs="Hiza. Hizayoroi +1"})    
-	sets.WSDayBonus = {head="Gavialis Helm"} 
-	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
+	sets.precast.WS = set_combine(sets.Mode.STR, {
+		head="Hachiya Hatsu. +3",neck="Fotia Gorget",ear2="Ishvara Earring",
+		body="Herculean Vest",ring2="Epaminondas's Ring",
+		back="Andartia's Mantle",waist="Fotia Belt",legs="Hiza. Hizayoroi +2"})    
+	sets.WSDayBonus = {} 
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 	-- Light, STR 60% DEX 60%
@@ -318,7 +317,7 @@ function init_gear_sets()
 	sets.precast.WS['Blade: Ei'] = set_combine(sets.precast.WS, {})
 	
 	-- Wind/Thunder, STR 30% DEX 30%
-	sets.precast.WS['Blade: Jin'] = set_combine(sets.precast.WS, sets.Mode.Crit, {})
+	sets.precast.WS['Blade: Jin'] = set_combine(sets.Mode.Crit, sets.precast.WS, {})
 	
 	-- Earth/Darkness, STR 30% INT 30%
 	sets.precast.WS['Blade: Ten'] = set_combine(sets.precast.WS, {})
@@ -327,10 +326,13 @@ function init_gear_sets()
 	sets.precast.WS['Blade: Ku'] = set_combine(sets.precast.WS, {})
 	
 	-- Earth/Water, DEX 40% INT 40%
-	sets.precast.WS['Blade: Yu'] = set_combine(sets.precast.WS, {})
+	sets.precast.WS['Blade: Yu'] = set_combine(sets.precast.WS, {body="Lapidary Tunic"})
 
 	-- Fire/Light/Thunder, DEX 73%
-    sets.precast.WS['Blade: Shun'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Blade: Shun'] = set_combine(sets.precast.WS, {
+		head="Mummu Bonnet +1",
+		body="Mummu Jacket +1",hands="Mummu Wrists +2",ring1="Rajas Ring",ring2="Apate Ring",
+		back="Andartia's Mantle",legs="Jokushu Haidate",feet="Mummu Gamash. +1"})
 
 	-- Water/Earth/Ice/Dark, AGI 80%
 	sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, sets.Mode.Crit, 
@@ -342,6 +344,7 @@ function init_gear_sets()
 	-- Wind/Thunder/Earth, DEX 40% INT 40%
     sets.precast.WS['Aeolian Edge'] = {
         ear1="Friomisi Earring",ear2="Moonshade Earring",
+        body="Lapidary Tunic",
         back="Toro Cape"}
 
 	-- Dark/Water, STR 40% MND 40% 
@@ -352,44 +355,43 @@ function init_gear_sets()
         
 	-- skill > acc > INT 
     sets.midcast.NinjutsuDebuff = {range=gear.NinRanged,ammo=gear.NinAmmo,
-        head="Hachiya Hatsuburi",neck="Incanter's Torque",ear1="Lifestorm Earring",ear2="Psystorm Earring",
-        hands="Leyline Gloves",ring1="Diamond Ring",ring2="Perception Ring",
-        back="Yokaze Mantle",waist="Eschan Stone",legs="Denali Kecks",feet="Scamp's Sollerets"}
+        head="Hachiya Hatsu. +3",neck="Incanter's Torque",ear1="Lifestorm Earring",ear2="Psystorm Earring",
+        body="Mummu Jacket +1",hands="Mummu Wrists +2",ring1="Kishar Ring",ring2="Perception Ring",
+        back="Yokaze Mantle",waist="Eschan Stone",legs="Mummu Kecks +2",feet="Mummu Gamash. +1"}
 
 	-- special > skill > mab > INT > acc
     sets.midcast.ElementalNinjutsu = set_combine(sets.midcast.NinjutsuDebuff, {
         head="Mochi. Hatsuburi",neck="Sanctity Necklace",ear1="Friomisi Earring",ear2="Crematio Earring",
-        body="Hachi. Chain. +1",hands="Hattori Tekko",ring1="Diamond Ring",ring2="Perception Ring",
-        back="Toro Cape",waist="Eschan Stone",legs="Denali Kecks",feet="Hachi. Kyahan +1"})
+        body="Lapidary Tunic",hands="Hattori Tekko",ring1="Kishar Ring",ring2="Perception Ring",
+        back="Toro Cape",waist="Eschan Stone",legs="Gyve Trousers",feet="Hachi. Kyahan +1"})
 
 	-- acc 
-    sets.midcast.ElementalNinjutsu.Resistant = set_combine(sets.midcast.NinjutsuDebuff, {ear1="Lifestorm Earring",ear2="Psystorm Earring",ring2="Perception Ring",
-        back="Yokaze Mantle"})
+    sets.midcast.ElementalNinjutsu.Resistant = set_combine(sets.midcast.NinjutsuDebuff, {})
 
-    sets.midcast.NinjutsuBuff = {head="Hachiya Hatsuburi",hands="Mochizuki Tekko",back="Yokaze Mantle"}
-    sets.midcast.Utsusemi = set_combine(sets.midcast.NinjutsuBuff, {back="Andartia's Mantle",feet="Hattori Kyahan"})
+    sets.midcast.NinjutsuBuff = {head="Hachiya Hatsu. +3",hands="Mochizuki Tekko +1",back="Yokaze Mantle"}
+    sets.midcast.Utsusemi = set_combine(sets.midcast.NinjutsuBuff, {back="Andartia's Mantle",feet="Hattori Kyahan +1"})
 
 	-- Racc, Ratt, AGI
     sets.midcast.RA = {
         head=gear.hercAcc,neck="Iqabi Necklace",
-        body="Mochi. Chainmail",hands="Hachiya Tekko",ring1="Behemoth Ring",ring2="Cacoethic Ring +1",
+        body="Sayadio's Kaftan",hands="Hachiya Tekko",ring1="Paqichikaji Ring",ring2="Cacoethic Ring +1",
         back="Yokaze Mantle",waist="Eschan Stone",legs="Feast Hose",feet="Herculean Boots"}
  
     -- Defense sets
     sets.defense.Evasion = {
-        head="Hizamaru Somen +1",neck="Iga Erimaki",ear1="Infused Earring",ear2="Assuage Earring",
-        body="Hiza. Haramaki +1",hands="Hizamaru Kote +1",ring1="Alert Ring",ring2="Vengeful Ring",
-        back="Yokaze Mantle",waist="Koga Sarashi",legs="Hiza. Hizayoroi +1",feet="Hiza. Sune-Ate +1"}
+        head="Hizamaru Somen +2",neck="Iga Erimaki",ear1="Infused Earring",ear2="Eabani Earring",
+        body="Hiza. Haramaki +2",hands="Hizamaru Kote +1",ring1="Vengeful Ring",ring2="Beeline Ring",
+        back="Yokaze Mantle",waist="Koga Sarashi",legs="Hiza. Hizayoroi +2",feet="Hiza. Sune-Ate +2"}
 
     sets.defense.PDT = { 
         neck="Twilight Torque",
         body="Otronif Harness",hands="Otronif Gloves +1",ring1="Defending Ring",ring2="Patricius Ring",
-        back="Solemnity Cape",legs="Mummu Kecks +1",feet="Amm Greaves"}
+        back="Solemnity Cape",legs="Mummu Kecks +2",feet="Ahosi Leggings"}
 
     sets.defense.MDT = { 
-        head="Skormoth Mask",neck="Twilight Torque",ear1="Etiolation Earring",
-        body="Hiza. Haramaki +1",hands="Otronif Gloves +1",ring1="Defending Ring",ring2="Vengeful Ring",
-        back="Solemnity Cape",waist="Flax Sash",legs="Mummu Kecks +1",feet="Amm Greaves"}
+        head="Skormoth Mask",neck="Twilight Torque",ear1="Etiolation Earring",ear2="Eabani Earring",
+        body="Hiza. Haramaki +2",hands="Otronif Gloves +1",ring1="Defending Ring",ring2="Vengeful Ring",
+        back="Reiki Cloak",waist="Flax Sash",legs="Mummu Kecks +2",feet="Amm Greaves"}
 		
 	sets.debuffed = set_combine(sets.defense.Evasion,sets.defense.PDT,sets.defense.MDT)
 
@@ -399,7 +401,7 @@ function init_gear_sets()
     -- Custom buff sets
     --------------------------------------
 
-    sets.buff.Migawari = {body="Hattori Ningi",back="Andartia's Mantle"}
+    sets.buff.Migawari = {body="Hattori Ningi +1",back="Andartia's Mantle"}
     sets.buff.Doom = {} -- "Saida Ring"
     sets.buff.Yonin = {legs="Hattori Hakama +1"}
     sets.buff.Innin = {head="Hattori Zukin +1"}
@@ -416,6 +418,7 @@ function job_precast(spell, action, spellMap, eventArgs)
 		-- add_to_chat(1, 'Casting '..spell.name)
         handle_spells(spell)
 	end
+	-- cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
 	check_ws_dist(spell)
 end
 
@@ -474,7 +477,7 @@ function handle_nin_ja()
 				return
 			end
 		end
-		if state.Stance.value == 'Defensive' then
+		if state.Stance.value == 'Defensive' or state.Stance.value == 'DmgTank' then
 			if not buffactive.Yonin and player.status == "Engaged" and abil_recasts[146] == 0 then
 				windower.send_command('@input /ja "Yonin" <me>')
 				return
@@ -496,13 +499,7 @@ end
 -- gain == true if the buff was gained, false if it was lost.
 function job_buff_change(buff, gain)
 	handle_debuffs()
-    -- If we gain or lose any haste buffs, adjust which gear set we target.
-    if S{'haste','march','embrava','haste samba'}:contains(buff:lower()) then
-        -- determine_haste_group()
-        handle_equipping_gear(player.status)
-    elseif state.Buff[buff] ~= nil then
-        handle_equipping_gear(player.status)
-    end
+	handle_equipping_gear(player.status)
 end
 
 function job_status_change(new_status, old_status)
@@ -628,9 +625,9 @@ function select_ammo_type(t)
 	elseif state.RWeaponMode.value == "Bow" then
 		gear.NinAmmo.name = gear.BowAmmo
 		gear.NinRanged.name = gear.BowRanged
-	elseif state.RWeaponMode.value == "Gun" then
-		gear.NinAmmo.name = gear.GunAmmo
-		gear.NinRanged.name = gear.GunRanged
+	-- elseif state.RWeaponMode.value == "Gun" then
+		-- gear.NinAmmo.name = gear.GunAmmo
+		-- gear.NinRanged.name = gear.GunRanged
 	elseif state.RWeaponMode.value == "Boomerrang" then
 		gear.NinAmmo.name = gear.empty
 		gear.NinRanged.name = gear.BoomerrangRanged

@@ -47,20 +47,13 @@ end
 
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
-	state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'Haste', 'Skill', 'sTP', 'STR')
-	state.WeaponskillMode:options('Normal', 'Acc', 'Mod')
+	state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'Skill', 'sTP', 'STR')
+	state.WeaponskillMode:options('Normal')
 	state.DefenseMode:options('None', 'Physical', 'Magical')
 	state.PhysicalDefenseMode:options('PDT', 'Evasion')
 	state.MagicalDefenseMode:options('MDT')
 	state.WeaponMode:set('H2H')
 	state.Stance:set('Offensive')
-	flag.sekka = true
-	flag.med = true
-	flag.berserk = true
-	flag.defender = true
-	flag.aggressor = true
-	flag.warcry = true
-	flag.thirdeye = true
 
 	pick_tp_weapon()
 
@@ -82,48 +75,49 @@ end
 -- Define sets used by this job file.
 function init_gear_sets()
 	organizer_items = {
+        new1="Tali'ah Sera. +2",
+		new2="Sulevia's Plate. +2",
+		new3="Mummu Wrists +2",
+		new4="Hiza. Haramaki +2",
+        new5="",
 		echos="Echo Drops",
 		food="Squid Sushi",
-		test="Pup. Testimony",
-		med1="Hi-Potion +3",
-		med2="Elixer Vitae",
-		med3="Icarus Wing",
+		food2="Akamochi",
 		shihei="Shihei",
 		orb="Macrocosmic Orb"
 	}
 	-- Idle sets
 
-    sets.idle = {range="Turbo Animator",ammo="Automaton Oil",
-        head="Pup. Taj",neck="Chivalrous Chain",ear1="Sapphire Earring",ear2="Reraise Earring",
-        body="Pup. Tobe",hands="Pup. Dastanas",ring1="Rajas Ring",ring2="Ulthalam's Ring",
-        back="Pantin Cape",waist="Swift Belt",legs="Pup. Churidars",feet="Pup. Babouches"}
+    sets.idle = {
+        head="Pantin Taj +1",neck="Twilight Torque",ear1="Infused Earring",ear2="Etiolation Earring",
+        body="Hiza. Haramaki +2",hands="Hizamaru Kote +1",ring1="Defending Ring",ring2="Vengeful Ring",
+        back="Solemnity Cape",waist="Incarnation Sash",legs="Hiza. Hizayoroi +2",feet="Hippomenes Socks"}
 
-    sets.idle.Town = set_combine(sets.idle, {main="Tinhaspa"})
+    sets.idle.Town = set_combine(sets.idle, {})
      
 	-- Set for idle while pet is out (eg: pet regen gear)
-    sets.idle.Pet = sets.idle
+    sets.idle.Pet = set_combine(sets.idle, {})
 
     -- Idle sets to wear while pet is engaged
-    sets.idle.Pet.Engaged = {
-        head="Foire Taj",neck="Wiglen Gorget",ear1="Bladeborn Earring",ear2="Cirque Earring",
-        body="Foire Tobe",hands="Regimen Mittens",ring1="Sheltered Ring",ring2="Paguroidea Ring",
-        back="Dispersal Mantle",waist="Hurch'lan Sash",legs="Foire Churidars",feet="Foire Babouches"}
+    sets.idle.Pet.Engaged = { range="Animator P",ammo="Automaton Oil",
+        head="Tali'ah Turban +2",neck="Adad Amulet",ear1="Enmerkar Earring",ear2="Domes. Earring",
+        body="Foire Tobe",hands="Tali'ah Gages +2",ring1="Defending Ring",ring2="Angel's Ring",
+        waist="Incarnation Sash",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"}
 
-    sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {hands="Cirque Guanti +2",legs="Cirque Pantaloni +2"})
+    sets.idle.Pet.Engaged.Ranged = set_combine(sets.idle.Pet.Engaged, {range="Divinator II",ammo="Automaton Oil",hands="Cirque Guanti +2",legs="Cirque Pantaloni +2"})
 
-    sets.idle.Pet.Engaged.Nuke = set_combine(sets.idle.Pet.Engaged, {legs="Cirque Pantaloni +2",feet="Cirque Scarpe +2"})
+    sets.idle.Pet.Engaged.Nuke = set_combine(sets.idle.Pet.Engaged, {range="Divinator II",ammo="Automaton Oil",neck="Adad Amulet",legs="Cirque Pantaloni +2",feet="Cirque Scarpe +2"})
 
-    sets.idle.Pet.Engaged.Magic = set_combine(sets.idle.Pet.Engaged, {legs="Cirque Pantaloni +2",feet="Cirque Scarpe +2"})
+    sets.idle.Pet.Engaged.Magic = set_combine(sets.idle.Pet.Engaged, {range="Divinator II",ammo="Automaton Oil",neck="Adad Amulet",legs="Cirque Pantaloni +2",feet="Cirque Scarpe +2"})
 
 	-- Resting sets
-    sets.resting = {head="Pitre Taj",neck="Wiglen Gorget",
-        ring1="Sheltered Ring",ring2="Paguroidea Ring"}
+    sets.resting = {}
 
 	-- Normal melee group
-    sets.engaged = {range="Turbo Animator",ammo="Automaton Oil",
-        head="Optical Hat",neck="Chivalrous Chain",ear1="Sapphire Earring",ear2="Reraise Earring",
-        body="Pup. Tobe",hands="Pup. Dastanas",ring1="Rajas Ring",ring2="Ulthalam's Ring",
-        back="Pantin Cape",waist="Swift Belt",legs="Pantin Churidars",feet="Pup. Babouches"}
+    sets.engaged = {
+        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Bladeborn Earring",ear2="Steelflash Earring",
+        body="Herculean Vest",hands="Tali'ah Gages +2",ring1="Niqmaddu Ring",ring2="Epona's Ring",
+        back="Buquwik Cape",waist="Hurch'lan Sash",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"}
 	sets.engaged.H2H = {}
 	sets.engaged.Staff = {}
 	sets.engaged.Club = {}
@@ -131,123 +125,125 @@ function init_gear_sets()
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {
-		head="Optical Hat",legs="Pantin Churidars"})
-	sets.Mode.Att= set_combine(sets.engaged, {})
-	sets.Mode.Crit = set_combine(sets.engaged, {})
-	sets.Mode.DA = set_combine(sets.engaged, {})
-	sets.Mode.Haste = set_combine(sets.engaged, {})
-	sets.Mode.Skill = set_combine(sets.engaged, {ear1="Terminus Earring",ear2="Liminus Earring",ring2="Prouesse Ring"})
+		head="Tali'ah Turban +2",
+        body="Sayadio's Kaftan",hands="Tali'ah Gages +2",ring1="Cacoethic Ring +1",ring2="Regal Ring",
+        legs="Hiza. Hizayoroi +2",feet="Tali'ah Crackows +2"})
+	sets.Mode.Att= set_combine(sets.engaged, {
+        head="Hizamaru Somen +2",
+        ring1="Overbearing Ring",ring2="Regal Ring",
+        waist="Eschan Stone",legs="Hiza. Hizayoroi +2",feet="Hiza. Sune-Ate +2"})
+	sets.Mode.Crit = set_combine(sets.engaged, {hands="Tali'ah Gages +2"})
+	sets.Mode.DA = set_combine(sets.engaged, {ear1="Trux Earring",ear2="Brutal Earring",
+        ring1="Niqmaddu Ring",ring2="Epona's Ring",})
+	sets.Mode.Skill = set_combine(sets.engaged, {})
 	sets.Mode.sTP = set_combine(sets.engaged, {})
 	sets.Mode.STR = set_combine(sets.engaged, {
-		head="Maat's Cap",neck="Chivalrous Chain",legs="Pantin Churidars"})
+		head="Hizamaru Somen +2",
+        body="Hiza. Haramaki +2",hands="Hizamaru Kote +1",ring1="Niqmaddu Ring",ring2="Regal Ring",
+        legs="Hiza. Hizayoroi +2",feet="Hiza. Sune-Ate +2"})
 
-	sets.engaged.H2H = set_combine(sets.engaged, {main="Bone Patas"})
+	sets.engaged.H2H = set_combine(sets.engaged, {main="Ohtas"})
 	sets.engaged.H2H.Acc = set_combine(sets.engaged.H2H, sets.Mode.Acc)
 	sets.engaged.H2H.Att = set_combine(sets.engaged.H2H, sets.Mode.Att)
 	sets.engaged.H2H.Crit = set_combine(sets.engaged.H2H, sets.Mode.Crit)
 	sets.engaged.H2H.DA = set_combine(sets.engaged.H2H, sets.Mode.DA)
-	sets.engaged.H2H.Haste = set_combine(sets.engaged.H2H, sets.Mode.Haste)
 	sets.engaged.H2H.Skill = set_combine(sets.engaged.H2H, { 
-			head="Brisk Mask",neck="Faith Torque",ear1="Kemas Earring",
-			ring2="Portus Ring",
-			back="Belenos' Mantle"})
+			neck="Faith Torque"})
 	sets.engaged.H2H.sTP = set_combine(sets.engaged.H2H, sets.Mode.sTP)
 	sets.engaged.H2H.STR = set_combine(sets.engaged.H2H, sets.Mode.STR)
-	sets.engaged.Staff = set_combine(sets.engaged, {main="Eminent Staff",sub="Pole Grip"})
+	sets.engaged.Staff = set_combine(sets.engaged, {main="Gozuki Mezuki",sub="Pole Grip"})
 	sets.engaged.Staff.Acc = set_combine(sets.engaged.H2H, sets.Mode.Acc)
 	sets.engaged.Staff.Skill = set_combine(sets.engaged.H2H, sets.Mode.Skill)
 	sets.engaged.Club = set_combine(sets.engaged, {main="Warp Cudgel"})
 	sets.engaged.Club.Acc = set_combine(sets.engaged.H2H, sets.Mode.Acc)
 	sets.engaged.Club.Skill = set_combine(sets.engaged.H2H, sets.Mode.Skill)
 
-   
     -- Precast Sets
-
     -- Fast cast sets for spells
-    sets.precast.FC = {head="Haruspex Hat",ear2="Loquacious Earring",hands="Thaumas Gloves"}
-
+    sets.precast.FC = {neck="Orunmila's Torque",legs="Gyve Trousers",ring2="Prolix Ring"}
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
-
     
     -- Precast sets to enhance JAs
     sets.precast.JA['Tactical Switch'] = {feet="Cirque Scarpe +2"}
-    
     sets.precast.JA['Repair'] = {feet="Foire Babouches"}
-
-    sets.precast.JA.Maneuver = {neck="Buffoon's Collar",body="Cirque Farsetto +2",hands="Foire Dastanas",back="Dispersal Mantle"}
-
-
+    sets.precast.JA.Maneuver = {neck="Buffoon's Collar",body="Cirque Farsetto +2",hands="Foire Dastanas"}
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
-        head="Whirlpool Mask",ear1="Roundel Earring",
-        body="Otronif Harness +1",hands="Otronif Gloves",ring1="Spiral Ring",
-        back="Iximulew Cape",legs="Nahtirah Trousers",feet="Thurandaut Boots +1"}
+        head="Hizamaru Somen +2",ear1="Roundel Earring",
+        body="Passion Jacket",
+        legs="Gyve Trousers",feet="Hippomenes Socks"}
         
     -- Don't need any special gear for Healing Waltz.
     sets.precast.Waltz['Healing Waltz'] = {}
-
        
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
-    sets.precast.WS = {
-        head="Whirlpool Mask",neck="Asperity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-        body="Manibozho Jerkin",hands="Otronif Gloves",ring1="Rajas Ring",ring2="Epona's Ring",
-        back="Dispersal Mantle",waist="Windbuffet Belt",legs="Manibozho Brais",feet="Manibozho Boots"}
-
+    sets.precast.WS = set_combine(sets.Mode.STR, {
+        neck="Fotia Gorget",ear2="Ishvara Earring",
+        body="Herculean Vest",ring2="Epaminondas's Ring",
+        waist="Fotia Belt",legs="Hiza. Hizayoroi +2"})
+        
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-    sets.precast.WS['Stringing Pummel'] = set_combine(sets.precast.WS, {neck="Rancor Collar",ear1="Brutal Earring",ear2="Moonshade Earring",
-        ring1="Spiral Ring",waist="Soil Belt"})
-    sets.precast.WS['Stringing Pummel'].Mod = set_combine(sets.precast.WS['Stringing Pummel'], {legs="Nahtirah Trousers"})
+    sets.precast.WS['Stringing Pummel'] = set_combine(sets.precast.WS, {})
 
-    sets.precast.WS['Victory Smite'] = set_combine(sets.precast.WS, {neck="Rancor Collar",ear1="Brutal Earring",ear2="Moonshade Earring",
-        waist="Thunder Belt"})
+    sets.precast.WS['Victory Smite'] = set_combine(sets.precast.WS, {})
 
-    sets.precast.WS['Shijin Spiral'] = set_combine(sets.precast.WS, {neck="Light Gorget",waist="Light Belt"})
-
+    sets.precast.WS['Shijin Spiral'] = set_combine(sets.precast.WS, {})
     
     -- Midcast Sets
-
-    sets.midcast.FastRecast = {
-        head="Haruspex Hat",ear2="Loquacious Earring",
-        body="Otronif Harness +1",hands="Regimen Mittens",
-        legs="Manibozho Brais",feet="Otronif Boots +1"}
+    -- sets.midcast.FastRecast = {}
         
-
     -- Midcast sets for pet actions
     sets.midcast.Pet.Cure = {legs="Pup. Churidars"}
 
-    sets.midcast.Pet['Elemental Magic'] = {feet="Pitre Babouches"}
+    sets.midcast.Pet['Elemental Magic'] = {neck="Adad Amulet"}
 
     sets.midcast.Pet.WeaponSkill = {head="Cirque Cappello +2", hands="Cirque Guanti +2", legs="Cirque Pantaloni +2"}
 
-    
-    -- Sets to return to when not performing an action.
-    
-    
-
- 
-
     -- Defense sets
-
     sets.defense.Evasion = {
-        head="Whirlpool Mask",neck="Twilight Torque",
-        body="Otronif Harness +1",hands="Otronif Gloves",ring1="Defending Ring",ring2="Beeline Ring",
-        back="Ik Cape",waist="Hurch'lan Sash",legs="Nahtirah Trousers",feet="Otronif Boots +1"}
+        head="Hizamaru Somen +2",neck="Twilight Torque",ear1="Infused Earring",ear2="Eabani Earring",
+        body="Hiza. Haramaki +2",hands="Hizamaru Kote +1",ring1="Vengeful Ring",ring2="Beeline Ring",
+        waist="Hurch'lan Sash",legs="Hiza. Hizayoroi +2",feet="Hiza. Sune-Ate +2"}
 
     sets.defense.PDT = {
-        head="Whirlpool Mask",neck="Twilight Torque",
-        body="Otronif Harness +1",hands="Otronif Gloves",ring1="Defending Ring",ring2=gear.DarkRing.physical,
-        back="Shadow Mantle",waist="Hurch'lan Sash",legs="Nahtirah Trousers",feet="Otronif Boots +1"}
+        head="Hizamaru Somen +2",neck="Twilight Torque",
+        body="Vrikodara Jupon",hands="Otronif Gloves +1",ring1="Defending Ring",
+        back="Solemnity Cape",waist="Hurch'lan Sash",legs="Hiza. Hizayoroi +2",feet="Ahosi Leggings"}
 
     sets.defense.MDT = {
-        head="Whirlpool Mask",neck="Twilight Torque",
-        body="Otronif Harness +1",hands="Otronif Gloves",ring1="Defending Ring",ring2="Shadow Ring",
-        back="Tuilha Cape",waist="Hurch'lan Sash",legs="Nahtirah Trousers",feet="Otronif Boots +1"}
+        head="Hizamaru Somen +2",neck="Twilight Torque",ear1="Etiolation Earring",ear2="Eabani Earring",
+        body="Vrikodara Jupon",hands="Otronif Gloves +1",ring1="Defending Ring",
+        back="Tuilha Cape",waist="Hurch'lan Sash",legs="Gyve Trousers",feet="Ahosi Leggings"}
 
-    sets.Kiting = {feet="Hermes' Sandals"}
+    sets.Kiting = {}
 end
 
+
+-- Run after the default aftercast() is done.
+-- eventArgs is the same one used in job_aftercast, in case information needs to be persisted.
+function job_post_aftercast(spell, action, spellMap, eventArgs)
+	-- add_to_chat(7,'post aftercast '..spell.name)
+	-- don't do anything after these conditions
+	if spell.type == 'Trust' then
+		return
+	end
+	if spell.type == 'WeaponSkill' then
+		delay = 4
+	else	
+		delay = 1
+	end
+	if player.sub_job == 'WAR' then
+		handle_war_ja:schedule(delay)
+	end
+end
+
+-- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
+-- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
+function job_precast(spell, action, spellMap, eventArgs)
+    check_ws_dist(spell)
+end
 
 -------------------------------------------------------------------------------------------------------------------
 -- Job-specific hooks for standard casting events.
@@ -272,6 +268,12 @@ function job_buff_change(buff, gain)
     if buff == 'Wind Maneuver' then
         handle_equipping_gear(player.status)
     end
+end
+
+function job_handle_equipping_gear(status, eventArgs)
+	-- add_to_chat(122,'handle equiping gear')
+	check_tp_lock()
+	pick_tp_weapon()
 end
 
 -- Called when a player gains or loses a pet.

@@ -39,6 +39,9 @@ include('organizer-lib.lua')
 
 --]]
 
+-- For astral conduit:
+-- //gs equip sets.midcast.Pet.PhysicalBloodPactRage
+-- //gs disable all
 
 -- Initialization function for this job file.
 function get_sets()
@@ -133,14 +136,12 @@ end
 
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
-    state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'Haste', 'Skill', 'sTP', 'STR')
+    state.OffenseMode:options('Normal', 'Acc', 'Att', 'Crit', 'DA', 'sTP', 'STR')
     state.CastingMode:options('Normal', 'Resistant')
-    state.IdleMode:options('Normal', 'PDT', 'Capacity')
+    state.IdleMode:options('Normal', 'PDT')
 	state.WeaponMode:set('Staff')
 	state.Stance:set('None')
 	state.holdtp:set('false')
-    gear.macc_staff = { name="Grioavolr", augments={'Magic burst dmg.+3%','INT+6','Mag. Acc.+24','"Mag.Atk.Bns."+22',}}
-	gear.pet_staff = { name="Grioavolr", augments={'Blood Pact Dmg.+1','System: 1 ID: 1796 Val: 10','Pet: Mag. Acc.+9','Pet: "Mag.Atk.Bns."+16',}}
 	send_command('bind ^` gs c cycle WeaponMode')
 	
     select_default_macro_book()
@@ -149,35 +150,34 @@ end
 -- Define sets and vars used by this job file.
 function init_gear_sets()
     gear.macc_staff = { name="Grioavolr", augments={'Magic burst dmg.+3%','INT+6','Mag. Acc.+24','"Mag.Atk.Bns."+22',}}
-	gear.pet_staff = { name="Grioavolr", augments={'Blood Pact Dmg.+1','System: 1 ID: 1796 Val: 10','Pet: Mag. Acc.+9','Pet: "Mag.Atk.Bns."+16',}}
+	-- gear.pet_staff = { name="Grioavolr", augments={'Blood Pact Dmg.+7','Pet: INT+13','Pet: Mag. Acc.+5','Pet: "Mag.Atk.Bns."+21',}}
+	gear.pet_staff = { name="Grioavolr", augments={'Blood Pact Dmg.+9','Pet: VIT+11','Pet: Mag. Acc.+17','Pet: "Mag.Atk.Bns."+21',}}
     --------------------------------------
     -- Idle/resting/defense/etc sets
     --------------------------------------
 	organizer_items = {
-		new1="Hippomenes Socks",
-		new2="Cacoethic Ring +1",
-		new3="Domes. Earring",
-		new4="",
+        new1="Tali'ah Sera. +2",
+		new2="Sulevia's Plate. +2",
+		new3="Mummu Wrists +2",
+		new4="Hiza. Haramaki +2",
 		new5="",
 		new6="",
 		new7="",
 		new8="",
-		new10="",
-		new13="",
+        food1="Akamochi",
 		echos="Echo Drops",
 		-- shihei="Shihei",
 		orb="Macrocosmic Orb"
 	}    
     -- Idle sets
-    sets.idle = {ammo="Seraphicaller",
-        head="Beckoner's Horn",neck="Twilight Torque",ear1="Etiolation Earring",ear2="Moonshade Earring",
-        body="Apogee Dalmatica",hands="Inyan. Dastanas +1",ring1="Defending Ring",ring2="Renaye Ring",
+    sets.idle = {ammo="Sancus Sachet +1",
+        head="Beckoner's Horn +1",neck="Twilight Torque",ear1="Moonshade Earring",ear2="Ethereal Earring",
+        body="Apogee Dalmatica",hands="Telchine Gloves",ring1="Defending Ring",ring2="Renaye Ring +1",
         back="Solemnity Cape",waist="Fucho-no-Obi",legs="Inyanga Shalwar +1",feet="Inyan. Crackows +1"}
-	sets.idle.Capacity = set_combine(sets.idle, {back="Mecisto. Mantle"})
 
     sets.idle.PDT = set_combine(sets.idle, {})
 
-		-- perp costs:
+	-- perp costs:
     -- spirits: 7
     -- carby: 11 (5 with mitts)
     -- fenrir: 13
@@ -201,39 +201,38 @@ function init_gear_sets()
 	sets.perp.base = {main="Gridarvor",sub="Oneiros Grip",
 		head="Glyphic Horn +1",ear2="Evans Earring",
 		body="Glyphic Doublet",ring1="Evoker's Ring",
-		back="Campestres's Cape",feet="Con. Pigaches +1"}
+		back="Campestres's Cape",feet="Apogee Pumps +1"}
     -- Caller's Bracer's halve the perp cost after other costs are accounted for.
     -- Using -10 (Gridavor, ring, Conv.feet), standard avatars would then cost 5, halved to 2.
     -- We can then use Hagondes Coat and end up with the same net MP cost, but significantly better defense.
     -- Weather is the same, but we can also use the latent on the pendant to negate the last point lost.
     sets.perp.Day = set_combine(sets.perp.base, {
-			body="Call. Doublet +2",hands="Beckoner's Bracers"
+			body="Beckoner's Doublet",hands="Beckoner's Bracers"
 			})
     sets.perp.Weather = set_combine(sets.perp.base, {
-			neck="Caller's Pendant",body="Call. Doublet +2",hands="Beckoner's Bracers"
+			neck="Caller's Pendant",body="Beckoner's Doublet",hands="Beckoner's Bracers"
 			})
     -- Carby: Mitts+Conv.feet = 1/tick perp.  Everything else should be +refresh
     sets.perp.Carbuncle = set_combine(sets.perp.base, {main="Bolelabunga",sub="Genmei Shield",
-        head="Convoker's Horn",body="Hagondes Coat",hands="Carbuncle Mitts",feet="Con. Pigaches +1"})
+        hands="Asteria Mitts",feet="Con. Pigaches +1"})
     -- Diabolos's Rope doesn't gain us anything at this time
     -- sets.perp.Diabolos = {waist="Diabolos's Rope"}
     sets.perp.Diabolos = set_combine(sets.perp.base, {})
-    sets.perp.Alexander = sets.midcast.Pet.BloodPactWard
+    sets.perp.Alexander = set_combine(sets.midcast.Pet.BloodPactWard, {})
 
     sets.idle.Avatar = set_combine(sets.idle, sets.perp.base)
-	sets.idle.Avatar.Capacity = set_combine(sets.idle, {back="Mecisto. Mantle"})
 
 	-- smn skill
 	sets.skill = {}
-	sets.skill.smn = {sub="Vox Grip",
-				head="Convoker's Horn",neck="Incanter's Torque",ear1="Andoaa Earring",
-				body="Call. Doublet +2",hands="Glyphic Bracers +1",ring1="Evoker's Ring",ring2="Globidonta Ring",
-				back="Conveyance Cape",waist="Summoning Belt",legs="Beckoner's Spats",feet="Rubeus Boots"}
+	sets.skill.smn = {main="Exemplar",sub="Vox Grip",
+        head="Convoker's Horn +2",neck="Incanter's Torque",ear1="Andoaa Earring",
+        body="Beckoner's Doublet",hands="Glyphic Bracers +1",ring1="Evoker's Ring",ring2="Globidonta Ring",
+        back="Conveyance Cape",waist="Summoning Belt",legs="Beckoner's Spats",feet="Rubeus Boots"}
  
-	-- Favor uses Caller's Horn instead of Convoker's Horn for refresh
-    sets.idle.Avatar.Favor = set_combine(sets.skill.smn, {head="Beckoner's Horn"})
-    sets.idle.Avatar.Melee = {head="Apogee Crown",hands="Regimen Mittens",
-		back="Campestres's Cape",waist="Incarnation Sash",legs="Tali'ah Sera. +1"}
+	-- Favor uses Caller's Horn instead of Convoker's Horn +2 for refresh
+    sets.idle.Avatar.Favor = set_combine(sets.skill.smn, sets.perp.base, {head="Beckoner's Horn +1"})
+    sets.idle.Avatar.Melee = {head="Apogee Crown",neck="Shulmanu Collar",ear1="Enmerkar Earring",ear2="Domes. Earring",hands="Regimen Mittens",
+		back="Campestres's Cape",waist="Incarnation Sash",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"}
  
     -- Resting sets
     sets.resting = set_combine(sets.idle, {})
@@ -243,45 +242,41 @@ function init_gear_sets()
     --------------------------------------
     
     -- Normal melee group
-    sets.engaged = {ammo="Seraphicaller",
-        head="Tali'ah Turban +1",neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Steelflash Earring",
-        body="Tali'ah Manteel +1",hands="Tali'ah Gages +1",ring1="Evoker's Ring",ring2="Renaye Ring",
-        back="Samanisi Cape",waist="Olseni Belt",legs="Tali'ah Sera. +1",feet="Tali'ah Crackows +1"}
+    sets.engaged = {ammo="Sancus Sachet +1",
+        head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Bladeborn Earring",ear2="Steelflash Earring",
+        body="Con. Doublet +3",hands="Tali'ah Gages +2",ring1="Evoker's Ring",ring2="Renaye Ring +1",
+        back="Samanisi Cape",waist="Olseni Belt",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"}
 	sets.engaged.Club = {}
 	sets.engaged.Staff = {}
 	
 	-- Basic Mode definitions
 	sets.Mode = {}
 	sets.Mode.Acc = set_combine(sets.engaged, {
-			head="Tali'ah Turban +1",neck="Iqabi Necklace",ear1="Zennaroi Earring",ear2="Digni. Earring",
-			body="Tali'ah Manteel +1",hands="Tali'ah Gages +1",ring2="Ulthalam's Ring",
-			waist="Olseni Belt",legs="Tali'ah Sera. +1",feet="Tali'ah Crackows +1"})
+			head="Tali'ah Turban +2",neck="Shulmanu Collar",ear1="Zennaroi Earring",ear2="Digni. Earring",
+			body="Con. Doublet +3",hands="Tali'ah Gages +2",ring1="Mars's Ring",ring2="Cacoethic Ring +1",
+			waist="Olseni Belt",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"})
 	sets.Mode.Att= set_combine(sets.engaged, {
-			neck="Sanctity Necklace",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
+			neck="Shulmanu Collar",ear1="Bladeborn Earring",ear2="Dudgeon Earring",
 			ring1="Overbearing Ring",ring2="Cho'j Band",
-			waist="Eschan Stone"})
-	sets.Mode.Crit = set_combine(sets.engaged, {hands="Tali'ah Gages +1",ring2="Hetairoi Ring"
+			waist="Eschan Stone",legs="Querkening Brais"})
+	sets.Mode.Crit = set_combine(sets.engaged, {hands="Tali'ah Gages +2",ring2="Hetairoi Ring"
 			})
 	sets.Mode.DA = set_combine(sets.engaged, {
-			ear1="Bladeborn Earring",ear2="Steelflash Earring",
-			body="Tali'ah Manteel +1",ring2="Hetairoi Ring"
-			})
-	sets.Mode.Haste = set_combine(sets.engaged, {head="Merlinic Hood",body="Tali'ah Manteel +1",legs="Miasmic Pants",feet="Tali'ah Crackows +1"})
-	sets.Mode.Skill = set_combine(sets.engaged, {})
+			neck="Shulmanu Collar",ear1="Trux Earring",ear2="Brutal Earring",
+			body="Tali'ah Manteel +1",ring2="Hetairoi Ring",
+			legs="Querkening Brais"})
 	sets.Mode.sTP = set_combine(sets.engaged, { ear2="Digni. Earring",
 			ring1="Rajas Ring",ring2="K'ayres Ring",waist="Olseni Belt"})
 	sets.Mode.STR = set_combine(sets.engaged, {
-			head="Tali'ah Turban +1",neck="Lacono Neck. +1",
-			body="Tali'ah Manteel +1",hands="Tali'ah Gages +1",ring1="Rajas Ring",ring2="Apate Ring",
-			back="Buquwik Cape",legs="Tali'ah Sera. +1",feet="Tali'ah Crackows +1"})
+			head="Tali'ah Turban +2",neck="Lacono Neck. +1",
+			body="Con. Doublet +3",hands="Tali'ah Gages +2",ring1="Rajas Ring",ring2="Apate Ring",
+			back="Buquwik Cape",legs="Tali'ah Sera. +2",feet="Tali'ah Crackows +2"})
 	
 	sets.engaged.Staff = set_combine(sets.engaged, {main="Gridarvor", sub="Oneiros Grip"})
 	sets.engaged.Staff.Acc = set_combine(sets.engaged.Staff, sets.Mode.Acc)
 	sets.engaged.Staff.Att = set_combine(sets.engaged.Staff, sets.Mode.Att)
 	sets.engaged.Staff.Crit = set_combine(sets.engaged.Staff, sets.Mode.Crit)
 	sets.engaged.Staff.DA = set_combine(sets.engaged.Staff, sets.Mode.DA)
-	sets.engaged.Staff.Haste = set_combine(sets.engaged.Staff, sets.Mode.Haste)
-	sets.engaged.Staff.Skill = set_combine(sets.engaged.Staff, {})
 	sets.engaged.Staff.sTP = set_combine(sets.engaged.Staff, sets.Mode.sTP)
 	sets.engaged.Staff.STR = set_combine(sets.engaged.Staff, sets.Mode.STR)
 
@@ -290,18 +285,17 @@ function init_gear_sets()
 	sets.engaged.Club.Att = set_combine(sets.engaged.Club, sets.Mode.Att)
 	sets.engaged.Club.Crit = set_combine(sets.engaged.Club, sets.Mode.Crit)
 	sets.engaged.Club.DA = set_combine(sets.engaged.Club, sets.Mode.DA)
-	sets.engaged.Club.Haste = set_combine(sets.engaged.Club, sets.Mode.Haste)
-	sets.engaged.Club.Skill = set_combine(sets.engaged.Club, {})
 	sets.engaged.Club.sTP = set_combine(sets.engaged.Club, sets.Mode.sTP)
 	sets.engaged.Club.STR = set_combine(sets.engaged.Club, sets.Mode.STR)
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
-	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",waist="Fotia Belt"})    
+	sets.precast.WS = set_combine(sets.Mode.STR, {neck="Fotia Gorget",ear2="Ishvara Earring",
+        ring2="Epaminondas's Ring",waist="Fotia Belt"})    
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Myrkr'] = {
-        body="Con. Doublet +1",hands="Beckoner's Bracers",ring1="Evoker's Ring",
+        body="Con. Doublet +3",hands="Beckoner's Bracers",ring1="Evoker's Ring",
         back="Pahtli Cape",waist="Fucho-no-Obi"}
 
 	-- none, INT 50% MND 50%
@@ -318,23 +312,23 @@ function init_gear_sets()
     sets.precast.JA['Astral Flow'] = {head="Glyphic Horn +1"}
     
     sets.precast.JA['Elemental Siphon'] = set_combine(sets.skill.smn, { body="Telchine Chas.",
-        back="Conveyance Cape",feet="Caller's Pgch. +2"})
+        back="Conveyance Cape",feet="Beck. Pigaches"})
 
     sets.precast.JA['Mana Cede'] = {hands="Beckoner's Bracers"}
 
     -- Pact delay reduction gear
-    sets.precast.BloodPactWard = {main="Espiritus",sub="Vox Grip",ammo="Seraphicaller",
+    sets.precast.BloodPactWard = {main="Espiritus",sub="Vox Grip",ammo="Sancus Sachet +1",
 		head="Glyphic Horn +1",ear2="Evans Earring",
 		body="Apogee Dalmatica",hands="Glyphic Bracers +1",
-        back="Conveyance Cape",legs="Glyphic Spats"}
+        back="Conveyance Cape",legs="Glyphic Spats",feet="Apogee Pumps +1"}
 
-    sets.precast.BloodPactRage = sets.precast.BloodPactWard
+    sets.precast.BloodPactRage = set_combine(sets.precast.BloodPactWard, {})
 
     -- Fast cast sets for spells
     
     sets.precast.FC = {
-        head="Vanya Hood",neck="Baetyl Pendant",ear1="Etiolation Earring",
-        body="Inyanga Jubbah +1",
+        head="Vanya Hood",neck="Orunmila's Torque",ear1="Etiolation Earring",
+        body="Inyanga Jubbah +1",ring1="Kishar Ring",ring2="Prolix Ring",
         back="Perimede Cape",waist="Channeler's Stone",legs="Psycloth Lappas",feet="Merlinic Crackows"}
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {head="Befouled Crown",waist="Siegel Sash"})
@@ -350,51 +344,46 @@ function init_gear_sets()
 
 	-- Cure %+ > healing skill > MND
     sets.midcast.Cure = {main="Tamaxchi",sub="Genmei Shield",
-        head="Vanya Hood",neck="Phalaina Locket",
-        body="Heka's Kalasiris",hands="Telchine Gloves",
-        back="Solemnity Cape",legs="Tethyan Trews +3",feet="Hag. Sabots +1"}
+        head="Marduk's Tiara +1",neck="Phalaina Locket",ear1="Roundel Earring",
+        body="Heka's Kalasiris",hands="Telchine Gloves",ring1="Ephedra Ring",ring2="Lebeche Ring",
+        back="Solemnity Cape",legs="Gyve Trousers",feet="Hag. Sabots +1"}
 	
 	sets.midcast.Regen = {main="Bolelabunga",sub="Genmei Shield",
 		head="Inyanga Tiara +1",ear1="Pratik Earring",
 		body="Telchine Chas.",feet="Telchine Pigaches"}
 	
 	sets.midcast.Stoneskin = {waist="Siegel Sash"}
-	sets.midcast['Enhancing Magic'] = {neck="Incanter's Torque",ear1="Andoaa Earring",body="Telchine Chas.",hands="Inyan. Dastanas +1",back="Perimede Cape"}
+	sets.midcast['Enhancing Magic'] = {neck="Incanter's Torque",ear1="Andoaa Earring",body="Telchine Chas.",hands="Telchine Gloves",back="Perimede Cape",feet="Telchine Pigaches"}
 	sets.midcast['Enhancing Magic']['Refresh'] = set_combine(sets.midcast['Enhancing Magic'],{
 		back="Grapevine Cape"})
 	
-    sets.midcast['Elemental Magic'] = {main=gear.macc_staff,sub="Elan Strap",
-        head="Merlinic Hood",ear1="Friomisi Earring",
-        body="Merlinic Jubbah",hands="Amalric Gages",ring2="Perception Ring",
-        back="Toro Cape",legs="Merlinic Shalwar",feet="Merlinic Crackows"}
-
-    sets.midcast['Dark Magic'] = {main=gear.macc_staff,sub="Elan Strap",
-        head="Merlinic Hood",ear1="Lifestorm Earring",ear2="Psystorm Earring",
-        body="Shango Robe",hands="Inyan. Dastanas +1",ring1="Excelsis Ring",ring2="Perception Ring",
+    sets.midcast['Dark Magic'] = {main=gear.macc_staff,sub="Enki Strap",
+        head="Merlinic Hood",neck="Erra Pendant",ear1="Lifestorm Earring",ear2="Psystorm Earring",
+        body="Shango Robe",hands="Inyan. Dastanas +1",ring1="Excelsis Ring",ring2="Kishar Ring",
         back="Perimede Cape",waist="Fucho-no-Obi",legs="Merlinic Shalwar"}
 	
     -- Avatar pact sets.  All pacts are Ability type.
-    sets.midcast.Pet.BloodPactWard = set_combine(sets.skill.smn, {ammo="Seraphicaller",
-        head="Convoker's Horn",
-        body="Call. Doublet +2",hands="Glyphic Bracers +1"})
+    sets.midcast.Pet.BloodPactWard = set_combine(sets.skill.smn, {ammo="Sancus Sachet +1",
+        head="Convoker's Horn +2",
+        body="Beckoner's Doublet",hands="Glyphic Bracers +1"})
 
-    sets.midcast.Pet.DebuffBloodPactWard = set_combine(sets.skill.smn, {ammo="Seraphicaller",
-        head="Convoker's Horn",neck="Caller's Pendant",
-        body="Call. Doublet +2",hands="Glyphic Bracers +1"})
+    sets.midcast.Pet.DebuffBloodPactWard = set_combine(sets.skill.smn, {ammo="Sancus Sachet +1",
+        head="Convoker's Horn +2",neck="Caller's Pendant",
+        body="Beckoner's Doublet",hands="Glyphic Bracers +1"})
 
     sets.midcast.Pet.DebuffBloodPactWard.Acc = set_combine(sets.midcast.Pet.DebuffBloodPactWard, {})
 
-    sets.midcast.Pet.PhysicalBloodPactRage = set_combine(sets.skill.smn, {sub="Elan Strap",ammo="Seraphicaller",
-        head="Apogee Crown",ear1="Gelos Earring",
-        body="Con. Doublet +1",hands="Glyphic Bracers +1",
-        back="Campestres's Cape",waist="Incarnation Sash",legs="Apogee Slacks",feet="Inyan. Crackows +1"})
+    sets.midcast.Pet.PhysicalBloodPactRage = set_combine(sets.skill.smn, {main=gear.pet_staff,sub="Elan Strap",ammo="Sancus Sachet +1",
+        head="Apogee Crown",neck="Shulmanu Collar",ear1="Gelos Earring",ear2="Domes. Earring",
+        body="Con. Doublet +3",hands="Glyphic Bracers +1",
+        back="Campestres's Cape",waist="Incarnation Sash",legs="Apogee Slacks",feet="Apogee Pumps +1"})
 
     sets.midcast.Pet.PhysicalBloodPactRage.Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {})
 
-    sets.midcast.Pet.MagicalBloodPactRage = set_combine(sets.skill.smn, {main="Espiritus",ammo="Seraphicaller",
-        head="Apogee Crown",neck="Deino Collar",
+    sets.midcast.Pet.MagicalBloodPactRage = set_combine(sets.skill.smn, {main="Espiritus",ammo="Sancus Sachet +1",
+        head="Apogee Crown",neck="Adad Amulet",ear2="Enmerkar Earring",
         body="Apogee Dalmatica",hands="Merlinic Dastanas",
-        back="Scintillating Cape",waist="Incarnation Sash",legs="Apogee Slacks",feet="Hag. Sabots +1"})
+        back="Scintillating Cape",waist="Incarnation Sash",legs="Apogee Slacks",feet="Apogee Pumps +1"})
 
     sets.midcast.Pet.MagicalBloodPactRage.Acc = set_combine(sets.midcast.Pet.MagicalBloodPactRage, {back="Samanisi Cape",legs="Glyphic Spats"})
 
@@ -408,11 +397,11 @@ function init_gear_sets()
     -- Defense sets
     sets.defense.PDT = {
         head="Hagondes Hat",neck="Twilight Torque",
-        body="Hagondes Coat",hands="Regimen Mittens",ring1="Defending Ring",ring2="Patricius Ring",
+        body="Vrikodara Jupon",hands="Regimen Mittens",ring1="Defending Ring",ring2="Patricius Ring",
         back="Solemnity Cape",waist="Fucho-no-Obi",legs="Hagondes Pants +1",feet="Battlecast Gaiters"}
 
     sets.defense.MDT = {
-        head="Inyanga Tiara +1",neck="Twilight Torque",ear1="Etiolation Earring",
+        head="Inyanga Tiara +1",neck="Twilight Torque",ear1="Etiolation Earring",ear2="Eabani Earring",
         body="Inyanga Jubbah +1",hands="Inyan. Dastanas +1",ring1="Defending Ring",ring2="Vengeful Ring",
         back="Solemnity Cape",waist="Fucho-no-Obi",legs="Inyanga Shalwar +1",feet="Hag. Sabots +1"}
 		
